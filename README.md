@@ -1,6 +1,6 @@
 #Sustav za rezervaciju soba i apartmana
 
-###[Projektni zadatak](https://bitbucket.org/mihajlo7/mihajlo/raw/bd92eca6827d01edbf4bb4119a1c202d3cb23714/Zadatak.pdf)
+###[Projektni zadatak](https://bitbucket.org/mihajlo7/mihajlo/raw/bd92eca6827d01edbf4bb4119a1c202d3cb23714/Zadatak.pdf), [Informacije o projektnom zadatku](http://www.fer.unizg.hr/_download/repository/Informacije_o_projektnom_zadatku.pdf)
 
 ##Tehnologije i alati
 - još nije dogovoreno
