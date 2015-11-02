@@ -27,18 +27,22 @@ smještajnih jedinica
 
 ###2.2. Korisnici informacijskog sustava 
 - 4 vrste korisnika
-    - vlasnik
-        - Mihajlo upisuje podatke o njemu
-        - upisuje podatke o svim smještajnim jedinicama: *objekt, oznaka, kapacitet, strana/pogled i posebni odvojeni sadržaj u kojem se nalazi detaljan opis i fotografije predmetne smještajne jedinice*
-        - nakon prvog spajanja na sustav mora upisati svoju adresu elektroničke pošte i broj telefona
-        - definira administratore i njihove ovlasti
-        - podatke o administratorima može upisivati i mijenjati samo vlasnik
-    - administrator
-        - može po zahtjevu vlasnika, ali i posebnom pisanom zahtjevu korisnika
+- Vlasnik
+    - Mihajlo upisuje podatke o njemu
+    - upisuje podatke o svim smještajnim jedinicama: *objekt, oznaka, kapacitet, strana/pogled i posebni odvojeni sadržaj u kojem se nalazi detaljan opis i fotografije predmetne smještajne jedinice*
+    - nakon prvog spajanja na sustav mora upisati svoju adresu elektroničke pošte i broj telefona
+    - definira administratore i njihove ovlasti
+    - podatke o administratorima može upisivati i mijenjati samo vlasnik
+- Administrator
+    - može po zahtjevu vlasnika, ali i posebnom pisanom zahtjevu korisnika
 mijenjati datume rezervacije i smještajne jedinice registriranih korisnika, kao i njihove
 dodatne usluge
-        - nakon prve rezervacije registriranog korisnika, administrator ju u roku od 3
+    - nakon prve rezervacije registriranog korisnika, administrator ju u roku od 3
 dana mora potvrditi ili poništiti
+- Registrirani korisnik
+    - može odabrati smještajnu jedinicu i dane za koje ju želi rezervirati, broj odraslih osoba i broj djece koja će biti u jedinici, dob djece (0-1 / 2-7 / 8-14 godina), kao i tražiti dodatne usluge. 
+    - obavezni podaci kod registracije: ime, prezime, adresa (ulicu, kućni broj, grad i
+zemlja) i adresa elektroničke pošte
+    - neobavezan unos kontakt broja telefona
 
-    - registrirani korisnik
-    - neregistrirani korisnik
+- Neregistrirani korisnik
