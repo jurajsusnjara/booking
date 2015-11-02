@@ -24,15 +24,21 @@ smještajnih jedinica
 - 4 dvokatna objekta: A, B, C i D
 - Neke smještajne jedinice imaju pogled na park, a neke na more
 - Broj osoba po smještajnoj jedinici ovisi o objektu
-- 
+
 ###2.2. Korisnici informacijskog sustava 
 - 4 vrste korisnika
     - vlasnik
-        - mi upisujemo podatke o njemu
+        - Mihajlo upisuje podatke o njemu
         - upisuje podatke o svim smještajnim jedinicama: *objekt, oznaka, kapacitet, strana/pogled i posebni odvojeni sadržaj u kojem se nalazi detaljan opis i fotografije predmetne smještajne jedinice*
         - nakon prvog spajanja na sustav mora upisati svoju adresu elektroničke pošte i broj telefona
         - definira administratore i njihove ovlasti
         - podatke o administratorima može upisivati i mijenjati samo vlasnik
     - administrator
+        - može po zahtjevu vlasnika, ali i posebnom pisanom zahtjevu korisnika
+mijenjati datume rezervacije i smještajne jedinice registriranih korisnika, kao i njihove
+dodatne usluge
+        - nakon prve rezervacije registriranog korisnika, administrator ju u roku od 3
+dana mora potvrditi ili poništiti
+
     - registrirani korisnik
     - neregistrirani korisnik
