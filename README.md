@@ -3,16 +3,16 @@
 ###[Projektni zadatak](https://bitbucket.org/mihajlo7/mihajlo/raw/bd92eca6827d01edbf4bb4119a1c202d3cb23714/Zadatak.pdf), [Informacije o projektnom zadatku](http://www.fer.unizg.hr/_download/repository/Informacije_o_projektnom_zadatku.pdf)
 
 ##Tehnologije i alati
-- još nije dogovoreno
+*- Još nije dogovoreno*
 
 ##1. Opis zadatka
-- turističko naselje ima na raspolaganju nekoliko objekata sa sobama i apartmanima
+- Turističko naselje ima na raspolaganju nekoliko objekata sa sobama i apartmanima
     - različiti kapaciteti
     - pogled na more ili park
     - dodatne usluge: rezervirano parkirno mjesto, bežični pristup internetu i satelitski TV prijamnik
-    - tuš, WC
+    - tuš i WC u sobama
     - smještajni kapaciteti otvoreni od 1.5. do 30.9., kućni ljubimci nisu dozvoljeni
-- traži se učinkovit informacijski sustav koji će biti dostupan na web stranici
+- Traži se učinkovit informacijski sustav koji će biti dostupan na web stranici
 turističkog naselja
     - mogućnost pregleda zauzeća i rezervacije svih
 smještajnih jedinica
@@ -20,7 +20,10 @@ smještajnih jedinica
 
 ##2. Zahtjevi
 ###2.1. Oznake objekata i smještajnih jedinica
-- *
+- Oblik oznaka: *<oznaka objekta><broj kata>-<broj>*, primjer: *A2-3*
+- 4 dvokatna objekta: A, B, C i D
+- Neke smještajne jedinice imaju pogled na park, a neke na more
+- Broj osoba po smještajnoj jedinici ovisi o objektu
 ###2.2. Korisnici informacijskog sustava 
 - 4 vrste korisnika
     - vlasnik
