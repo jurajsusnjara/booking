@@ -5,6 +5,12 @@
 ##Tehnologije i alati
 *- Još nije dogovoreno*
 
+##Trenutni problemi
+- Tehnički
+    - dogovor oko tehnologije
+- Sadržaj
+    - slike i položaj turističkog naselja
+
 ##1. Opis zadatka
 - Turističko naselje ima na raspolaganju nekoliko objekata sa sobama i apartmanima
     - različiti kapaciteti
@@ -56,3 +62,6 @@ zemlja) i adresa elektroničke pošte
 -...
 ###2.4. Ostali zahtjevi sustava
 -...
+
+##Primjeri sličnih sustava
+[[1]](https://www.geobookings.com/pages/demos.aspx?l=1)
