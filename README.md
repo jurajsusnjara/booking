@@ -44,5 +44,15 @@ dana mora potvrditi ili poništiti
     - obavezni podaci kod registracije: ime, prezime, adresa (ulicu, kućni broj, grad i
 zemlja) i adresa elektroničke pošte
     - neobavezan unos kontakt broja telefona
-
 - Neregistrirani korisnik
+    -  pristup pregledu podataka o smještajnim objektima i jedinicama, njihovom zauzeću ili raspoloživosti u danima u kojima je turističko naselje otvoreno
+
+###2.3. Posebne funkcionalnosti sustava
+####2.3.1 Registracija korisnika
+-...
+####2.3.2. Rezervacija smještajne jedinice
+-...
+####2.3.5. Izvještaji i pregledi
+-...
+###2.4. Ostali zahtjevi sustava
+-...
