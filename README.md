@@ -2,12 +2,12 @@
 
 - - -
 
-### [Projektni zadatak](https://bitbucket.org/mihajlo7/mihajlo/raw/bd92eca6827d01edbf4bb4119a1c202d3cb23714/Zadatak.pdf), [Informacije o projektnom zadatku](http://www.fer.unizg.hr/_download/repository/Informacije_o_projektnom_zadatku.pdf)
+### [Projektni zadatak](https://bitbucket.org/mihajlo7/mihajlo/raw/bd92eca6827d01edbf4bb4119a1c202d3cb23714/Zadatak.pdf), [Informacije o projektnom zadatku](http://www.fer.unizg.hr/_download/repository/Informacije_o_projektnom_zadatku.pdf) ###
 
-## Tehnologije i alati
+## Tehnologije i alati ##
 *- Još nije dogovoreno*
 
-## Trenutni problemi
+## Trenutni problemi ##
 - Tehnički
     - dogovor oko tehnologije
 - Sadržaj
@@ -15,7 +15,7 @@
 
 - - -
 
-##1. Opis zadatka
+## 1. Opis zadatka ##
 - Turističko naselje ima na raspolaganju nekoliko objekata sa sobama i apartmanima
     - različiti kapaciteti
     - pogled na more ili park
@@ -28,14 +28,14 @@ turističkog naselja
 smještajnih jedinica
     - za svaku smještajnu jedinicu mogućnost veze prema odvojenom sadržaju: detaljan opis i fotografije
 
-## 2. Zahtjevi
-### 2.1. Oznake objekata i smještajnih jedinica
+## 2. Zahtjevi ##
+### 2.1. Oznake objekata i smještajnih jedinica ###
 - Oblik oznaka: *<oznaka objekta><broj kata>-<broj>*, primjer: *A2-3*
 - 4 dvokatna objekta: A, B, C i D
 - Neke smještajne jedinice imaju pogled na park, a neke na more
 - Broj osoba po smještajnoj jedinici ovisi o objektu
 
-### 2.2. Korisnici informacijskog sustava 
+### 2.2. Korisnici informacijskog sustava ###
 - 4 vrste korisnika
 - Vlasnik
     - Mihajlo upisuje podatke o njemu
@@ -57,17 +57,17 @@ zemlja) i adresa elektroničke pošte
 - Neregistrirani korisnik
     -  pristup pregledu podataka o smještajnim objektima i jedinicama, njihovom zauzeću ili raspoloživosti u danima u kojima je turističko naselje otvoreno
 
-### 2.3. Posebne funkcionalnosti sustava
-#### 2.3.1 Registracija korisnika
+### 2.3. Posebne funkcionalnosti sustava ###
+#### 2.3.1 Registracija korisnika ####
 -...
-#### 2.3.2. Rezervacija smještajne jedinice
+#### 2.3.2. Rezervacija smještajne jedinice ####
 -...
-#### 2.3.5. Izvještaji i pregledi
+#### 2.3.5. Izvještaji i pregledi ####
 -...
-### 2.4. Ostali zahtjevi sustava
+### 2.4. Ostali zahtjevi sustava ###
 -...
 
 - - -
 
-## Primjeri sličnih sustava
+## Primjeri sličnih sustava ##
 [[1]](https://www.geobookings.com/pages/demos.aspx?l=1)
