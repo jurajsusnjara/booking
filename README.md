@@ -58,7 +58,7 @@ zemlja) i adresa elektroničke pošte
 
 ### 2.3. Posebne funkcionalnosti sustava ###
 #### 2.3.1 Registracija korisnika ####
-- Korisnik unosi i potvrđuje svoje podatke
+- Korisnik unosi i svoje podatke i potvrđuje zahtjev za registraciju
 - Nakon registracije, korisniku se na adresu e-pošte šalje pozdravna poruka i traži se potvrda registracije „klikom na link“.
 - Nakon što korisnik potvrdi registraciju, na adresu elektroničke pošte šalju mu se pristupni podaci.
 
