@@ -36,7 +36,6 @@ smještajnih jedinica
 - Broj osoba po smještajnoj jedinici ovisi o objektu
 
 ### 2.2. Korisnici informacijskog sustava ###
-- 4 vrste korisnika
 - Vlasnik
     - Mihajlo upisuje podatke o njemu
     - upisuje podatke o svim smještajnim jedinicama: *objekt, oznaka, kapacitet, strana/pogled i posebni odvojeni sadržaj u kojem se nalazi detaljan opis i fotografije predmetne smještajne jedinice*
