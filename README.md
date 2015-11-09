@@ -36,7 +36,6 @@ smještajnih jedinica
 - Broj osoba po smještajnoj jedinici ovisi o objektu
 
 ### 2.2. Korisnici informacijskog sustava ###
-- 4 vrste korisnika
 - Vlasnik
     - Mihajlo upisuje podatke o njemu
     - upisuje podatke o svim smještajnim jedinicama: *objekt, oznaka, kapacitet, strana/pogled i posebni odvojeni sadržaj u kojem se nalazi detaljan opis i fotografije predmetne smještajne jedinice*
@@ -59,13 +58,32 @@ zemlja) i adresa elektroničke pošte
 
 ### 2.3. Posebne funkcionalnosti sustava ###
 #### 2.3.1 Registracija korisnika ####
--...
+- Korisnik unosi i potvrđuje svoje podatke
+- Nakon registracije, korisniku se na adresu e-pošte šalje pozdravna poruka i traži se potvrda registracije „klikom na link“.
+- Nakon što korisnik potvrdi registraciju, na adresu elektroničke pošte šalju mu se pristupni podaci.
+
 #### 2.3.2. Rezervacija smještajne jedinice ####
--...
+- Sustav mora paziti na nemogućnost preklapanja termina, kao i raditi optimizaciju rezervacija
+    - rezervacije se nastavljaju jedna na drugu s najmanjim mogućim brojem dana kada je neka
+smještajna jedinica prazna
+- Nakon postupka rezervacije jedinice, registriranom korisniku se šalje poruka elektroničkom
+poštom o primitku rezervacije i informacijom da će ga u roku od tri dana kontaktirati
+predstavnik turističkog naselja.
+
 #### 2.3.5. Izvještaji i pregledi ####
--...
+- pregled zauzeća (rang lista) svih smještajnih jedinica po danima zauzeća
+- pregled i rangiranje gradova i zemalja iz kojih dolaze gosti i posebne usluge koje su najviše tražene
+- pregled zauzeća jedinica po kalendarskom razdoblju
+- ovisnost zahtjeva na posebne usluge o broju gostju i zemlji iz koje oni dolaze
+
 ### 2.4. Ostali zahtjevi sustava ###
--...
+- Sustav mora omogućiti istovremeni rad vlasnika sustava, svih administratora i neograničenog
+broja registriranih korisnika
+- Prilikom rada vlasnik i administratori sustava moraju moći
+vidjeti broj i imena trenutno aktivnih drugih administratora i broj trenutno aktivnih
+registriranih korisnika
+- Sustav ima jednog vlasnika i do najviše 3 administratora
+- Broj registriranih korisnika je neograničen
 
 - - -
 
