@@ -72,7 +72,8 @@ predstavnik turističkog naselja.
 
 #### 2.3.5. Izvještaji i pregledi ####
 - pregled zauzeća (rang lista) svih smještajnih jedinica po danima zauzeća
-- pregled i rangiranje gradova i zemalja iz kojih dolaze gosti i posebne usluge koje su najviše tražene
+- pregled i rangiranje gradova i zemalja iz kojih dolaze gosti
+- pregled posebnih usluga koje su najviše tražene
 - pregled zauzeća jedinica po kalendarskom razdoblju
 - ovisnost zahtjeva na posebne usluge o broju gostju i zemlji iz koje oni dolaze
 
