@@ -88,4 +88,4 @@ registriranih korisnika
 - - -
 
 ## Primjeri sličnih sustava ##
-[[1]](https://www.geobookings.com/pages/demos.aspx?l=1), [[2]](file:///C:/Users/Ivan/Downloads/Room%20Booking%20Help%20-%20Full.pdf)
+[[1]](https://www.geobookings.com/pages/demos.aspx?l=1), [[2]](https://dl.dropboxusercontent.com/u/11983574/fer/Room%20Booking%20Help%20-%20Full.pdf)
