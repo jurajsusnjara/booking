@@ -1,0 +1,29 @@
+Srijeda, 28.10.2015., 16:00-17:00
+
+Prisutni: Juraj Šušnjara, Ivan Æiriæ, Ivan Grubišiæ, Marin Smoljaniæ, Marko Franjiæ, Marko Raguž, Damjan Miko
+
+Sadržaj sastanka:
+Dogovorili smo se oko detalja tko æe realizirati koji dio zadatka. Podijeljeni poslovi na èlanove tima su:
+
+Juraj Šušnjara - osmislit æe bazu za projektni zadatak
+Ivan Æiriæ - opisat æe projektni zadatak
+Ivan Grubišiæ - nacrtat æe sve potrebne dijagrame obrazaca uporabe i sekvencijske dijagrame
+Marin Smoljaniæ - opisat æe sve nefunkcionalne zahtjeve
+Marko Franjiæ - opisat æe sve obrasce uporabe
+Marko Raguž - izradit æe dijagram razreda s opisom i dijagram objekta
+Damjan Miko - opisat æe MVC arhitekturu i napisat rjeènik pojmova 
+
+Utorak, 10.10.2015., 19:00-20:00
+
+Prisutni: Juraj Šušnjara, Ivan Æiriæ, Ivan Grubišiæ, Marin Smoljaniæ, Marko Franjiæ, Marko Raguž, Damjan Miko
+
+Sadržaj sastanka:
+Svatko je iznio dio koji je napravio, raspravljali smo o tome, i razjasnili sva pitanja koja smo imali, te se dogovorili oko nekih detalja. Na temelju napravljenog posla dogovorili smo što treba dalje napraviti i kojim redom.
+
+Juraj Šušnjara - promijenit æe nekve stvari u bazi podataka
+Ivan Æiriæ - pomoæi æe ostalima ako di zapnu
+Ivan Grubišiæ – dovršit æe sekvencijske dijagrame
+Marin Smoljaniæ - pomoæi æe ostalima oko izrade dijagrama
+Marko Franjiæ - ispravit æe greške u obrascima upotrebe
+Marko Raguž - doradit æe zapoèete dijagrame
+Damjan Miko - napisat æe zakljuèak 
