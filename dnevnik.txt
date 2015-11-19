@@ -1,38 +1,29 @@
-Ponedjeljak, 19.10.2015., 18:00-20:00
-
-Prisutni: Juraj Šušnjara, Ivan Ciric, Ivan Grubišic, Marin Smoljanic, Marko Franjic, Marko Raguž, Damjan Miko
-
-Sadržaj sastanka:
-Našli smo se da popricamo o zadatku, raspravljali kako smo ga shvatili, dogovorili se oko programskog jezika u kojem budemo kasnije implementirali zadatak, odabrali smo javu. Takoder smo se dogovorili kome najviše odgovara koji dio dokumentacije za pisanje.
-
-
-
 Srijeda, 28.10.2015., 16:00-17:00
 
-Prisutni: Juraj Šušnjara, Ivan Ciric, Ivan Grubišic, Marin Smoljanic, Marko Franjic, Marko Raguž, Damjan Miko
+Prisutni: Juraj Šušnjara, Ivan Æiriæ, Ivan Grubišiæ, Marin Smoljaniæ, Marko Franjiæ, Marko Raguž, Damjan Miko
 
 Sadržaj sastanka:
-Dogovorili smo se oko detalje tko ce realizirati koji dio zadatka. Podijeljeni poslovi na clanoce tima su:
+Dogovorili smo se oko detalja tko æe realizirati koji dio zadatka. Podijeljeni poslovi na èlanove tima su:
 
-Juraj Šušnjara - osmislit ce bazu za projektni zadatak
-Ivan Ciric - opisat ce projektni zadatak
-Ivan Grubišic - nacrtat ce sve potrebne djagrame uporabe i sekvencijske dijagrame
-Marin Smoljanic - opisat ce sve nefunkcionalne zahtjeve
-Marko Franjic - opisat ce sve obrasce uporabe
-Marko Raguž - izradit ce dijagram razreda s opisom i dijagram objekta
-Damjan Miko - opisat ce MVC arhitekturu i napisat rijecnik pojmova 
+Juraj Šušnjara - osmislit æe bazu za projektni zadatak
+Ivan Æiriæ - opisat æe projektni zadatak
+Ivan Grubišiæ - nacrtat æe sve potrebne dijagrame obrazaca uporabe i sekvencijske dijagrame
+Marin Smoljaniæ - opisat æe sve nefunkcionalne zahtjeve
+Marko Franjiæ - opisat æe sve obrasce uporabe
+Marko Raguž - izradit æe dijagram razreda s opisom i dijagram objekta
+Damjan Miko - opisat æe MVC arhitekturu i napisat rjeènik pojmova 
 
 Utorak, 10.10.2015., 19:00-20:00
 
-Prisutni: Juraj Šušnjara, Ivan Ciric, Ivan Grubišic, Marin Smoljanic, Marko Franjic, Marko Raguž, Damjan Miko
+Prisutni: Juraj Šušnjara, Ivan Æiriæ, Ivan Grubišiæ, Marin Smoljaniæ, Marko Franjiæ, Marko Raguž, Damjan Miko
 
 Sadržaj sastanka:
 Svatko je iznio dio koji je napravio, raspravljali smo o tome, i razjasnili sva pitanja koja smo imali, te se dogovorili oko nekih detalja. Na temelju napravljenog posla dogovorili smo što treba dalje napraviti i kojim redom.
 
-Juraj Šušnjara - promijanit ce nekve stvari u bazi podataka
-Ivan Ciric - pomoci ce ostalima ako di zapnu
-Ivan Grubišic - dovršiti sekvencijske dijagrame
-Marin Smoljanic - pomoci ce ostalima oko izrade dijagrama
-Marko Franjic - ispravit ce greške u obrascima upotrebe
-Marko Raguž - doradit ce zapocene dijagrame
-Damjan Miko - napisat ce zakljucak 
+Juraj Šušnjara - promijenit æe nekve stvari u bazi podataka
+Ivan Æiriæ - pomoæi æe ostalima ako di zapnu
+Ivan Grubišiæ – dovršit æe sekvencijske dijagrame
+Marin Smoljaniæ - pomoæi æe ostalima oko izrade dijagrama
+Marko Franjiæ - ispravit æe greške u obrascima upotrebe
+Marko Raguž - doradit æe zapoèete dijagrame
+Damjan Miko - napisat æe zakljuèak 
