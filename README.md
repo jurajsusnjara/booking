@@ -4,17 +4,6 @@
 
 ### [Projektni zadatak](https://bitbucket.org/mihajlo7/mihajlo/raw/bd92eca6827d01edbf4bb4119a1c202d3cb23714/Zadatak.pdf), [Informacije o projektnom zadatku](http://www.fer.unizg.hr/_download/repository/Informacije_o_projektnom_zadatku.pdf), [OPP-Projekt](http://www.fer.unizg.hr/predmet/opp/projekt) ###
 
-## Tehnologije i alati ##
-*- Još nije dogovoreno*
-
-## Trenutni problemi ##
-- Tehnički
-    - dogovor oko tehnologije
-- Sadržaj
-    - slike i položaj turističkog naselja
-
-- - -
-
 ## 1. Opis zadatka ##
 - Turističko naselje ima na raspolaganju nekoliko objekata sa sobama i apartmanima
     - različiti kapaciteti
