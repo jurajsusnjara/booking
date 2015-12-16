@@ -1,0 +1,9 @@
+INDEX VERSION 1.3+/Users/Marin/Documents/OPP/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+2771500468.index
+3532918259.index
+3654091384.index
+2617734810.index
+1281608712.index
+3823571944.index
+3097533567.index
+1390325701.index
