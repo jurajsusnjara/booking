@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hr.fer.opp.dao.DAOProvider;
+import hr.fer.zemris.opp.model.TestTable;
+
 /**
  * Servlet implementation class IndexController
  */
@@ -25,7 +28,8 @@ public class IndexController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/index.jsp").forward(request, response);;
+		
+		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/index.jsp").forward(request, response);
 	}
 
 	/**
