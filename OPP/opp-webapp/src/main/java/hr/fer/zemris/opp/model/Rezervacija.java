@@ -3,15 +3,22 @@ package hr.fer.zemris.opp.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
+@Table(name = "rezervacija")
 public class Rezervacija {
 
 	private Apartman apartman;
 	private Korisnik korisnik;
 	private Gost gost;
+	private int rezervacijaId;
 	private Date datumRezervacije;
 	private Date rezerviranoOd;
 	private Date rezerviranoDo;
@@ -44,6 +51,16 @@ public class Rezervacija {
 	
 	public void setGost(Gost gost) {
 		this.gost = gost;
+	}
+	
+	@Id
+	@GeneratedValue
+	public int getGostID() {
+		return rezervacijaId;
+	}
+	
+	public void setGostID(int gostID) {
+		this.rezervacijaId = gostID;
 	}
 	
 	@Column

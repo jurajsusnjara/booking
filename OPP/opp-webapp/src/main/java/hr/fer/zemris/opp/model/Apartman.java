@@ -57,7 +57,7 @@ public class Apartman {
 		this.opisApartmana = opisApartmana;
 	}
 
-	@OneToMany(mappedBy = "rezervacija")
+	@OneToMany(mappedBy = "apartman")
 	public List<Rezervacija> getRezervacije() {
 		return rezervacije;
 	}
