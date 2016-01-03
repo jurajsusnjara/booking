@@ -5,14 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import hr.fer.opp.dao.DAO;
-import hr.fer.zemris.opp.model.Adresa;
-import hr.fer.zemris.opp.model.Apartman;
-import hr.fer.zemris.opp.model.Fotografija;
-import hr.fer.zemris.opp.model.Gost;
-import hr.fer.zemris.opp.model.Korisnik;
-import hr.fer.zemris.opp.model.Objekt;
-import hr.fer.zemris.opp.model.OpisApartmana;
-import hr.fer.zemris.opp.model.Rezervacija;
+import hr.fer.opp.model.Adresa;
+import hr.fer.opp.model.Apartman;
+import hr.fer.opp.model.Fotografija;
+import hr.fer.opp.model.Gost;
+import hr.fer.opp.model.Korisnik;
+import hr.fer.opp.model.Objekt;
+import hr.fer.opp.model.OpisApartmana;
+import hr.fer.opp.model.Rezervacija;
 
 public class JPADAOImpl implements DAO {
 

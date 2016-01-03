@@ -1,4 +1,4 @@
-package hr.fer.zemris.opp.model;
+package hr.fer.opp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

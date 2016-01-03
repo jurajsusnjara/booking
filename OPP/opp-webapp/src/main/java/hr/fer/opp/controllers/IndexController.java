@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hr.fer.opp.dao.DAOProvider;
-import hr.fer.zemris.opp.model.TestTable;
+import hr.fer.opp.model.TestTable;
 
 /**
  * Servlet implementation class IndexController
