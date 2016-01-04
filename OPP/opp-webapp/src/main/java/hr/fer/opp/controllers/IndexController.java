@@ -17,6 +17,7 @@ import hr.fer.opp.model.Gost;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.Rezervacija;
+import hr.fer.opp.model.TestTable;
 
 /**
  * Servlet implementation class IndexController
