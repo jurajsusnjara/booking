@@ -1,11 +1,13 @@
-package hr.fer.zemris.opp.model;
+package hr.fer.opp.model;
 
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,7 +23,7 @@ public class Korisnik {
 	private String prezime;
 	private String email;
 	private String telefon;
-	private Date datumRegistracije;
+	private Date datumReg;
 	private String lozinka;
 	private int uloga;
 	private Adresa adresa;
@@ -74,12 +76,12 @@ public class Korisnik {
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getDatumRegistracije() {
-		return datumRegistracije;
+	public Date getDatumReg() {
+		return datumReg;
 	}
 	
-	public void setDatumRegistracije(Date datumRegistracije) {
-		this.datumRegistracije = datumRegistracije;
+	public void setDatumReg(Date datumRegistracije) {
+		this.datumReg = datumRegistracije;
 	}
 	
 	@Column(nullable = false)
@@ -101,6 +103,7 @@ public class Korisnik {
 	}
 	
 	@ManyToOne
+	@JoinColumn(name = "adresaID")
 	public Adresa getAdresa() {
 		return adresa;
 	}
@@ -109,7 +112,7 @@ public class Korisnik {
 		this.adresa = adresa;
 	}
 	
-	@OneToMany(mappedBy = "korisnik")
+	@OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL)
 	public List<Rezervacija> getRezervacije() {
 		return rezervacije;
 	}
@@ -117,4 +120,82 @@ public class Korisnik {
 	public void setRezervacije(List<Rezervacija> rezervacije) {
 		this.rezervacije = rezervacije;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adresa == null) ? 0 : adresa.hashCode());
+		result = prime * result + ((datumReg == null) ? 0 : datumReg.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((ime == null) ? 0 : ime.hashCode());
+		result = prime * result + ((korisnikID == null) ? 0 : korisnikID.hashCode());
+		result = prime * result + ((lozinka == null) ? 0 : lozinka.hashCode());
+		result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
+		result = prime * result + ((rezervacije == null) ? 0 : rezervacije.hashCode());
+		result = prime * result + ((telefon == null) ? 0 : telefon.hashCode());
+		result = prime * result + uloga;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Korisnik other = (Korisnik) obj;
+		if (adresa == null) {
+			if (other.adresa != null)
+				return false;
+		} else if (!adresa.equals(other.adresa))
+			return false;
+		if (datumReg == null) {
+			if (other.datumReg != null)
+				return false;
+		} else if (!datumReg.equals(other.datumReg))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (ime == null) {
+			if (other.ime != null)
+				return false;
+		} else if (!ime.equals(other.ime))
+			return false;
+		if (korisnikID == null) {
+			if (other.korisnikID != null)
+				return false;
+		} else if (!korisnikID.equals(other.korisnikID))
+			return false;
+		if (lozinka == null) {
+			if (other.lozinka != null)
+				return false;
+		} else if (!lozinka.equals(other.lozinka))
+			return false;
+		if (prezime == null) {
+			if (other.prezime != null)
+				return false;
+		} else if (!prezime.equals(other.prezime))
+			return false;
+		if (rezervacije == null) {
+			if (other.rezervacije != null)
+				return false;
+		} else if (!rezervacije.equals(other.rezervacije))
+			return false;
+		if (telefon == null) {
+			if (other.telefon != null)
+				return false;
+		} else if (!telefon.equals(other.telefon))
+			return false;
+		if (uloga != other.uloga)
+			return false;
+		return true;
+	}
+	
+	
 }

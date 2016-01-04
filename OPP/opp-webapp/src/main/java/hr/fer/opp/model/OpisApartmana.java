@@ -1,7 +1,8 @@
-package hr.fer.zemris.opp.model;
+package hr.fer.opp.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "opisApartmana")
 public class OpisApartmana {
 
-	private int opisID;
+	private Integer opisID;
 	private short kat;
 	private String pogled;
 	private short minBroj;
@@ -23,11 +24,11 @@ public class OpisApartmana {
 	
 	@Id
 	@GeneratedValue
-	public int getOpisID() {
+	public Integer getOpisID() {
 		return opisID;
 	}
 	
-	public void setOpisID(int opisID) {
+	public void setOpisID(Integer opisID) {
 		this.opisID = opisID;
 	}
 	
@@ -67,7 +68,7 @@ public class OpisApartmana {
 		this.maxBroj = maxBroj;
 	}
 	
-	@OneToMany(mappedBy = "opisApartmana")
+	@OneToMany(mappedBy = "opisApartmana", cascade = CascadeType.ALL)
 	public List<Apartman> getApartmani() {
 		return apartmani;
 	}
@@ -76,7 +77,7 @@ public class OpisApartmana {
 		this.apartmani = apartmani;
 	}
 
-	@OneToMany(mappedBy = "opisApartmana")
+	@OneToMany(mappedBy = "opisApartmana", cascade = CascadeType.ALL)
 	public List<Fotografija> getFotografije() {
 		return fotografije;
 	}
@@ -84,4 +85,58 @@ public class OpisApartmana {
 	public void setFotografije(List<Fotografija> fotografije) {
 		this.fotografije = fotografije;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((apartmani == null) ? 0 : apartmani.hashCode());
+		result = prime * result + ((fotografije == null) ? 0 : fotografije.hashCode());
+		result = prime * result + kat;
+		result = prime * result + maxBroj;
+		result = prime * result + minBroj;
+		result = prime * result + ((opisID == null) ? 0 : opisID.hashCode());
+		result = prime * result + ((pogled == null) ? 0 : pogled.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OpisApartmana other = (OpisApartmana) obj;
+		if (apartmani == null) {
+			if (other.apartmani != null)
+				return false;
+		} else if (!apartmani.equals(other.apartmani))
+			return false;
+		if (fotografije == null) {
+			if (other.fotografije != null)
+				return false;
+		} else if (!fotografije.equals(other.fotografije))
+			return false;
+		if (kat != other.kat)
+			return false;
+		if (maxBroj != other.maxBroj)
+			return false;
+		if (minBroj != other.minBroj)
+			return false;
+		if (opisID == null) {
+			if (other.opisID != null)
+				return false;
+		} else if (!opisID.equals(other.opisID))
+			return false;
+		if (pogled == null) {
+			if (other.pogled != null)
+				return false;
+		} else if (!pogled.equals(other.pogled))
+			return false;
+		return true;
+	}
+	
+	
 }

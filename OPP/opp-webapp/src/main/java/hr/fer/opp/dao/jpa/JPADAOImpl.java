@@ -5,14 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import hr.fer.opp.dao.DAO;
-import hr.fer.zemris.opp.model.Adresa;
-import hr.fer.zemris.opp.model.Apartman;
-import hr.fer.zemris.opp.model.Fotografija;
-import hr.fer.zemris.opp.model.Gost;
-import hr.fer.zemris.opp.model.Korisnik;
-import hr.fer.zemris.opp.model.Objekt;
-import hr.fer.zemris.opp.model.OpisApartmana;
-import hr.fer.zemris.opp.model.Rezervacija;
+import hr.fer.opp.model.Adresa;
+import hr.fer.opp.model.Apartman;
+import hr.fer.opp.model.Fotografija;
+import hr.fer.opp.model.Gost;
+import hr.fer.opp.model.Korisnik;
+import hr.fer.opp.model.Objekt;
+import hr.fer.opp.model.OpisApartmana;
+import hr.fer.opp.model.Rezervacija;
 
 public class JPADAOImpl implements DAO {
 
@@ -88,7 +88,7 @@ public class JPADAOImpl implements DAO {
 		List<Rezervacija> rezervacije = null;
 		rezervacije = (List<Rezervacija>) em.createQuery(
 				"select r from Rezervacija as r where r.korisnik=:k")
-				.setParameter("k", korisnik);
+				.setParameter("k", korisnik).getResultList();
 		
 		return rezervacije;
 	}
@@ -102,7 +102,7 @@ public class JPADAOImpl implements DAO {
 		List<Rezervacija> rezervacije = null;
 		rezervacije = (List<Rezervacija>) em.createQuery(
 				"select r from Rezervacija as r where r.apartman=:a")
-				.setParameter("a", apartman);
+				.setParameter("a", apartman).getResultList();
 		
 		return rezervacije;
 	}
@@ -116,7 +116,7 @@ public class JPADAOImpl implements DAO {
 		List<Rezervacija> rezervacije = null;
 		rezervacije = (List<Rezervacija>) em.createQuery(
 				"select r from Rezervacija as r where r.gost=:g")
-				.setParameter("g", gost);
+				.setParameter("g", gost).getResultList();
 		
 		return rezervacije;
 	}
@@ -180,66 +180,147 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public void putKorisnik(Korisnik korisnik) {
 		
+		if(korisnik == null) {
+			return;
+		}
 		
+		EntityManager em = JPAEMProvider.getEntityManager();
+		try {
+			em.persist(korisnik);
+		} catch(Exception e) {
+		}
 	}
 
 	@Override
 	public void putAdresa(Adresa adresa) {
-		// TODO Auto-generated method stub
+
+		if(adresa == null) {
+			return;
+		}
 		
+		EntityManager em = JPAEMProvider.getEntityManager();
+		try {
+			em.persist(adresa);
+		} catch(Exception e) {
+		}
 	}
 
 	@Override
 	public void putGost(Gost gost) {
-		// TODO Auto-generated method stub
+
+		if(gost == null) {
+			return;
+		}
 		
+		EntityManager em = JPAEMProvider.getEntityManager();
+		try {
+			em.persist(gost);
+		} catch(Exception e) {
+		}
 	}
 
 	@Override
 	public void putRezervacija(Rezervacija rezervacija) {
-		// TODO Auto-generated method stub
+
+		if(rezervacija == null) {
+			return;
+		}
 		
+		EntityManager em = JPAEMProvider.getEntityManager();
+		try {
+			em.persist(rezervacija);
+		} catch(Exception e) {
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Objekt> getAllObjekt() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Objekt> objekti = null;
+		objekti = (List<Objekt>) em.createQuery(
+				"select o from Objekt o").getResultList();
+		
+		return objekti;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Apartman> getAllApartman() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Apartman> apartmani = null;
+		apartmani = (List<Apartman>) em.createQuery(
+				"select a from Apartman a").getResultList();
+		
+		return apartmani;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<OpisApartmana> getAllOpisApartmana() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<OpisApartmana> opisi = null;
+		opisi = (List<OpisApartmana>) em.createQuery(
+				"select o from OpisApartmana o").getResultList();
+		
+		return opisi;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Fotografija> getAllFotografija() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Fotografija> fotografije = null;
+		fotografije = (List<Fotografija>) em.createQuery(
+				"select f from Fotografija f").getResultList();
+		
+		return fotografije;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Korisnik> getAllKorisnik() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Korisnik> korisnici = null;
+		korisnici = (List<Korisnik>) em.createQuery(
+				"select k from Korisnik k").getResultList();
+		
+		return korisnici;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Adresa> getAllAdresa() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Adresa> adrese = null;
+		adrese = (List<Adresa>) em.createQuery(
+				"select a from Adresa a").getResultList();
+		
+		return adrese;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Gost> getAllGost() {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Gost> gosti = null;
+		gosti = (List<Gost>) em.createQuery(
+				"select g from Gost g").getResultList();
+		
+		return gosti;
 	}
 }
