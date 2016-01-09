@@ -50,34 +50,34 @@ public class IndexController extends HttpServlet {
 		
 //		PRIMJERI ZA KOMUNIKACIJU S BAZOM ******************************************************
 		
-//		Objekt objektA = new Objekt();
-//		objektA.setNazivObjekt("objekt A");
-//		DAOProvider.getDAO().putObjekt(objektA);
-//		
-//		Objekt objektB = new Objekt();
-//		objektB.setNazivObjekt("objekt B");
-//		DAOProvider.getDAO().putObjekt(objektB);
-//		
-//		Apartman apartman1A = new Apartman();
-//		apartman1A.setNazivApartman("apartman420");
-//		apartman1A.setObjekt(objektA);
-//		DAOProvider.getDAO().putApartman(apartman1A);
-//		
-//		Apartman apartman1B = new Apartman();
-//		apartman1B.setNazivApartman("apartman6969");
-//		apartman1B.setObjekt(objektB);
-//		DAOProvider.getDAO().putApartman(apartman1B);
-//		
-//		
-//		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
-//		List<Apartman> apartmani = DAOProvider.getDAO().getAllApartman();
-//		
-//		for(Objekt objekt : objekti) {
-//			System.out.println(objekt.getNazivObjekt());
-//		}
-//		for(Apartman apartman : apartmani) {
-//			System.out.println(apartman.getNazivApartman());
-//		}
+		Objekt objektA = new Objekt();
+		objektA.setNazivObjekt("objekt A");
+		DAOProvider.getDAO().putObjekt(objektA);
+		
+		Objekt objektB = new Objekt();
+		objektB.setNazivObjekt("objekt B");
+		DAOProvider.getDAO().putObjekt(objektB);
+		
+		Apartman apartman1A = new Apartman();
+		apartman1A.setNazivApartman("apartman420");
+		apartman1A.setObjekt(objektA);
+		DAOProvider.getDAO().putApartman(apartman1A);
+		
+		Apartman apartman1B = new Apartman();
+		apartman1B.setNazivApartman("apartman6969");
+		apartman1B.setObjekt(objektB);
+		DAOProvider.getDAO().putApartman(apartman1B);
+		
+		
+		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
+		List<Apartman> apartmani = DAOProvider.getDAO().getAllApartman();
+		
+		for(Objekt objekt : objekti) {
+			System.out.println(objekt.getNazivObjekt());
+		}
+		for(Apartman apartman : apartmani) {
+			System.out.println(apartman.getNazivApartman());
+		}
 		
 //		Gost gost = new Gost();
 //		gost.setBrojGodina((short)10);
