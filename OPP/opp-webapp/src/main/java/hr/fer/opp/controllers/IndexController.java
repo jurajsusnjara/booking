@@ -17,7 +17,6 @@ import hr.fer.opp.model.Gost;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.Rezervacija;
-import hr.fer.opp.model.TestTable;
 
 /**
  * Servlet implementation class IndexController
@@ -122,7 +121,7 @@ public class IndexController extends HttpServlet {
 //		rezervacija.setRezerviranoOd(new Date());
 //		rezervacija.setSatelitskaTV(false);
 //		DAOProvider.getDAO().putRezervacija(rezervacija);
-		
+//		
 //		List<Korisnik> korisnici = DAOProvider.getDAO().getAllKorisnik();
 //		List<Rezervacija> rez = DAOProvider.getDAO().getReservationsFor(korisnici.get(0));
 //		System.out.println(rez.get(0).getKorisnik().getIme());
