@@ -23,7 +23,7 @@ USE `mihajloDB` ;
 DROP TABLE IF EXISTS `mihajloDB`.`Objekt` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Objekt` (
-  `objektID` INT NOT NULL,
+  `objektID` INT NOT NULL AUTO_INCREMENT,
   `nazivObjekt` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`objektID`))
 ENGINE = InnoDB
@@ -36,7 +36,7 @@ COMMENT = 'Objekt u kojem se nalaze apartmani (smještajne jedinice)';
 DROP TABLE IF EXISTS `mihajloDB`.`OpisApartmana` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`OpisApartmana` (
-  `opisID` INT NOT NULL,
+  `opisID` INT NOT NULL AUTO_INCREMENT,
   `kat` TINYINT(10) NOT NULL,
   `pogled` VARCHAR(45) NOT NULL,
   `minBroj` TINYINT(10) NOT NULL,
@@ -52,10 +52,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mihajloDB`.`Apartman` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Apartman` (
-  `apartmanID` INT NOT NULL,
+  `apartmanID` INT NOT NULL AUTO_INCREMENT,
   `nazivApartman` VARCHAR(45) NOT NULL,
   `objektID` INT NOT NULL,
-  `opisID` INT NOT NULL,
+  `opisID` INT,
   PRIMARY KEY (`apartmanID`),
   INDEX `objektID_idx` (`objektID` ASC),
   INDEX `opisID_idx` (`opisID` ASC),
@@ -78,7 +78,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mihajloDB`.`Fotografija` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Fotografija` (
-  `fotoID` INT NOT NULL,
+  `fotoID` INT NOT NULL AUTO_INCREMENT,
   `fotoDatoteka` VARCHAR(50) NOT NULL,
   `opisID` INT NULL,
   PRIMARY KEY (`fotoID`),
@@ -97,7 +97,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mihajloDB`.`Adresa` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Adresa` (
-  `adresaID` INT NOT NULL,
+  `adresaID` INT NOT NULL AUTO_INCREMENT,
   `adresa` VARCHAR(100) NOT NULL,
   `grad` VARCHAR(45) NOT NULL,
   `drzava` VARCHAR(45) NOT NULL,
@@ -137,7 +137,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mihajloDB`.`Gost` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Gost` (
-  `gostID` INT NOT NULL,
+  `gostID` INT NOT NULL AUTO_INCREMENT,
   `brojGodina` TINYINT(10) NOT NULL,
   PRIMARY KEY (`gostID`))
 ENGINE = InnoDB;
