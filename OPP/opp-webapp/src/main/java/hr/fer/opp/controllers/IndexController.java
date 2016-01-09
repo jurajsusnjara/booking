@@ -22,7 +22,7 @@ import hr.fer.opp.model.TestTable;
 /**
  * Servlet implementation class IndexController
  */
-@WebServlet("")
+@WebServlet("/")
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,6 +31,7 @@ public class IndexController extends HttpServlet {
 	 */
 	public IndexController() {
 		super();
+		System.out.println("Usao sam u controller");
 	}
 
 	/**
