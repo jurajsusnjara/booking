@@ -17,6 +17,16 @@ public class Objekt {
 	private Integer objektID;
 	private String nazivObjekt;
 	private List<Apartman> apartmani;
+	private String fotografija;
+	
+	@Column
+	public String getFotografija() {
+		return fotografija;
+	}
+	
+	public void setFotografija(String fotografija) {
+		this.fotografija = fotografija;
+	}
 	
 	@Id
 	@GeneratedValue
