@@ -17,22 +17,23 @@ public class Objekt {
 	private Integer objektID;
 	private String nazivObjekt;
 	private List<Apartman> apartmani;
-	
+	private String fotografija;
+
 	@Id
 	@GeneratedValue
 	public Integer getObjektID() {
 		return objektID;
 	}
-	
+
 	public void setObjektID(Integer objektID) {
 		this.objektID = objektID;
 	}
-	
-	@Column(nullable = false, length=20)
+
+	@Column(nullable = false, length = 20)
 	public String getNazivObjekt() {
 		return nazivObjekt;
 	}
-	
+
 	public void setNazivObjekt(String nazivObjekt) {
 		this.nazivObjekt = nazivObjekt;
 	}
@@ -44,6 +45,14 @@ public class Objekt {
 
 	public void setApartmani(List<Apartman> apartmani) {
 		this.apartmani = apartmani;
+	}
+
+	public void setFotografija(String fotografija) {
+		this.fotografija = fotografija;
+	}
+
+	public String getFotografija() {
+		return fotografija;
 	}
 
 	@Override
@@ -82,6 +91,5 @@ public class Objekt {
 			return false;
 		return true;
 	}
-	
-	
+
 }
