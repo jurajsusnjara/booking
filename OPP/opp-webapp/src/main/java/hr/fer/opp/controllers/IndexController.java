@@ -69,10 +69,6 @@ public class IndexController extends HttpServlet {
 		objektB.setFotografija("http://www.skoda-novalja.com/photo/kuca.jpg");
 		Objekti.add(objektB);
 		
-		Objekt objektC = new Objekt();
-		objektC.setNazivObjekt("MARIN");
-		objektC.setFotografija("https://scontent-vie1-1.xx.fbcdn.net/hphotos-xta1/v/t1.0-9/11148735_121244028242402_5728143469042066599_n.jpg?oh=7da0a71b399673150e090ec01affd843&oe=570EE3D7");
-		Objekti.add(objektC);
 		// DAOProvider.getDAO().putObjekt(objektB);
 		//
 		// Apartman apartman1A = new Apartman();
