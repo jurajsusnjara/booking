@@ -50,7 +50,7 @@ public class IndexController extends HttpServlet {
 		
 //		PRIMJERI ZA KOMUNIKACIJU S BAZOM ******************************************************
 		
-		/*Objekt objektA = new Objekt();
+		Objekt objektA = new Objekt();
 		objektA.setNazivObjekt("objekt A");
 		DAOProvider.getDAO().putObjekt(objektA);
 		
@@ -77,7 +77,7 @@ public class IndexController extends HttpServlet {
 		}
 		for(Apartman apartman : apartmani) {
 			System.out.println(apartman.getNazivApartman());
-		}*/
+		}
 		
 //		Gost gost = new Gost();
 //		gost.setBrojGodina((short)10);
