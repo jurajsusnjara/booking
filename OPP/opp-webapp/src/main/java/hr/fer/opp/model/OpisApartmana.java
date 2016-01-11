@@ -20,6 +20,7 @@ public class OpisApartmana {
 	private short minBroj;
 	private short maxBroj;
 	private String naslov;
+	private String opis;
 	private List<Apartman> apartmani;
 	private List<Fotografija> fotografije;
 	
@@ -58,6 +59,15 @@ public class OpisApartmana {
 	
 	public void setPogled(String pogled) {
 		this.pogled = pogled;
+	}
+	
+	@Column(nullable = true)
+	public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis = opis;
 	}
 	
 	@Column
