@@ -19,8 +19,18 @@ public class OpisApartmana {
 	private String pogled;
 	private short minBroj;
 	private short maxBroj;
+	private String naslov;
 	private List<Apartman> apartmani;
 	private List<Fotografija> fotografije;
+	
+	@Column
+	public String getNaslov() {
+		return naslov;
+	}
+	
+	public void setNaslov(String naslov) {
+		this.naslov = naslov;
+	}
 	
 	@Id
 	@GeneratedValue

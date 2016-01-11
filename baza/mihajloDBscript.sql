@@ -38,6 +38,7 @@ DROP TABLE IF EXISTS `mihajloDB`.`OpisApartmana` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`OpisApartmana` (
   `opisID` INT NOT NULL AUTO_INCREMENT,
+  `naslov` VARCHAR(20),
   `kat` TINYINT(10) NOT NULL,
   `pogled` VARCHAR(45) NOT NULL,
   `minBroj` TINYINT(10) NOT NULL,
