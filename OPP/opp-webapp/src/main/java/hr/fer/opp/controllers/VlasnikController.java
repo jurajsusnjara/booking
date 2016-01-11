@@ -37,6 +37,9 @@ public class VlasnikController extends HttpServlet{
 		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
 		req.setAttribute("objekti", objekti);
 		
+		List<Korisnik> administratori = VlasnikModelView.getAdministrators();
+		req.setAttribute("administratori", administratori);
+		
 		if (info != null) {
 			String elements[] = info.substring(1).split("/");
 			// ako je url /vlasnik/objekt/:id
@@ -53,6 +56,13 @@ public class VlasnikController extends HttpServlet{
 				try {
 					OpisApartmana opis = DAOProvider.getDAO().getOpisApartmanaFor(Integer.parseInt(elements[1]));
 					req.setAttribute("opis", opis);
+				} catch (Exception e) {
+					throw new RuntimeException("Invalid url!");
+				}
+			} else if (elements[0].equals("apartman")) {
+				try {
+					Apartman apartman = DAOProvider.getDAO().getApartmanFor(Integer.parseInt(elements[1]));
+					req.setAttribute("apartman", apartman);
 				} catch (Exception e) {
 					throw new RuntimeException("Invalid url!");
 				}

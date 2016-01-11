@@ -2,6 +2,7 @@ package hr.fer.opp.viewModels;
 
 import hr.fer.opp.dao.jpa.JPAEMProvider;
 import hr.fer.opp.model.Apartman;
+import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.OpisApartmana;
 
@@ -55,5 +56,11 @@ public class VlasnikModelView {
 	//treba updatati sve varijable opisApartmana
 	public static void changeOpisApartmana(OpisApartmana opis, int id) {
 		
+	}
+
+	//administrator je korinik s ulogom=2
+	public static List<Korisnik> getAdministrators() {
+		
+		return null;
 	}
 }
