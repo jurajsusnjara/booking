@@ -41,19 +41,19 @@ public class VlasnikModelView {
 	}
 
 	// treba updatati sve varijable apartmana
-	public static void changeApartman(Apartman apartman, int id) {
+	public static void changeApartman(Apartman apartman) {
 		Query q = JPAEMProvider.getEntityManager().createQuery(
 				"update Apartman set nazivApartman = :naziv, objektID = :objektID, opisID = :opisID where objektID = :id");
 		q.setParameter("naziv", apartman.getNazivApartman());
 		q.setParameter("objektID", apartman.getObjekt().getObjektID());
 		q.setParameter("opisID", apartman.getNazivApartman());
 		q.setParameter("naziv", apartman.getOpisApartmana().getOpisID());
-		q.setParameter("id", id);
+		q.setParameter("id", apartman.getApartmanID());
 		// TODO?: apartman.rezervacije
 	}
 
 	// treba updatati sve varijable opisApartmana
-	public static void changeOpisApartmana(OpisApartmana opis, int id) {
+	public static void changeOpisApartmana(OpisApartmana opis) {
 		Query q = JPAEMProvider.getEntityManager().createQuery(
 				"update OpisApartmana set naslov = :naslov, kat = :kat, pogled = :pogled, minBroj = :minBroj, maxBroj = :maxBroj, opis = :opis where objektID = :id");
 		q.setParameter("naslov", opis.getNaslov());
@@ -62,7 +62,7 @@ public class VlasnikModelView {
 		q.setParameter("minBroj", opis.getMinBroj());
 		q.setParameter("maxBroj",  opis.getMaxBroj());
 		q.setParameter("opis", opis.getOpis());
-		q.setParameter("opisID", id);
+		q.setParameter("opisID", opis.getOpisID());
 		// TODO?: OpisApartmana.apartmani
 		// TODO?: OpisApartmana.fotografije
 	}

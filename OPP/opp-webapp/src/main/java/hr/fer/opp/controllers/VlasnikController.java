@@ -100,17 +100,20 @@ public class VlasnikController extends HttpServlet{
 		} else if (method.equals("promjeniSmjestajnuJedinicu")) {
 			promjeniSmjestajnuJedinicu(req, resp);
 		}
+		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/vlasnik.jsp").forward(req, resp);
 	}
 	
 	private void dodajObjekt(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		Objekt objekt = new Objekt();
-		setObjekt(req, resp, objekt);	
+		if (!setObjekt(req, resp, objekt)) {
+			return;
+		}
 		DAOProvider.getDAO().putObjekt(objekt);	
 	}
 
 	private void dodajSmjestajnuJedinicu(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		Apartman apartman = new Apartman();
-		setApartman(req, resp, apartman);
+		if (!setApartman(req, resp, apartman)) return;
 		DAOProvider.getDAO().putApartman(apartman);	
 			
 		
@@ -119,7 +122,7 @@ public class VlasnikController extends HttpServlet{
 	private void dodajOpis(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		OpisApartmana opisApartmana = new OpisApartmana();
-		setOpisApartmana(req, resp, opisApartmana);
+		if (!setOpisApartmana(req, resp, opisApartmana)) return;
 		DAOProvider.getDAO().putOpisApartmana(opisApartmana);
 		
 		String[] fotografije = (String[]) req.getAttribute("fotografije");
@@ -134,7 +137,7 @@ public class VlasnikController extends HttpServlet{
 		}			
 	}
 
-	private void obrisiObjekt(HttpServletRequest req, HttpServletResponse resp) {
+	private void obrisiObjekt(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		try {
 			int objektId = Integer.parseInt(req.getParameter("objektId"));
 			Objekt objekt = DAOProvider.getDAO().getObjektFor(objektId);
@@ -143,7 +146,8 @@ public class VlasnikController extends HttpServlet{
 			}
 			VlasnikModelView.deleteObjekt(objektId);
 		} catch (NumberFormatException e) {
-			
+			error(req, resp);
+			return;
 		}
 	}
 	
@@ -167,6 +171,7 @@ public class VlasnikController extends HttpServlet{
 			}
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return;
 		}
 	}
 	
@@ -174,10 +179,11 @@ public class VlasnikController extends HttpServlet{
 		try {
 			int objektId = Integer.parseInt(req.getParameter("objektId"));
 			Objekt objekt = DAOProvider.getDAO().getObjektFor(objektId);
-			setObjekt(req, resp, objekt);
+			if (!setObjekt(req, resp, objekt)) return;
 			VlasnikModelView.changeObjekt(objekt, objektId);
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return;
 		}
 	}
 	
@@ -186,10 +192,11 @@ public class VlasnikController extends HttpServlet{
 		try {
 			int id = Integer.parseInt(req.getParameter("apartmanId"));
 			Apartman apartman = DAOProvider.getDAO().getApartmanFor(id);
-			setApartman(req, resp, apartman);
-			VlasnikModelView.changeApartman(apartman, id);
+			if (!setApartman(req, resp, apartman)) return;
+			VlasnikModelView.changeApartman(apartman);
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return;
 		}
 	}
 	
@@ -198,7 +205,7 @@ public class VlasnikController extends HttpServlet{
 		try {
 			int id = Integer.parseInt(req.getParameter("opisId"));
 			OpisApartmana opisApartmana = DAOProvider.getDAO().getOpisApartmanaFor(id);
-			setOpisApartmana(req, resp, opisApartmana);
+			if (!setOpisApartmana(req, resp, opisApartmana)) return;
 			
 			String[] fotografije = (String[]) req.getAttribute("fotografije");
 			for (String foto : fotografije) {
@@ -213,15 +220,16 @@ public class VlasnikController extends HttpServlet{
 					
 				}
 			}
-			VlasnikModelView.changeOpisApartmana(opisApartmana, id);
+			VlasnikModelView.changeOpisApartmana(opisApartmana);
 			
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return;
 		}
 		
 	}
 	
-	private void setOpisApartmana(HttpServletRequest req,
+	private boolean setOpisApartmana(HttpServletRequest req,
 			HttpServletResponse resp, OpisApartmana opisApartmana) throws IOException {
 		
 		try {
@@ -234,6 +242,7 @@ public class VlasnikController extends HttpServlet{
 			
 			if (checkNull(naslov) || checkNull(pogled)) {
 				error(req, resp);
+				return false;
 			}
 			
 			opisApartmana.setKat(kat);
@@ -245,11 +254,12 @@ public class VlasnikController extends HttpServlet{
 			
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return false;
 		}
-		
+		return true;
 	}
 	
-	private void setObjekt(HttpServletRequest req, HttpServletResponse resp,
+	private boolean setObjekt(HttpServletRequest req, HttpServletResponse resp,
 			Objekt objekt) throws IOException {
 		
 		String nazivObjekta = req.getParameter("nazivObjekta");
@@ -257,15 +267,17 @@ public class VlasnikController extends HttpServlet{
 		
 		if (checkNull(nazivObjekta)) {
 			error(req, resp);
+			return false;
 		}
 		
 		objekt.setNazivObjekt(nazivObjekta);
 		if (fotografija != null && !fotografija.equals("")) {
 			objekt.setFotografija(fotografija);
 		}
+		return true;
 	}
 
-	private void setApartman(HttpServletRequest req, HttpServletResponse resp, Apartman apartman) throws IOException {
+	private boolean setApartman(HttpServletRequest req, HttpServletResponse resp, Apartman apartman) throws IOException {
 		try {
 			String nazivApartmana = req.getParameter("nazivApartmana");
 			Integer objektId = Integer.parseInt(req.getParameter("objektId"));
@@ -273,6 +285,7 @@ public class VlasnikController extends HttpServlet{
 			
 			if (checkNull(nazivApartmana) || objektId != null || opisId != null) {
 				error(req, resp);
+				return false;
 			}
 			
 			apartman.setNazivApartman(nazivApartmana);
@@ -286,7 +299,9 @@ public class VlasnikController extends HttpServlet{
 			apartman.setOpisApartmana(opisApartmana);
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return false;
 		}
+		return true;
 		
 	}
 	
@@ -319,7 +334,11 @@ public class VlasnikController extends HttpServlet{
 
 	private void error(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		req.setAttribute("error", "Neispravni parametri!");
-		resp.sendRedirect("vlasnik/" + req.getPathInfo());
+		try {
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/vlasnik.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
