@@ -24,7 +24,7 @@ public class DeleteQuery extends AbstractQuery {
 
 	public DeleteQuery(String entityName, String idColumnName, Object idValue) {
 		super(entityName);
-		conditions.add(new Pair(idColumnName, idValue))
+		conditions.add(new Pair(idColumnName, idValue));
 	}
 
 	public void execute() {

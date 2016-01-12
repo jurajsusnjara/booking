@@ -23,7 +23,7 @@ public class UpdateQuery extends AbstractQuery {
 
 	public UpdateQuery(String entityName, String idColumnName, Object idValue) {
 		super(entityName);
-		conditions.add(new Pair(idColumnName, idValue);
+		conditions.add(new Pair(idColumnName, idValue));
 	}
 
 	public void addAssignment(String columnName, Object columnValue) {

@@ -42,7 +42,7 @@ public class VlasnikViewModel {
 		UpdateQuery uq = new UpdateQuery("OpisApartmana", "apartmanID", apartman.getApartmanID());
 		uq.addAssignment("nazivApartman", apartman.getNazivApartman());
 		uq.addAssignment("objektID", apartman.getObjekt().getObjektID());
-		uq.addAssignment("opisID", apartman.getOpisApartmana().getOpisID()));
+		uq.addAssignment("opisID", apartman.getOpisApartmana().getOpisID());
 		uq.execute();
 		// TODO?: apartman.rezervacije
 	}

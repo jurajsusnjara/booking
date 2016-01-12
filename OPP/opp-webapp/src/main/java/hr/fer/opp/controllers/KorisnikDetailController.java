@@ -43,7 +43,7 @@ public class KorisnikDetailController extends HttpServlet{
 			try {
 				int apartmanId = Integer.parseInt(elements[1]);
 				req.setAttribute("rezervacija", KorisnikDetailViewModel.getRezervacijaFor(
-						Integer.parseInt(korisnik.getKorisnikID()), apartmanId));
+						korisnik, apartmanId));
 			} catch (NumberFormatException e) {
 				throw new RuntimeException("Invalid url!");
 			}

@@ -6,7 +6,7 @@ import hr.fer.opp.model.Fotografija;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.OpisApartmana;
-import hr.fer.opp.viewModels.VlasnikModelView;
+import hr.fer.opp.viewModels.VlasnikViewModel;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +37,7 @@ public class VlasnikController extends HttpServlet{
 		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
 		req.setAttribute("objekti", objekti);
 		
-		List<Korisnik> administratori = VlasnikModelView.getAdministrators();
+		List<Korisnik> administratori = VlasnikViewModel.getAdministrators();
 		req.setAttribute("administratori", administratori);
 		
 		if (info != null) {
@@ -144,7 +144,7 @@ public class VlasnikController extends HttpServlet{
 			for (Apartman apartman : objekt.getApartmani()) {
 				obrisiSmjestajnuJedinicu(req, resp, apartman.getApartmanID());
 			}
-			VlasnikModelView.deleteObjekt(objektId);
+			VlasnikViewModel.deleteObjekt(objektId);
 		} catch (NumberFormatException e) {
 			error(req, resp);
 			return;
@@ -156,7 +156,7 @@ public class VlasnikController extends HttpServlet{
 		Apartman apartman = DAOProvider.getDAO().getApartmanFor(apartmanId);
 		apartman.getOpisApartmana().getApartmani().remove(apartman);
 		apartman.getObjekt().getApartmani().remove(apartman);
-		VlasnikModelView.deleteApartman(apartmanId);
+		VlasnikViewModel.deleteApartman(apartmanId);
 	}
 	
 	private void obrisiOpisApartmana(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -164,7 +164,7 @@ public class VlasnikController extends HttpServlet{
 			int opisApartmanaId = Integer.parseInt(req.getParameter("opisApartmanaId"));
 			OpisApartmana opisApartmana = DAOProvider.getDAO().getOpisApartmanaFor(opisApartmanaId);
 			if (opisApartmana.getApartmani() == null) {
-				VlasnikModelView.deleteOpisApartmana(opisApartmanaId);
+				VlasnikViewModel.deleteOpisApartmana(opisApartmanaId);
 			} else {
 				req.setAttribute("error", "Ne mogu'e obrisat opis koji se koristi!");
 				resp.sendRedirect("vlasnik/" + req.getPathInfo());
@@ -180,7 +180,7 @@ public class VlasnikController extends HttpServlet{
 			int objektId = Integer.parseInt(req.getParameter("objektId"));
 			Objekt objekt = DAOProvider.getDAO().getObjektFor(objektId);
 			if (!setObjekt(req, resp, objekt)) return;
-			VlasnikModelView.changeObjekt(objekt, objektId);
+			VlasnikViewModel.changeObjekt(objekt);
 		} catch (NumberFormatException e) {
 			error(req, resp);
 			return;
@@ -193,7 +193,7 @@ public class VlasnikController extends HttpServlet{
 			int id = Integer.parseInt(req.getParameter("apartmanId"));
 			Apartman apartman = DAOProvider.getDAO().getApartmanFor(id);
 			if (!setApartman(req, resp, apartman)) return;
-			VlasnikModelView.changeApartman(apartman);
+			VlasnikViewModel.changeApartman(apartman);
 		} catch (NumberFormatException e) {
 			error(req, resp);
 			return;
@@ -220,7 +220,7 @@ public class VlasnikController extends HttpServlet{
 					
 				}
 			}
-			VlasnikModelView.changeOpisApartmana(opisApartmana);
+			VlasnikViewModel.changeOpisApartmana(opisApartmana);
 			
 		} catch (NumberFormatException e) {
 			error(req, resp);
