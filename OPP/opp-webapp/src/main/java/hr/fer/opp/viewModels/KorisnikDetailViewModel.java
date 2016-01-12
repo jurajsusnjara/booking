@@ -2,30 +2,44 @@ package hr.fer.opp.viewModels;
 
 import java.util.List;
 
+import org.hibernate.type.descriptor.java.UUIDTypeDescriptor.ToStringTransformer;
+
+import hr.fer.opp.dao.DAOProvider;
+import hr.fer.opp.model.Apartman;
 import hr.fer.opp.model.Korisnik;
+import hr.fer.opp.model.Rezervacija;
+import hr.fer.opp.viewModels.queries.*;
 
 public class KorisnikDetailViewModel {
 
-	// promijenit ime, prezime, email, telefon i adresu
+	// Mijenja ime, prezime, e-mail, telefon i adresu korisnika
 	public static void changeKorisnik(Korisnik korisnik) {
-		// TODO Auto-generated method stub
-		
+		UpdateQuery uq = new UpdateQuery("Korisnik", "korisnikID", korisnik.getKorisnikID());
+		uq.addAssignment("ime", korisnik.getIme());
+		uq.addAssignment("prezime", korisnik.getPrezime());
+		uq.addAssignment("email", korisnik.getEmail());
+		uq.addAssignment("telefon", korisnik.getTelefon());
+		uq.addAssignment("adresaID", korisnik.getAdresa().getAdresaID());
+		uq.execute();
 	}
 
+	// Mijenja lozinku korisnika
 	public static void changePassword(Korisnik korisnik, String novaSifra1) {
-		// TODO Auto-generated method stub
-		
+		UpdateQuery uq = new UpdateQuery("Korisnik", "korisnikID", korisnik.getKorisnikID());
+		uq.addAssignment("lozinka", korisnik.getLozinka());
+		uq.execute();
 	}
-
-	public static Object getRezervacijaFor(int korisnikId, int apartmanId) {
-		// TODO Auto-generated method stub
+	
+	// TODO: Provjeriti je li ispravno
+	// Vraæa prvu rezervaciju vezanu uz korisnika i apartmanID
+	public static Rezervacija getRezervacijaFor(Korisnik korisnik, int apartmanId) {
+		for (Rezervacija r : korisnik.getRezervacije())
+			if (r.getApartman().getApartmanID() == apartmanId)
+				return r;
 		return null;
 	}
 
-	//vrati listu administratora, uloga = 2
 	public static List<Korisnik> getAdministrators() {
-		// TODO Auto-generated method stub
-		return null;
+		return CommonViewModel.getAdministrators();
 	}
-
 }
