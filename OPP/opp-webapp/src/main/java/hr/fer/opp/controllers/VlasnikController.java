@@ -32,6 +32,11 @@ public class VlasnikController extends HttpServlet{
 		Objekt obj = new Objekt();
 		obj.setNazivObjekt("objekt xxx");
 		VlasnikModelView.changeObjekt(obj, 3); */
+		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		if (korisnik.getUloga() != 3) {
+			resp.sendRedirect("/opp-webapp/");
+			return;
+		}
 		
 		String info = req.getPathInfo();
 		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();

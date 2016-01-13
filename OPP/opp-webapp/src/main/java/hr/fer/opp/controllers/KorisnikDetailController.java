@@ -29,15 +29,14 @@ public class KorisnikDetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-	//	Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
 		
 		//ovo je za testiranje
-		Korisnik korisnik = napraviKorisnika();
 		req.getSession().setAttribute("korisnik", korisnik);
 		
 		
 		if (korisnik == null) {
-			resp.sendRedirect("");
+			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
 		String info = req.getPathInfo();
@@ -60,12 +59,6 @@ public class KorisnikDetailController extends HttpServlet{
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
 	}
 	
-	private Korisnik napraviKorisnika() {
-		Korisnik k = new Korisnik();
-		k.setIme("Kava");
-		k.setPrezime("Tava");
-		return k;
-	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -99,12 +92,15 @@ public class KorisnikDetailController extends HttpServlet{
 		String postanskiBroj = req.getParameter("postanskiBroj");
 		
 		
-		if (checkNull(ime, prezime, email, telefon, adresa, grad, drzava, postanskiBroj) 
-				|| !isValidEmailAddress(email)) {
+		if (checkNull(ime, prezime, email, telefon, adresa, grad, drzava, postanskiBroj) ) {
 			error(req, resp);
 			return;
 		}
-		
+		if (!isValidEmailAddress(email)) {
+			error(req, resp, "Invalid email");
+			return;
+		}
+		boolean novo = false;
 		try {
 			korisnik.setIme(ime);
 			korisnik.setPrezime(prezime);
@@ -112,17 +108,25 @@ public class KorisnikDetailController extends HttpServlet{
 			korisnik.setTelefon(telefon);
 			Integer.parseInt(telefon);
 			
-			Adresa adresaa = new Adresa();
+			Adresa adresaa = null;
+			if ((adresaa = korisnik.getAdresa()) == null) {
+				adresaa = new Adresa();
+				novo = true;
+			}
+		//	DAOProvider.getDAO().getKorisnikFor(Integer.parseInt(korisnik.getKorisnikID())).setPrezime(prezime); 
 			adresaa.setAdresa(adresa);
 			adresaa.setDrzava(drzava);
 			adresaa.setGrad(grad);
 			adresaa.setPostanskiBroj(Integer.parseInt(postanskiBroj));
-			korisnik.setAdresa(adresaa);
+			
+			if (novo) {
+				korisnik.setAdresa(adresaa);
+			}
 			
 		} catch (NumberFormatException e) {
 			error(req, resp);
 		}
-		 if (!DAOProvider.getDAO().getAllAdresa().contains(korisnik.getAdresa())) {
+		 if (novo) {
 			 DAOProvider.getDAO().putAdresa(korisnik.getAdresa());
 		}
 		 
@@ -206,17 +210,6 @@ public class KorisnikDetailController extends HttpServlet{
 		return false;
 	}
 
-	
-	
-	private boolean checkAdresa(Adresa adresa) {
-		Integer postBroj = adresa.getPostanskiBroj();
-		if (checkNull(adresa.getAdresa()) || checkNull(adresa.getGrad()) 
-				|| checkNull(adresa.getDrzava()) || postBroj != null) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -226,7 +219,7 @@ public class KorisnikDetailController extends HttpServlet{
 
 	private boolean checkNull(String... name) {
 		for (String ime : name) {
-			if (name == null || name.equals("")) {
+			if (ime == null || ime.equals("")) {
 				return true;
 			}
 		}

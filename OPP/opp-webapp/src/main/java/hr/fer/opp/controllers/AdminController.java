@@ -31,7 +31,7 @@ public class AdminController extends HttpServlet{
 		
 		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
 		if (korisnik.getUloga() != 2) {
-			resp.sendRedirect("");
+			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
 		
