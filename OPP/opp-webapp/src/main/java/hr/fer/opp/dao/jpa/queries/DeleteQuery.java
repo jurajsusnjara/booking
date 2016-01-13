@@ -17,17 +17,15 @@ public class DeleteQuery extends AbstractQuery {
 
 	public void execute() {
 		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
-		for (Pair p : conditions)
-			q.setParameter('c' + p.key, p.value);
+		setParameters(q, "where", conditions);
 		q.executeUpdate();
 	}
 
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("delete from ").append(entityName);
-		sb.append(" where");
-		AbstractQuery.addList(sb, conditions, 'c');
-		sb.append(';');
+		addClause(sb, "where", conditions);
+		sb.append("\n;");
 		return sb.toString();
 	}
 }

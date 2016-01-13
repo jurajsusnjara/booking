@@ -22,22 +22,19 @@ public class UpdateQuery extends AbstractQuery {
 	}
 
 	public void execute() {
-		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
-		for (Pair p : assignments)
-			q.setParameter('a' + p.key, p.value);
-		for (Pair p : conditions)
-			q.setParameter('c' + p.key, p.value);
+		String queryString = createQueryString();
+		Query q = JPAEMProvider.getEntityManager().createQuery(queryString);
+		setParameters(q, "set", assignments);
+		setParameters(q, "where", conditions);
 		q.executeUpdate();
 	}
 	
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("update ").append(entityName);
-		sb.append(" set ");
-		addList(sb, assignments, 'a');
-		sb.append(" where");
-		addList(sb, conditions, 'c');
-		sb.append(';');
+		AbstractQuery.addClause(sb, "set", assignments);
+		AbstractQuery.addClause(sb, "where", conditions);
+		sb.append("\n;");
 		return sb.toString();
 	}
 }

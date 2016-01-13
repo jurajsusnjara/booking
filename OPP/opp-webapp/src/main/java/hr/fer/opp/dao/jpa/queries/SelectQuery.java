@@ -6,6 +6,7 @@ import hr.fer.opp.dao.jpa.JPAEMProvider;
 
 public class SelectQuery extends AbstractQuery {
 
+	@SuppressWarnings("rawtypes")
 	private List resultList;
 
 	public SelectQuery(String entityName) {
@@ -19,12 +20,12 @@ public class SelectQuery extends AbstractQuery {
 
 	public void execute() {
 		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
-		for (Pair p : conditions)
-			q.setParameter('c' + p.key, p.value);
+		setParameters(q, "where", conditions);
 		q.executeUpdate();
 		resultList = q.getResultList();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getResultList() {
 		return resultList;
 	}
@@ -36,9 +37,8 @@ public class SelectQuery extends AbstractQuery {
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("select * from ").append(entityName);
-		sb.append(" where");
-		addList(sb, conditions, 'c');
-		sb.append(';');
+		AbstractQuery.addClause(sb, "where", conditions);
+		sb.append("\n;");
 		return sb.toString();
 	}
 }

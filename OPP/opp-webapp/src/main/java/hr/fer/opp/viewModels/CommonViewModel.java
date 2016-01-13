@@ -8,6 +8,7 @@ import java.util.List;
 
 public class CommonViewModel {
 
+	@SuppressWarnings("unchecked")
 	public static List<Korisnik> getAdministrators() {
 		SelectQuery sq = new SelectQuery(Korisnik.class.getName());
 		sq.addEqualityCondition("uloga", 2);
