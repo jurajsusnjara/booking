@@ -180,7 +180,8 @@ public class VlasnikController extends HttpServlet{
 			int objektId = Integer.parseInt(req.getParameter("objektId"));
 			Objekt objekt = DAOProvider.getDAO().getObjektFor(objektId);
 			if (!setObjekt(req, resp, objekt)) return;
-			VlasnikViewModel.changeObjekt(objekt);
+			// TODO
+			//VlasnikViewModel.changeObjekt(objekt);
 		} catch (NumberFormatException e) {
 			error(req, resp);
 			return;
@@ -193,7 +194,8 @@ public class VlasnikController extends HttpServlet{
 			int id = Integer.parseInt(req.getParameter("apartmanId"));
 			Apartman apartman = DAOProvider.getDAO().getApartmanFor(id);
 			if (!setApartman(req, resp, apartman)) return;
-			VlasnikViewModel.changeApartman(apartman);
+			// TODO
+			//VlasnikViewModel.changeApartman(apartman);
 		} catch (NumberFormatException e) {
 			error(req, resp);
 			return;
@@ -220,7 +222,8 @@ public class VlasnikController extends HttpServlet{
 					
 				}
 			}
-			VlasnikViewModel.changeOpisApartmana(opisApartmana);
+			// TODO
+			//VlasnikViewModel.changeOpisApartmana(opisApartmana);
 			
 		} catch (NumberFormatException e) {
 			error(req, resp);

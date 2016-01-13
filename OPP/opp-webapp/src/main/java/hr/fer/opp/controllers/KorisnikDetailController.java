@@ -125,7 +125,9 @@ public class KorisnikDetailController extends HttpServlet{
 		 if (!DAOProvider.getDAO().getAllAdresa().contains(korisnik.getAdresa())) {
 			 DAOProvider.getDAO().putAdresa(korisnik.getAdresa());
 		}
-		KorisnikDetailViewModel.changeKorisnik(korisnik);
+		 
+		// TODO
+		//KorisnikDetailViewModel.changeKorisnik(korisnik);
 	}
 	
 	private void promijeniSifru(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -144,7 +146,8 @@ public class KorisnikDetailController extends HttpServlet{
 			return;
 		}
 		
-		KorisnikDetailViewModel.changePassword(korisnik, novaSifra1);
+		// TODO
+		//KorisnikDetailViewModel.changePassword(korisnik, novaSifra1);
 		
 	}
 	

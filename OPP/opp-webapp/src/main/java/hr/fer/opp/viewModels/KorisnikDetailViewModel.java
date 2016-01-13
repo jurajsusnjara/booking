@@ -8,6 +8,21 @@ import hr.fer.opp.model.Rezervacija;
 
 public class KorisnikDetailViewModel {
 
+	// TODO: Provjeriti je li ispravno
+	// Vraæa prvu rezervaciju vezanu uz korisnika i apartmanID
+	public static Rezervacija getRezervacijaFor(Korisnik korisnik, int apartmanId) {
+		for (Rezervacija r : korisnik.getRezervacije())
+			if (r.getApartman().getApartmanID() == apartmanId)
+				return r;
+		return null;
+	}
+
+	public static List<Korisnik> getAdministrators() {
+		return CommonViewModel.getAdministrators();
+	}
+	
+	/* Nepotrebno
+	 * 
 	// Mijenja ime, prezime, e-mail, telefon i adresu korisnika
 	public static void changeKorisnik(Korisnik korisnik) {
 		UpdateQuery uq = new UpdateQuery("Korisnik", "korisnikID", korisnik.getKorisnikID());
@@ -25,17 +40,5 @@ public class KorisnikDetailViewModel {
 		uq.addAssignment("lozinka", korisnik.getLozinka());
 		uq.execute();
 	}
-	
-	// TODO: Provjeriti je li ispravno
-	// Vraæa prvu rezervaciju vezanu uz korisnika i apartmanID
-	public static Rezervacija getRezervacijaFor(Korisnik korisnik, int apartmanId) {
-		for (Rezervacija r : korisnik.getRezervacije())
-			if (r.getApartman().getApartmanID() == apartmanId)
-				return r;
-		return null;
-	}
-
-	public static List<Korisnik> getAdministrators() {
-		return CommonViewModel.getAdministrators();
-	}
+	 */
 }
