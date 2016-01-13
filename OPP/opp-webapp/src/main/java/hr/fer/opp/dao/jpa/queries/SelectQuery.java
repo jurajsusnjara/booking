@@ -1,8 +1,17 @@
 package hr.fer.opp.dao.jpa.queries;
 
 import java.util.List;
+import java.util.jar.JarException;
+
 import javax.persistence.Query;
+
+import org.hibernate.Session;
+import org.hibernate.cfg.NotYetImplementedException;
+
+import com.mysql.jdbc.NotImplemented;
+
 import hr.fer.opp.dao.jpa.JPAEMProvider;
+import net.sf.ehcache.hibernate.HibernateUtil;
 
 public class SelectQuery extends AbstractQuery {
 
@@ -19,10 +28,8 @@ public class SelectQuery extends AbstractQuery {
 	}
 
 	public void execute() {
-		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
-		setParameters(q, "where", conditions);
-		q.executeUpdate();
-		resultList = q.getResultList();
+		String queryString = createQueryString();
+		throw new UnsupportedOperationException("execute not implemented");
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -36,9 +43,8 @@ public class SelectQuery extends AbstractQuery {
 
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("select * from ").append(entityName);
-		AbstractQuery.addClause(sb, "where", conditions);
-		sb.append("\n;");
+		sb.append("from ").append(entityName).append(" x");
+		appendClause(sb, "where", conditions);
 		return sb.toString();
 	}
 }

@@ -31,10 +31,9 @@ public class UpdateQuery extends AbstractQuery {
 	
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("update ").append(entityName);
-		AbstractQuery.addClause(sb, "set", assignments);
-		AbstractQuery.addClause(sb, "where", conditions);
-		sb.append("\n;");
+		sb.append("update ").append(entityName).append(" x");
+		appendClause(sb, "set", assignments);
+		appendClause(sb, "where", conditions);
 		return sb.toString();
 	}
 }

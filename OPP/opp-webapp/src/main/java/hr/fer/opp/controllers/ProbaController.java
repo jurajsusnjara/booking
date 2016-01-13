@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hr.fer.opp.dao.jpa.JPAEMProvider;
+import hr.fer.opp.dao.jpa.queries.DeleteQuery;
+import hr.fer.opp.dao.jpa.queries.SelectQuery;
 import hr.fer.opp.dao.jpa.queries.UpdateQuery;
+import hr.fer.opp.model.Objekt;
 
 @WebServlet("/proba")
 public class ProbaController extends HttpServlet{
@@ -20,8 +23,18 @@ public class ProbaController extends HttpServlet{
 			throws ServletException, IOException {
 		
 		System.out.println("Proba1");
-		Query q = JPAEMProvider.getEntityManager().createQuery("select * from Apartman");
-		//q.executeUpdate();
+		
+		/*Query q = JPAEMProvider.getEntityManager().createQuery("delete from Objekt x where x.id = :id");
+		int i = 5;
+		Object o=i;
+		q.setParameter("id", o);
+		q.executeUpdate();*/
+		
+		SelectQuery dQuery= new SelectQuery("Objekt", "objektID", 3);
+		dQuery.execute();
+		
+		Objekt objekt = (Objekt) dQuery.getResult();
+		objekt = objekt;
 		
 		/*System.out.println("Proba2");
 		UpdateQuery uq = new UpdateQuery("Apartman", "apartmanID", 21);
@@ -29,9 +42,11 @@ public class ProbaController extends HttpServlet{
 		uq.addAssignment("objektID", 45);
 		uq.addAssignment("opisID", 22);
 		uq.addEqualityCondition("nazivApartman", "apartman1");
-		//System.out.println(uq.toString());		
+		
+		System.out.println(uq.toString());
+				
 		uq.execute();*/
 		
-		System.out.println("Proba");
+		System.out.println("/Proba1");
 	}
 }

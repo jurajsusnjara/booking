@@ -23,9 +23,8 @@ public class DeleteQuery extends AbstractQuery {
 
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("delete from ").append(entityName);
-		addClause(sb, "where", conditions);
-		sb.append("\n;");
+		sb.append("delete from ").append(entityName).append(" x");
+		appendClause(sb, "where", conditions);
 		return sb.toString();
 	}
 }

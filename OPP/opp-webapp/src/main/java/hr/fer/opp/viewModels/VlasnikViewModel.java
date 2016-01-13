@@ -23,7 +23,13 @@ public class VlasnikViewModel {
 		new DeleteQuery("OpisApartmana", "opisID", id).execute();
 	}
 
-	public static void changeObjekt(Objekt objekt) {
+	public static List<Korisnik> getAdministrators() {
+		return CommonViewModel.getAdministrators();
+	}
+	
+	/* Nepotrebno
+	 * 
+	 	public static void changeObjekt(Objekt objekt) {
 		UpdateQuery uq = new UpdateQuery("Objekt", "objektID", objekt.getObjektID());
 		uq.addAssignment("nazivObjekt", objekt.getNazivObjekt());
 		if (objekt.getFotografija() != null)
@@ -51,8 +57,5 @@ public class VlasnikViewModel {
 		uq.execute();
 		// TODO?: OpisApartmana.fotografije
 	}
-
-	public static List<Korisnik> getAdministrators() {
-		return CommonViewModel.getAdministrators();
-	}
+	 */
 }

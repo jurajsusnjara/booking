@@ -25,11 +25,11 @@ public abstract class AbstractQuery {
 		}
 	}
 
-	protected static void addClause(StringBuilder sb, String clauseName, List<Pair> list) {
-		sb.append("\n    ").append(clauseName);
+	protected void appendClause(StringBuilder sb, String clauseName, List<Pair> list) {
+		sb.append("\n   ").append(clauseName);
 		sb.append(' ');
 		for (Pair p : list)
-			sb.append(p.key).append(" = :").append(clauseName + p.key).append(", ");
+			sb.append("x.").append(p.key).append(" = :").append(clauseName).append(p.key).append(", ");
 		sb.setLength(sb.length() - 2);
 	}
 
