@@ -132,10 +132,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${sessionScope.korisnik != null}">
-							<li>Prijavljen ${sessionScope.korisnik.getIme()}</li>
+							<li><a href="/opp-webapp/odjava">Odjava:
+									${sessionScope.korisnik.getIme()}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="/opp-webapp/index">Početna</a></li>
+							<li><a href="/opp-webapp/registracija">Prijava/Registracija</a></li>
 
 						</c:otherwise>
 					</c:choose>

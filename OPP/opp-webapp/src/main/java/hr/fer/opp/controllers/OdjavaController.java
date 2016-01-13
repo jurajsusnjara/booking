@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,14 +25,14 @@ import hr.fer.opp.model.TestTable;
 /**
  * Servlet implementation class IndexController
  */
-@WebServlet("/")
-public class IndexController extends HttpServlet {
+@WebServlet("/odjava")
+public class OdjavaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public IndexController() {
+	public OdjavaController() {
 		super();
 	}
 
@@ -39,15 +40,14 @@ public class IndexController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("deprecation")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.getSession().setAttribute("korisnik", null);
+		RequestDispatcher rd = request.getRequestDispatcher("/index");
+		rd.forward(request, response);
 
-		List<Objekt> Objekti = DAOProvider.getDAO().getAllObjekt();
-		
-		request.setAttribute("Objekti", Objekti);
-		request.getSession().getAttribute("korisnik");
-		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/index.jsp").forward(request, response);
 	}
 
 	/**
