@@ -179,7 +179,7 @@ div{
 <div id="div3">
 	<div id="inside3">
 		<div id="objectText1">
-			<a id="urlColorWhite" href="/opp-webapp/objekt=?${Objekti.get(2).getNazivObjekt()}">${Objekti.get(2).getNazivObjekt()}</a>
+			<a id="urlColorWhite" href="/opp-webapp/objekt?ime=${Objekti.get(2).getNazivObjekt()}">${Objekti.get(2).getNazivObjekt()}</a>
 		</div>
 	</div>
 </div>
@@ -187,7 +187,7 @@ div{
 <div id="div4">
 	<div id="inside4">
 		<div id="objectText1">
-			<a id="urlColorWhite" href="/opp-webapp/objekt=?${Objekti.get(3).getNazivObjekt()}">${Objekti.get(3).getNazivObjekt()}</a>
+			<a id="urlColorWhite" href="/opp-webapp/objekt?ime=${Objekti.get(3).getNazivObjekt()}">${Objekti.get(3).getNazivObjekt()}</a>
 		</div>
 	</div>
 </div>
