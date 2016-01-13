@@ -102,7 +102,7 @@ public class LoginController extends HttpServlet {
 		String lozinka =  new String(messageDigest.digest());
 		novi.setLozinka(lozinka);
 		novi.setTelefon(Telefon);
-		novi.setKorisnikID("3");
+		novi.setKorisnikID(Email);
 		novi.setUloga(1);
 		
 		DAOProvider.getDAO().putKorisnik(novi);

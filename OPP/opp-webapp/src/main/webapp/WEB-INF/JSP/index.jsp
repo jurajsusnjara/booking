@@ -64,16 +64,11 @@ div {
 	border-bottom-color: white;
 	width: 100%;
 	height: 100%;
-	background-image: url(${ Objekti.get ( 0) .getFotografija()
+	background-image: url("${Objekti.get(0).getFotografija()}");
+	background-size: 100% 100%;
 }
 
-);
-background-size
-:
- 
-100%
-100%;
-}
+
 #inside2 {
 	border-left: 4px solid;
 	border-left-color: white;
@@ -146,22 +141,19 @@ background-size
 <body>
 
 	<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-brand" id="logoshaddow">
-					<b>Kod Nas Je Najljepse</b>
-				</p>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      	<p class="navbar-brand" id="logoshaddow"><b><a id="logoUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
+      	 	
+    </div>
 
-			</div>
-
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-
-				<ul class="nav navbar-nav navbar-left">
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					<c:choose>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-left">
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <c:choose>
 						<c:when test="${sessionScope.korisnik != null}">
 							<li><a href="/opp-webapp/odjava">Odjava:
 									${sessionScope.korisnik.getIme()}</a></li>
@@ -171,10 +163,10 @@ background-size
 
 						</c:otherwise>
 					</c:choose>
-				</ul>
-			</div>
-		</div>
-	</nav>
+       </ul>
+    </div>
+  </div>
+</nav>
 
 	<div id="div1" class="topmargin">
 		<div id="inside1">

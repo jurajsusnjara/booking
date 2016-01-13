@@ -70,6 +70,16 @@
 #headershadow{
     box-shadow: 0px 5px 20px gray;
 }
+
+#apartmanLink{
+	color:black;
+	
+}
+
+#apartmanLink:hover{
+	color: grey;
+    text-decoration: none;
+}
 </style>
 
 <title>Objekt</title>
@@ -241,10 +251,10 @@
   <c:forEach items="${Apartmani}" var="apartman"> 
 <div id="apartman">
 		 <!-- Tu ide foreach, ali sam morao obrisat zbog compileanja. Nemoj zaboravit dodat dole kraj od petlje  -->
-
-		<br>
+<hr><hr>
+		
 		<div id="namebox">
-			<a href="/opp-webapp/apartman?ime=${apartman.getNazivApartman()}"><h2>${apartman.getNazivApartman()}</h2></a>
+			<a id="apartmanLink"href="/opp-webapp/apartman?ime=${apartman.getNazivApartman()}"><h2><b>${apartman.getNazivApartman()}</b></h2></a>
 		</div>
 		<br>
 		<div id="imgbox">
@@ -254,6 +264,7 @@
 							
 			
 		</div>
+		<br><br>
 		</c:forEach>
 		<!-- tu zavrsava foreach  -->	 
 </div>	

@@ -141,7 +141,7 @@
 <div class="container" id="positionCenter">
 	<br>
 	<br>
- <h2 class="topmargin">${Apartman.getNazivApartman()} </h2>
+ <h2 class="topmargin">${apartman.getNazivApartman()} </h2>
  <hr>
  <br>    
   <table class="table table-striped">
