@@ -29,12 +29,19 @@ public class KorisnikDetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+	//	Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		
+		//ovo je za testiranje
+		Korisnik korisnik = napraviKorisnika();
+		req.getSession().setAttribute("korisnik", korisnik);
+		
+		
 		if (korisnik == null) {
-			resp.sendRedirect("/");
+			resp.sendRedirect("");
+			return;
 		}
 		String info = req.getPathInfo();
-		List<Rezervacija> rezervacije = korisnik.getRezervacije();
+		//List<Rezervacija> rezervacije = korisnik.getRezervacije();
 		if (info != null) {
 			String elements[] = info.substring(1).split("/");
 			if (!elements[0].equals("rezervacija")) {
@@ -47,14 +54,19 @@ public class KorisnikDetailController extends HttpServlet{
 			} catch (NumberFormatException e) {
 				throw new RuntimeException("Invalid url!");
 			}
-		} else {
-			req.setAttribute("rezervacije", rezervacije);
 		}
 		
 		req.setAttribute("korisnik", korisnik);
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
 	}
 	
+	private Korisnik napraviKorisnika() {
+		Korisnik k = new Korisnik();
+		k.setIme("Kava");
+		k.setPrezime("Tava");
+		return k;
+	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -71,12 +83,44 @@ public class KorisnikDetailController extends HttpServlet{
 	}
 	
 	private void promijeniPodatke(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		Korisnik korisnik = (Korisnik) req.getAttribute("korisnik");
-		if (checkNull(korisnik.getIme()) || checkNull(korisnik.getEmail()) 
-				|| checkNull(korisnik.getPrezime()) || checkNull(korisnik.getTelefon()) 
-				|| !isValidEmailAddress(korisnik.getEmail()) || checkAdresa(korisnik.getAdresa())) {
+		System.out.println("mijenja podatke");
+		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		
+		System.out.println(korisnik.getPrezime());
+		
+		
+		String ime = req.getParameter("ime");
+		String prezime = req.getParameter("prezime");
+		String email = req.getParameter("email");
+		String telefon = req.getParameter("telefon");
+		String adresa = req.getParameter("adresa");
+		String grad = req.getParameter("grad");
+		String drzava = req.getParameter("drzava");
+		String postanskiBroj = req.getParameter("postanskiBroj");
+		
+		
+		if (checkNull(ime, prezime, email, telefon, adresa, grad, drzava, postanskiBroj) 
+				|| !isValidEmailAddress(email)) {
 			error(req, resp);
 			return;
+		}
+		
+		try {
+			korisnik.setIme(ime);
+			korisnik.setPrezime(prezime);
+			korisnik.setEmail(email);
+			korisnik.setTelefon(telefon);
+			Integer.parseInt(telefon);
+			
+			Adresa adresaa = new Adresa();
+			adresaa.setAdresa(adresa);
+			adresaa.setDrzava(drzava);
+			adresaa.setGrad(grad);
+			adresaa.setPostanskiBroj(Integer.parseInt(postanskiBroj));
+			korisnik.setAdresa(adresaa);
+			
+		} catch (NumberFormatException e) {
+			error(req, resp);
 		}
 		 if (!DAOProvider.getDAO().getAllAdresa().contains(korisnik.getAdresa())) {
 			 DAOProvider.getDAO().putAdresa(korisnik.getAdresa());
@@ -105,14 +149,13 @@ public class KorisnikDetailController extends HttpServlet{
 	}
 	
 	private void posaljiMolbuZaPromijenu(HttpServletRequest req, HttpServletResponse resp) {
-		Rezervacija rezervacija = (Rezervacija) req.getAttribute("rezervacija");
 		
 		for (Korisnik admin : KorisnikDetailViewModel.getAdministrators()) {
-			sendEmail(admin.getEmail(), rezervacija);
+			sendEmail(admin.getEmail(), req);
 		}
 	}
 
-	private void sendEmail(String emailTo, Rezervacija rezervacija) {
+	private void sendEmail(String emailTo, HttpServletRequest req) {
 
 	 /*     String from = rezervacija.getKorisnik().getEmail();
 
@@ -178,15 +221,27 @@ public class KorisnikDetailController extends HttpServlet{
         return m.matches();
 	}
 
-	private boolean checkNull(String name) {
-		if (name == null || name.equals("")) {
-			return true;
+	private boolean checkNull(String... name) {
+		for (String ime : name) {
+			if (name == null || name.equals("")) {
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	private void error(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		req.setAttribute("error", "Neispravni parametri!");
+		try {
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void error(HttpServletRequest req, HttpServletResponse resp, String message) throws IOException {
+		req.setAttribute("error", message);
 		try {
 			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
 		} catch (ServletException e) {
