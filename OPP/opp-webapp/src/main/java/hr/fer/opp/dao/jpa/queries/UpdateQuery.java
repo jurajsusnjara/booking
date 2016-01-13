@@ -24,9 +24,9 @@ public class UpdateQuery extends AbstractQuery {
 	public void execute() {
 		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
 		for (Pair p : assignments)
-			q.setParameter("a" + p.key, p.value);
+			q.setParameter('a' + p.key, p.value);
 		for (Pair p : conditions)
-			q.setParameter("c" + p.key, p.value);
+			q.setParameter('c' + p.key, p.value);
 		q.executeUpdate();
 	}
 	

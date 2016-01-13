@@ -4,7 +4,6 @@ import java.util.List;
 import javax.persistence.Query;
 import hr.fer.opp.dao.jpa.JPAEMProvider;
 
-
 public class SelectQuery extends AbstractQuery {
 
 	private List resultList;
@@ -21,7 +20,7 @@ public class SelectQuery extends AbstractQuery {
 	public void execute() {
 		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
 		for (Pair p : conditions)
-			q.setParameter("c" + p.key, p.value);
+			q.setParameter('c' + p.key, p.value);
 		q.executeUpdate();
 		resultList = q.getResultList();
 	}

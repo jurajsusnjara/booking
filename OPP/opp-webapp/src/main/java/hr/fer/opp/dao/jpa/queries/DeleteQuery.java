@@ -4,9 +4,8 @@ import javax.persistence.Query;
 
 import hr.fer.opp.dao.jpa.JPAEMProvider;
 
-
 public class DeleteQuery extends AbstractQuery {
-	
+
 	public DeleteQuery(String entityName) {
 		super(entityName);
 	}
@@ -19,7 +18,7 @@ public class DeleteQuery extends AbstractQuery {
 	public void execute() {
 		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
 		for (Pair p : conditions)
-			q.setParameter("c"+p.key, p.value);
+			q.setParameter('c' + p.key, p.value);
 		q.executeUpdate();
 	}
 
@@ -30,5 +29,5 @@ public class DeleteQuery extends AbstractQuery {
 		AbstractQuery.addList(sb, conditions, 'c');
 		sb.append(';');
 		return sb.toString();
-	}	
+	}
 }
