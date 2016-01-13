@@ -1,0 +1,31 @@
+package hr.fer.opp.dao.jpa.queries;
+
+import javax.persistence.Query;
+
+import hr.fer.opp.dao.jpa.JPAEMProvider;
+
+public class DeleteQuery extends AbstractQuery {
+
+	public DeleteQuery(String entityName) {
+		super(entityName);
+	}
+
+	public DeleteQuery(String entityName, String idColumnName, Object idValue) {
+		super(entityName);
+		conditions.add(new Pair(idColumnName, idValue));
+	}
+
+	public void execute() {
+		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
+		setParameters(q, "where", conditions);
+		q.executeUpdate();
+	}
+
+	protected String createQueryString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("delete from ").append(entityName);
+		addClause(sb, "where", conditions);
+		sb.append("\n;");
+		return sb.toString();
+	}
+}

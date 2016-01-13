@@ -56,19 +56,15 @@ public class IndexController extends HttpServlet {
 
 		// PRIMJERI ZA KOMUNIKACIJU S BAZOM
 		// ******************************************************
-		List<Objekt> Objekti = new ArrayList<>();
-		Objekt objektA = new Objekt();
-		objektA.setNazivObjekt("objekt A");
-		objektA.setFotografija("http://www.apartmanipag.com/images/naslovna_new.jpg");
-		Objekti.add(objektA);
 
-		// DAOProvider.getDAO().putObjekt(objektA);
-		//
-		Objekt objektB = new Objekt();
-		objektB.setNazivObjekt("objekt B");
-		objektB.setFotografija("http://www.skoda-novalja.com/photo/kuca.jpg");
-		Objekti.add(objektB);
-		
+		 //Objekt objektC = new Objekt();
+		//objektC.setNazivObjekt("objekt C");
+		// objektC.setFotografija("https://phgcdn.com/images/uploads/MLAEH/corporatemasthead/grand-hotel-excelsior_masthead.jpg");
+		// DAOProvider.getDAO().putObjekt(objektC);
+		// //
+		// Objekt objektB = new Objekt();
+		// objektB.setNazivObjekt("objekt B");
+		// objektB.setFotografija("http://www.skoda-novalja.com/photo/kuca.jpg");
 		// DAOProvider.getDAO().putObjekt(objektB);
 		//
 		// Apartman apartman1A = new Apartman();
@@ -80,8 +76,8 @@ public class IndexController extends HttpServlet {
 		// apartman1B.setNazivApartman("apartman6969");
 		// apartman1B.setObjekt(objektB);
 		// DAOProvider.getDAO().putApartman(apartman1B);
-		//
-		// List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
+
+		List<Objekt> Objekti = DAOProvider.getDAO().getAllObjekt();
 		// List<Apartman> apartmani = DAOProvider.getDAO().getAllApartman();
 		//
 		// for (Objekt objekt : objekti) {
@@ -103,12 +99,12 @@ public class IndexController extends HttpServlet {
 		// apartman1X.setObjekt(objektX);
 		// DAOProvider.getDAO().putApartman(apartman1X);
 		//
-		// Adresa adresa = new Adresa();
-		// adresa.setAdresa("Lumbinov Most 3");
-		// adresa.setDrzava("Hrvatska");
-		// adresa.setGrad("Sinj");
-		// adresa.setPostanskiBroj(21230);
-		// DAOProvider.getDAO().putAdresa(adresa);
+//		 Adresa adresa = new Adresa();
+//		 adresa.setAdresa("Lumbinov Most 3");
+//		 adresa.setDrzava("Hrvatska");
+//		 adresa.setGrad("Sinj");
+//		 adresa.setPostanskiBroj(21230);
+//		 DAOProvider.getDAO().putAdresa(adresa);
 		//
 		// Korisnik korisnik = new Korisnik();
 		// korisnik.setKorisnikID("mrzlek");
@@ -142,7 +138,7 @@ public class IndexController extends HttpServlet {
 		// Gost gost = DAOProvider.getDAO().getGostFor(69);
 		// System.out.println(gost.getBrojGodina());
 		request.setAttribute("Objekti", Objekti);
-		System.out.println(Objekti.get(1).getFotografija());
+		request.getSession().getAttribute("korisnik");
 		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/index.jsp").forward(request, response);
 	}
 
@@ -153,11 +149,6 @@ public class IndexController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-	}
-
-	public void ispisi() {
-		System.out.println("SISO");
-
 	}
 
 }
