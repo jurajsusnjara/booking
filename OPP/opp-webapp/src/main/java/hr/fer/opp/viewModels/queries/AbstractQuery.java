@@ -32,6 +32,7 @@ public abstract class AbstractQuery {
 	}
 	
 	protected static void addList(StringBuilder sb, List<Pair> list, char parameterChar){
+		sb.append(' ');
 		for (Pair p : list)
 			sb.append(p.key).append(" = :").append(parameterChar).append(":c"+p.key).append(", ");
 		sb.setLength(sb.length() - 2);
@@ -40,7 +41,7 @@ public abstract class AbstractQuery {
 	public void addCondition(String columnName, Object columnValue) {
 		conditions.add(new Pair(columnName, columnValue));
 	}
-	public abstract void execute();
+	public abstract void execute() throws Exception;
 
 	public abstract String toString();
 	

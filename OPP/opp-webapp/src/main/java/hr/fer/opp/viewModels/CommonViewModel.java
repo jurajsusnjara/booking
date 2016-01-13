@@ -6,22 +6,21 @@ import hr.fer.opp.model.Apartman;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.OpisApartmana;
+import hr.fer.opp.viewModels.queries.SelectQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
+import javax.persistence.UniqueConstraint;
 
 public class CommonViewModel {
 
 	public static List<Korisnik> getAdministrators() {
-		List<Korisnik> korisnici = DAOProvider.getDAO().getAllKorisnik();
-		List<Korisnik> administratori = new ArrayList<Korisnik>();
-		for (Korisnik k : korisnici)
-			if (k.getUloga() == 2) // administrator je korisnik s ulogom 2
-				administratori.add(k);
-		return administratori;
+		SelectQuery sq = new SelectQuery(Korisnik.class.getName());
+		sq.addCondition("uloga", 2);
+		sq.execute();
+		return sq.getResultList();
 	}
 }

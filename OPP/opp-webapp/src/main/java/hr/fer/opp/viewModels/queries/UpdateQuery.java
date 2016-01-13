@@ -44,8 +44,9 @@ public class UpdateQuery extends AbstractQuery {
 		sb.append("update ").append(entityName);
 		sb.append(" set ");
 		addList(sb, assignments, 'a');
-		sb.append(" where ");
+		sb.append(" where");
 		addList(sb, conditions, 'c');
+		sb.append(';');
 		return sb.toString();
 	}
 }
