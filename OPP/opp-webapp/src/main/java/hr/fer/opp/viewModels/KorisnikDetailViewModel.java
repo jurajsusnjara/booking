@@ -2,13 +2,9 @@ package hr.fer.opp.viewModels;
 
 import java.util.List;
 
-import org.hibernate.type.descriptor.java.UUIDTypeDescriptor.ToStringTransformer;
-
-import hr.fer.opp.dao.DAOProvider;
-import hr.fer.opp.model.Apartman;
+import hr.fer.opp.dao.jpa.queries.*;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Rezervacija;
-import hr.fer.opp.viewModels.queries.*;
 
 public class KorisnikDetailViewModel {
 

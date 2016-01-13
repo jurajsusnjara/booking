@@ -1,20 +1,13 @@
 package hr.fer.opp.viewModels;
 
-import hr.fer.opp.dao.jpa.JPAEMProvider;
+import java.util.List;
 
-import hr.fer.opp.dao.DAOProvider;
+import hr.fer.opp.dao.jpa.queries.*;
 import hr.fer.opp.model.Apartman;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.OpisApartmana;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import hr.fer.opp.viewModels.queries.*;
 
 public class VlasnikViewModel {
 
@@ -32,19 +25,18 @@ public class VlasnikViewModel {
 
 	public static void changeObjekt(Objekt objekt) {
 		UpdateQuery uq = new UpdateQuery("Objekt", "objektID", objekt.getObjektID());
-		uq.addAssignment("nazivObjekt",  objekt.getNazivObjekt());
-		if (objekt.getFotografija() != null) 
-			uq.addAssignment("fotografija",  objekt.getFotografija());
+		uq.addAssignment("nazivObjekt", objekt.getNazivObjekt());
+		if (objekt.getFotografija() != null)
+			uq.addAssignment("fotografija", objekt.getFotografija());
 		uq.execute();
 	}
 
 	public static void changeApartman(Apartman apartman) {
-		UpdateQuery uq = new UpdateQuery("OpisApartmana", "apartmanID", apartman.getApartmanID());
+		UpdateQuery uq = new UpdateQuery("Apartman", "apartmanID", apartman.getApartmanID());
 		uq.addAssignment("nazivApartman", apartman.getNazivApartman());
 		uq.addAssignment("objektID", apartman.getObjekt().getObjektID());
 		uq.addAssignment("opisID", apartman.getOpisApartmana().getOpisID());
 		uq.execute();
-		// TODO?: apartman.rezervacije
 	}
 
 	public static void changeOpisApartmana(OpisApartmana opis) {
@@ -57,7 +49,6 @@ public class VlasnikViewModel {
 		uq.addAssignment("opis", opis.getOpis());
 		uq.addAssignment("opisID", opis.getOpisID());
 		uq.execute();
-		// TODO?: OpisApartmana.apartmani
 		// TODO?: OpisApartmana.fotografije
 	}
 

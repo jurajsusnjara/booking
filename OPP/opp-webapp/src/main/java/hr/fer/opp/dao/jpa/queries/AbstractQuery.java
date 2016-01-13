@@ -1,17 +1,7 @@
-package hr.fer.opp.viewModels.queries;
+package hr.fer.opp.dao.jpa.queries;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Query;
-import javax.persistence.Tuple;
-
-import org.hibernate.type.descriptor.java.UUIDTypeDescriptor.ToStringTransformer;
-
-import hr.fer.opp.dao.jpa.JPAEMProvider;
-import hr.fer.opp.model.Apartman;
-import hr.fer.opp.model.Korisnik;
-import hr.fer.opp.viewModels.queries.AbstractQuery.Pair;
 
 public abstract class AbstractQuery {
 	String entityName;
@@ -38,11 +28,16 @@ public abstract class AbstractQuery {
 		sb.setLength(sb.length() - 2);
 	}
 	
-	public void addCondition(String columnName, Object columnValue) {
+	public void addEqualityCondition(String columnName, Object columnValue) {
 		conditions.add(new Pair(columnName, columnValue));
 	}
 	public abstract void execute() throws Exception;
+	
+	protected abstract String createQueryString();
 
-	public abstract String toString();
+	public String toString(){
+		return createQueryString();
+	}
+
 	
 }

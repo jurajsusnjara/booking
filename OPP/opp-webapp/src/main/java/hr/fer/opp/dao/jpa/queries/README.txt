@@ -1,0 +1,1 @@
+primjeri korištenja u viewModels
