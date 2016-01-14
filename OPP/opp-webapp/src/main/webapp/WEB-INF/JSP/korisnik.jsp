@@ -85,14 +85,14 @@
         <td>Uloga</td>
         <td>
             <c:choose>
-                <c:when test="${sessionScope.korisnik.uloga == 0}">
+                <c:when test="${sessionScope.korisnik.uloga == 3}">
+                        Vlasnik sustava
+                </c:when>
+                <c:when test="${sessionScope.korisnik.uloga == 2}">
                         Administrator sustava
                 </c:when>
-                <c:when test="${sessionScope.korisnik.uloga == 1}">
-                        Narucitelj ankete
-                </c:when>
                 <c:otherwise>
-                        Anketar
+                        Korisnik
                 </c:otherwise>
             </c:choose>
         </td>
@@ -101,6 +101,7 @@
   </table>
 </div>
  
+
     <div class="container topmargin">
         <button name="button" class="btn btn-default" id="otvoriFiltriranje">Promijenite korisnicke postavke</button>
         <button name="button" class="btn btn-default" id="zatvoriFiltriranje">Zatvori</button>
@@ -186,13 +187,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="signup"></label>
                     <div class="col-md-4">
-                        <button id="register" type="submit" name="method" onclick="location.href='/opp-webapp/objekt/'" class="btn btn-success" value="promijeniPodatke">Filtriraj</button>
+                        <button  type="submit" name="method" value="promijeniPodatke" class="btn btn-success" value="promijeniPodatke">Promijeni</button>
+                        
                         <button id="reset" type="reset" name="reset" class="btn btn-warning">Resetiraj unesene promjene</button>
- 
+
                     </div>
                 </div>
        
- 
            
         </form>
     </div>

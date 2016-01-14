@@ -316,7 +316,7 @@ public class VlasnikController extends HttpServlet{
 	private void dodajAdministratora(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			int korisnikId = Integer.parseInt(req.getParameter("korisnikId"));
-			Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikId);
+			Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(Integer.toString(korisnikId));
 			korisnik.setUloga(2); // 1 za vlasnika, 2 administrator, 3 prijevljeni korisnik
 		} catch (NumberFormatException e) {}
 	}
@@ -324,7 +324,7 @@ public class VlasnikController extends HttpServlet{
 	private void obrisiAdministratora(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		try {
 			int korisnikId = Integer.parseInt(req.getParameter("korisnikId"));
-			Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikId);
+			Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(Integer.toString(korisnikId));
 			korisnik.setUloga(3);
 		} catch (NumberFormatException e) {
 			error(req, resp);

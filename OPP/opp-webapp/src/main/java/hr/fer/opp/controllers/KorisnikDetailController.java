@@ -77,9 +77,8 @@ public class KorisnikDetailController extends HttpServlet{
 	
 	private void promijeniPodatke(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		System.out.println("mijenja podatke");
-		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
-		
-		System.out.println(korisnik.getPrezime());
+		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikPom.getKorisnikID());
 		
 		
 		String ime = req.getParameter("ime");
@@ -101,35 +100,42 @@ public class KorisnikDetailController extends HttpServlet{
 			return;
 		}
 		boolean novo = false;
+		
 		try {
-			korisnik.setIme(ime);
-			korisnik.setPrezime(prezime);
-			korisnik.setEmail(email);
-			korisnik.setTelefon(telefon);
+			Integer.parseInt(postanskiBroj);
 			Integer.parseInt(telefon);
-			
-			Adresa adresaa = null;
-			if ((adresaa = korisnik.getAdresa()) == null) {
-				adresaa = new Adresa();
-				novo = true;
-			}
-		//	DAOProvider.getDAO().getKorisnikFor(Integer.parseInt(korisnik.getKorisnikID())).setPrezime(prezime); 
-			adresaa.setAdresa(adresa);
-			adresaa.setDrzava(drzava);
-			adresaa.setGrad(grad);
-			adresaa.setPostanskiBroj(Integer.parseInt(postanskiBroj));
-			
-			if (novo) {
-				korisnik.setAdresa(adresaa);
-			}
-			
 		} catch (NumberFormatException e) {
 			error(req, resp);
+			return;
 		}
+
+		korisnik.setIme(ime);
+		korisnik.setPrezime(prezime);
+		korisnik.setEmail(email);
+		korisnik.setTelefon(telefon);
+		
+		
+		Adresa adresaa = null;
+		if ((adresaa = korisnik.getAdresa()) == null) {
+			adresaa = new Adresa();
+			novo = true;
+		}
+	//	DAOProvider.getDAO().getKorisnikFor(Integer.parseInt(korisnik.getKorisnikID())).setPrezime(prezime); 
+		adresaa.setAdresa(adresa);
+		adresaa.setDrzava(drzava);
+		adresaa.setGrad(grad);
+		adresaa.setPostanskiBroj(Integer.parseInt(postanskiBroj));
+		
+		if (novo) {
+			korisnik.setAdresa(adresaa);
+		}
+		
+		
 		 if (novo) {
 			 DAOProvider.getDAO().putAdresa(korisnik.getAdresa());
 		}
 		 
+		 req.getSession().setAttribute("korisnik", korisnik);
 		// TODO
 		//KorisnikDetailViewModel.changeKorisnik(korisnik);
 	}
@@ -205,8 +211,15 @@ public class KorisnikDetailController extends HttpServlet{
 		*/
 	}
 
-	private boolean checkPassword(Korisnik korisnik, String staraSifra) {
-		// TODO Auto-generated method stub
+	private boolean checkPassword(Korisnik korisnik, String sifra) {
+		List<Korisnik> listaSvihKorisnika = DAOProvider.getDAO().getAllKorisnik();
+		for (Korisnik tmpKorisnik : listaSvihKorisnika) {
+			if (tmpKorisnik.getEmail().equals(korisnik.getIme())) {
+				if (tmpKorisnik.getLozinka().equals(sifra)) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 

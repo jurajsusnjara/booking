@@ -23,7 +23,7 @@ public interface DAO {
 	
 	Fotografija getFotografijaFor(int id);
 	
-	Korisnik getKorisnikFor(int id);
+	Korisnik getKorisnikFor(String id);
 	
 	Adresa getAdresaFor(int id);
 	

@@ -128,6 +128,8 @@ public class AdminController extends HttpServlet{
 			boolean satelitskaTV = getBoolean(req.getParameter("satelitskaTV"));
 			int id = Integer.parseInt(req.getParameter("izabranApartmanID"));
 			
+			provjeriDostupnost();
+			
 			rezervacija.setApartman(DAOProvider.getDAO().getApartmanFor(id));
 			rezervacija.setInternet(internet);
 			rezervacija.setParking(parking);
@@ -145,6 +147,12 @@ public class AdminController extends HttpServlet{
 		}
 		
 	
+	}
+
+
+	private void provjeriDostupnost() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

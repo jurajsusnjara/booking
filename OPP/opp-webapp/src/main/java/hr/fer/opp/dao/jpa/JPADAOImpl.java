@@ -53,7 +53,7 @@ public class JPADAOImpl implements DAO {
 	}
 
 	@Override
-	public Korisnik getKorisnikFor(int id) {
+	public Korisnik getKorisnikFor(String id) {
 
 		EntityManager em = JPAEMProvider.getEntityManager();
 		Korisnik korisnik = em.find(Korisnik.class, id);

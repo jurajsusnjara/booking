@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hr.fer.opp.dao.DAOProvider;
 import hr.fer.opp.dao.jpa.JPAEMProvider;
 import hr.fer.opp.dao.jpa.queries.DeleteQuery;
 import hr.fer.opp.dao.jpa.queries.SelectQuery;
 import hr.fer.opp.dao.jpa.queries.UpdateQuery;
+import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
 
 @WebServlet("/proba")
@@ -30,11 +32,15 @@ public class ProbaController extends HttpServlet{
 		q.setParameter("id", o);
 		q.executeUpdate();*/
 		
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor("3");
+		korisnik.setIme("novoIme");
+		/*
 		SelectQuery dQuery= new SelectQuery("Objekt", "objektID", 3);
 		dQuery.execute();
 		
 		Objekt objekt = (Objekt) dQuery.getResult();
 		objekt = objekt;
+		*/
 		
 		/*System.out.println("Proba2");
 		UpdateQuery uq = new UpdateQuery("Apartman", "apartmanID", 21);
