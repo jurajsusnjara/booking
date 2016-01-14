@@ -15,6 +15,10 @@ public class DeleteQuery extends AbstractQuery {
 		conditions.add(new Pair(idColumnName, idValue));
 	}
 
+	public DeleteQuery addEqualityCondition(String columnName, Object columnValue) {
+		return (DeleteQuery) super.addEqualityCondition(columnName, columnValue);
+	}
+	
 	public void execute() {
 		Query q = JPAEMProvider.getEntityManager().createQuery(createQueryString());
 		setParameters(q, "where", conditions);

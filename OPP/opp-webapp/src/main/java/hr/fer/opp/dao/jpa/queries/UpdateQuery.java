@@ -16,17 +16,23 @@ public class UpdateQuery extends AbstractQuery {
 		super(entityName);
 		conditions.add(new Pair(idColumnName, idValue));
 	}
-
-	public void addAssignment(String columnName, Object columnValue) {
+	
+	public UpdateQuery addAssignment(String columnName, Object columnValue) {
 		assignments.add(new Pair(columnName, columnValue));
+		return this;
+	}
+	
+	public UpdateQuery addEqualityCondition(String columnName, Object columnValue) {
+		return (UpdateQuery) super.addEqualityCondition(columnName, columnValue);
 	}
 
-	public void execute() {
+	public UpdateQuery execute() {
 		String queryString = createQueryString();
 		Query q = JPAEMProvider.getEntityManager().createQuery(queryString);
 		setParameters(q, "set", assignments);
 		setParameters(q, "where", conditions);
 		q.executeUpdate();
+		return this;
 	}
 	
 	protected String createQueryString() {
