@@ -1,6 +1,7 @@
 package hr.fer.opp.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.Query;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import hr.fer.opp.dao.jpa.queries.DeleteQuery;
 import hr.fer.opp.dao.jpa.queries.SelectQuery;
 import hr.fer.opp.dao.jpa.queries.UpdateQuery;
 import hr.fer.opp.model.Objekt;
+import hr.fer.opp.model.Rezervacija;
 
 @WebServlet("/proba")
 public class ProbaController extends HttpServlet{
@@ -24,6 +26,13 @@ public class ProbaController extends HttpServlet{
 		
 		System.out.println("Proba1");
 		
+		List<Rezervacija> rezervacije = null;
+		rezervacije = (List<Rezervacija>) JPAEMProvider.getEntityManager().createQuery(
+				"select r from Objekt as r where r.objektID=:g")
+				.setParameter("g", 3).getResultList();
+		
+		
+		
 		/*Query q = JPAEMProvider.getEntityManager().createQuery("delete from Objekt x where x.id = :id");
 		int i = 5;
 		Object o=i;
@@ -32,6 +41,7 @@ public class ProbaController extends HttpServlet{
 		
 		SelectQuery dQuery= new SelectQuery("Objekt", "objektID", 3);
 		dQuery.execute();
+		List obj = dQuery.getResultList();
 		
 		Objekt objekt = (Objekt) dQuery.getResult();
 		objekt = objekt;

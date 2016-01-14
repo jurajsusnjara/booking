@@ -29,7 +29,9 @@ public class SelectQuery extends AbstractQuery {
 
 	public void execute() {
 		String queryString = createQueryString();
-		throw new UnsupportedOperationException("execute not implemented");
+		Query q = JPAEMProvider.getEntityManager().createQuery(queryString);
+		setParameters(q, "where", conditions);
+		q.executeUpdate();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -43,7 +45,7 @@ public class SelectQuery extends AbstractQuery {
 
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("from ").append(entityName).append(" x");
+		sb.append("select from ").append(entityName).append(" x");
 		appendClause(sb, "where", conditions);
 		return sb.toString();
 	}
