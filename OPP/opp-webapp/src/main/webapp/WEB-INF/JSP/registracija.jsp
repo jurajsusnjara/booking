@@ -200,7 +200,7 @@
 				<label></label>
 				<div class="input-group">
 					<span class="input-group"><i class="fa fa-lock"></i></span>
-					<h3><b>Podatci o prebivalistu</b></h3>
+					<h3><b>Podaci o prebivalistu</b></h3>
 				<hr>
 				</div>
 				

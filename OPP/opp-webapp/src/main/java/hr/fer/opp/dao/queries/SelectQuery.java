@@ -1,4 +1,4 @@
-package hr.fer.opp.dao.jpa.queries;
+package hr.fer.opp.dao.queries;
 
 import java.util.List;
 import java.util.jar.JarException;
@@ -26,24 +26,26 @@ public class SelectQuery extends AbstractQuery {
 		super(entityName);
 		conditions.add(new Pair(idColumnName, idValue));
 	}
-
-	public void execute() {
-		String queryString = createQueryString();
-		throw new UnsupportedOperationException("execute not implemented");
+	
+	public SelectQuery addEqualityCondition(String columnName, Object columnValue) {
+		return (SelectQuery) super.addEqualityCondition(columnName, columnValue);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public List getResultList() {
-		return resultList;
+		String queryString = createQueryString();
+		Query q = JPAEMProvider.getEntityManager().createQuery(queryString);
+		setParameters(q, "where", conditions);		
+		return q.getResultList();
 	}
 
 	public Object getResult() {
-		return resultList.get(0);
+		return getResultList().get(0);
 	}
 
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("from ").append(entityName).append(" x");
+		sb.append("select x from ").append(entityName).append(" x");
 		appendClause(sb, "where", conditions);
 		return sb.toString();
 	}

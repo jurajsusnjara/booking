@@ -1,11 +1,11 @@
-package hr.fer.opp.dao.jpa.queries;
+package hr.fer.opp.dao.queries;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.fer.opp.dao.jpa.queries.AbstractQuery.Pair;
-
 import javax.persistence.Query;
+
+import hr.fer.opp.dao.queries.AbstractQuery.Pair;
 
 public abstract class AbstractQuery {
 	String entityName;
@@ -34,15 +34,15 @@ public abstract class AbstractQuery {
 	}
 
 	protected static void setParameters(Query query, String clauseName, List<Pair> list) {
+		String parameter;
 		for (Pair p : list)
 			query.setParameter(clauseName + p.key, p.value);
 	}
 
-	public void addEqualityCondition(String columnName, Object columnValue) {
+	public AbstractQuery addEqualityCondition(String columnName, Object columnValue) {
 		conditions.add(new Pair(columnName, columnValue));
+		return this;
 	}
-
-	public abstract void execute() throws Exception;
 
 	protected abstract String createQueryString();
 
