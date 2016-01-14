@@ -16,15 +16,17 @@ import hr.fer.opp.dao.queries.SelectQuery;
 import hr.fer.opp.dao.queries.UpdateQuery;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.Rezervacija;
+import hr.fer.opp.viewModels.AdminViewModel;
 
 @WebServlet("/proba")
-public class ProbaController extends HttpServlet{
+public class ProbaController extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		AdminViewModel.getRezervacijaFor("asdad", 11);
+
 		System.out.println("/Proba1");
 	}
 }

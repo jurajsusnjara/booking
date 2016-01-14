@@ -24,7 +24,11 @@ public class SelectQuery extends AbstractQuery {
 
 	public SelectQuery(String entityName, String idColumnName, Object idValue) {
 		super(entityName);
-		conditions.add(new Pair(idColumnName, idValue));
+		conditions.add(new Condition(idColumnName, idValue, Comparison.EQ));
+	}
+	
+	public SelectQuery addCondition(Comparison comparison,String columnName, Object columnValue) {
+		return (SelectQuery) super.addCondition(comparison, columnName, columnValue);
 	}
 	
 	public SelectQuery addEqualityCondition(String columnName, Object columnValue) {
@@ -35,7 +39,7 @@ public class SelectQuery extends AbstractQuery {
 	public List getResultList() {
 		String queryString = createQueryString();
 		Query q = JPAEMProvider.getEntityManager().createQuery(queryString);
-		setParameters(q, "where", conditions);		
+		setConditionParameters(q);
 		return q.getResultList();
 	}
 
@@ -46,7 +50,8 @@ public class SelectQuery extends AbstractQuery {
 	protected String createQueryString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("select x from ").append(entityName).append(" x");
-		appendClause(sb, "where", conditions);
+		if (conditions.size() > 0)
+			appendConditionClause(sb);
 		return sb.toString();
 	}
 }
