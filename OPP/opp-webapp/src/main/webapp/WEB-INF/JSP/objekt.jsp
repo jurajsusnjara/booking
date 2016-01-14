@@ -70,6 +70,16 @@
 #headershadow{
     box-shadow: 0px 5px 20px gray;
 }
+
+#apartmanLink{
+	color:black;
+	
+}
+
+#apartmanLink:hover{
+	color: grey;
+    text-decoration: none;
+}
 </style>
 
 <title>Objekt</title>
@@ -132,10 +142,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${sessionScope.korisnik != null}">
-							<li>Prijavljen ${sessionScope.korisnik.getIme()}</li>
+							<li><a href="/opp-webapp/odjava">Odjava:
+									${sessionScope.korisnik.getIme()}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="/opp-webapp/index">Početna</a></li>
+							<li><a href="/opp-webapp/registracija">Prijava/Registracija</a></li>
 
 						</c:otherwise>
 					</c:choose>
@@ -240,10 +251,10 @@
   <c:forEach items="${Apartmani}" var="apartman"> 
 <div id="apartman">
 		 <!-- Tu ide foreach, ali sam morao obrisat zbog compileanja. Nemoj zaboravit dodat dole kraj od petlje  -->
-
-		<br>
+<hr><hr>
+		
 		<div id="namebox">
-			<a href="/opp-webapp/apartman?ime=${apartman.getNazivApartman()}"><h2>${apartman.getNazivApartman()}</h2></a>
+			<a id="apartmanLink"href="/opp-webapp/apartman?ime=${apartman.getNazivApartman()}"><h2><b>${apartman.getNazivApartman()}</b></h2></a>
 		</div>
 		<br>
 		<div id="imgbox">
@@ -253,6 +264,7 @@
 							
 			
 		</div>
+		<br><br>
 		</c:forEach>
 		<!-- tu zavrsava foreach  -->	 
 </div>	

@@ -124,14 +124,15 @@
       
       <ul class="nav navbar-nav navbar-right">
         <c:choose>
-        <c:when test="${sessionScope.korisnik != null}">
-        <li>Prijavljen ${sessionScope.korisnik.getIme()}</li>
-        </c:when>
-        <c:otherwise>
-          <li><a href="/opp-webapp/">Pocetna</a></li>
+						<c:when test="${sessionScope.korisnik != null}">
+							<li><a href="/opp-webapp/odjava">Odjava:
+									${sessionScope.korisnik.getIme()}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="/opp-webapp/registracija">Prijava/Registracija</a></li>
 
-        </c:otherwise>
-        </c:choose>
+						</c:otherwise>
+					</c:choose>
        </ul>
     </div>
   </div>
@@ -140,7 +141,7 @@
 <div class="container" id="positionCenter">
 	<br>
 	<br>
- <h2 class="topmargin">${Apartman.getNazivApartman()} </h2>
+ <h2 class="topmargin">${apartman.getNazivApartman()} </h2>
  <hr>
  <br>    
   <table class="table table-striped">

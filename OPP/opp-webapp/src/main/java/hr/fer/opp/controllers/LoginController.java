@@ -8,6 +8,7 @@ import java.util.List;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -101,11 +102,13 @@ public class LoginController extends HttpServlet {
 		String lozinka =  new String(messageDigest.digest());
 		novi.setLozinka(lozinka);
 		novi.setTelefon(Telefon);
-		novi.setKorisnikID("3");
+		novi.setKorisnikID(Email);
 		novi.setUloga(1);
 		
 		DAOProvider.getDAO().putKorisnik(novi);
-		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request, response);
+		request.getSession().setAttribute("korisnik", novi);
+		RequestDispatcher rd = request.getRequestDispatcher("/index");
+		rd.forward(request, response);
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -135,19 +138,16 @@ public class LoginController extends HttpServlet {
 			if (tmpKorisnik.getEmail().equals(korisnickoIme)) {
 				if (tmpKorisnik.getLozinka().equals(sifra)) {
 					request.getSession().setAttribute("korisnik", tmpKorisnik);
-					request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request,
-							response);
+					RequestDispatcher rd = request.getRequestDispatcher("/index");
+					rd.forward(request, response);
 					return true;
 				} else {
 					request.setAttribute("greska", true);
-					request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request,
-							response);
 					return false;
 				}
 			}
 		}
 		request.setAttribute("greska", true);
-		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request, response);
 		return false;
 	}
 
