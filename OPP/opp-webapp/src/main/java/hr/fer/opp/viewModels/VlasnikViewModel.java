@@ -2,7 +2,7 @@ package hr.fer.opp.viewModels;
 
 import java.util.List;
 
-import hr.fer.opp.dao.jpa.queries.*;
+import hr.fer.opp.dao.queries.*;
 import hr.fer.opp.model.Apartman;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;

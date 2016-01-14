@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hr.fer.opp.dao.jpa.JPAEMProvider;
-import hr.fer.opp.dao.jpa.queries.DeleteQuery;
-import hr.fer.opp.dao.jpa.queries.SelectQuery;
-import hr.fer.opp.dao.jpa.queries.UpdateQuery;
+import hr.fer.opp.dao.queries.DeleteQuery;
+import hr.fer.opp.dao.queries.SelectQuery;
+import hr.fer.opp.dao.queries.UpdateQuery;
 import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.Rezervacija;
 

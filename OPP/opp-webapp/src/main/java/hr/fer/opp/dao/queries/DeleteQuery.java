@@ -1,4 +1,4 @@
-package hr.fer.opp.dao.jpa.queries;
+package hr.fer.opp.dao.queries;
 
 import javax.persistence.Query;
 

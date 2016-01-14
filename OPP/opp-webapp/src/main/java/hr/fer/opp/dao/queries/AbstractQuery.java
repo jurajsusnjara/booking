@@ -1,11 +1,11 @@
-package hr.fer.opp.dao.jpa.queries;
+package hr.fer.opp.dao.queries;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.fer.opp.dao.jpa.queries.AbstractQuery.Pair;
-
 import javax.persistence.Query;
+
+import hr.fer.opp.dao.queries.AbstractQuery.Pair;
 
 public abstract class AbstractQuery {
 	String entityName;
