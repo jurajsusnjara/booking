@@ -29,6 +29,16 @@ public class Rezervacija implements Serializable {
 	private boolean parking;
 	private boolean satelitskaTV;
 	private boolean internet;
+	private boolean potvrda;
+	
+	@Column
+	public boolean isPotvrda() {
+		return potvrda;
+	}
+	
+	public void setPotvrda(boolean potvrda) {
+		this.potvrda = potvrda;
+	}
 	
 	@Id
 	@ManyToOne

@@ -48,6 +48,9 @@ public class RezervacijaController extends HttpServlet{
 		rezervacija.setParking(true);
 		rezervacija.setInternet(true);
 		rezervacija.setSatelitskaTV(true);
+		Korisnik k = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(k.getKorisnikID());
+		korisnik.getRezervacije().add(rezervacija);
 		
 		DAOProvider.getDAO().putRezervacija(rezervacija);
 		

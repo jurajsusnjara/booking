@@ -21,7 +21,16 @@
     margin-top: 50px;
     width: 50%;
 }
-</style>
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table, th, td {
+    
+    border-collapse: collapse;
+}
+</style> 
+
        
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
@@ -44,12 +53,31 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
     $(document).ready(function() {
-        $("#zatvoriFiltriranje").click(function() {
+    	$("#filtriranje").hide();
+        $("#password").hide();
+        $("#rezervacija").hide();
+        
+    	$("#otvoriFiltriranje").click(function() {
+            $("#filtriranje").show();
+            $("#password").hide();
+            $("#rezervacija").hide();
+        });
+        $("#zatvori").click(function() {
+            $("#filtriranje").hide();
+            $("#password").hide();
+            $("#rezervacija").hide();
+        });
+        $("#otvoriPassword").click(function() {
+            $("#password").show();
+            $("#filtriranje").hide();
+            $("#rezervacija").hide();
+        });
+        $("#otvoriRezervacije").click(function() {
+            $("#rezervacija").show();
+            $("#password").hide();
             $("#filtriranje").hide();
         });
-        $("#otvoriFiltriranje").click(function() {
-            $("#filtriranje").show();
-        });
+        
     });
 </script>
    
@@ -60,7 +88,7 @@
  <h2>Podatci o korisniku</h2>
  <hr>
  <br>    
-  <table class="table table-striped">
+  <table class="table table-striped" id="t">
     <thead>
       <tr>
         <th>Korisnicko ime</th>
@@ -104,8 +132,13 @@
 
     <div class="container topmargin">
         <button name="button" class="btn btn-default" id="otvoriFiltriranje">Promijenite korisnicke postavke</button>
-        <button name="button" class="btn btn-default" id="zatvoriFiltriranje">Zatvori</button>
-        <form  action="" class="form-horizontal" method="post" id="filtriranje">
+        <button name="button" class="btn btn-default" id="otvoriPassword">Promijeni lozinku</button>
+        <button name="button" class="btn btn-default" id="otvoriRezervacije">Pogledaj rezervacije</button>
+        <button name="button" class="btn btn-default" id="zatvori">Zatvori</button>
+        
+        <p> </p>
+        
+        <form action="" class="form-horizontal" method="post" id="filtriranje">
            
            
             <div class="form-group">
@@ -196,6 +229,82 @@
        
            
         </form>
+        
+        <form  action="" class="form-horizontal" method="post" id="password">
+           
+           
+            <div class="form-group">
+                <label class="col-md-4 control-label">Stara lozinka</label>
+                    <div class="col-md-4">
+                        <div class="input-group input-append date" id="dateRangePickerFrom">
+                            <input type="password" name="staraLozinka"class="form-control" placeholder="Stara lozinka" size="50"><br>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="col-md-4 control-label">Nova lozinka</label>
+                    <div class="col-md-4">
+                        <div class="input-group input-append date" id="dateRangePickerFrom">
+                            <input type="password" name="novaLozinka1"class="form-control" placeholder="Nova lozinka" size="50"><br>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="col-md-4 control-label">Ponovi novu lozinku</label>
+                    <div class="col-md-4">
+                        <div class="input-group input-append date" id="dateRangePickerFrom">
+                            <input type="password" name="novaLozinka2"class="form-control" placeholder="Nova lozinka" size="50"><br>
+                    </div>
+                </div>
+            </div>
+           
+            <c:if test="${error != null}">
+                <div class="greska"><c:out value="${error}"/></div>
+            </c:if>
+            <!-- Buttons -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="signup"></label>
+                    <div class="col-md-4">
+                        <button  type="submit" name="method" value="promijeniSifru" class="btn btn-success" value="promijeniPodatke">Promijeni</button>
+                        
+                        <button id="reset" type="reset" name="reset" class="btn btn-warning">Resetiraj unesene promjene</button>
+
+                    </div>
+                </div>
+       
+           
+        </form>
+        
+        <form  action="" class="form-horizontal" method="post" id="rezervacija">
+
+        	<table id="t1" style="border: 1px solid black; width:70%;">
+  				<tr style="border: 1px solid black;">
+  					<th style="border: 1px solid black;"> Apartman</th>
+    				<th style="border: 1px solid black;"> Rezervirano od</th>
+    				<th style="border: 1px solid black;"> Rezervirano do</th>		
+  				</tr>
+  				
+  				<c:forEach var="r" items="${rezervacije}">
+        	
+        			<tr>
+    					<td style="border: 1px solid black;"> ${r.apartman.nazivApartman }</td>
+    					<td style="border: 1px solid black;"> ${r.rezerviranoOd }</td>		
+    					<td style="border: 1px solid black;"> ${r.rezerviranoDo }</td>
+    					<td style="border: 1px solid white;"> <a class="btn" href="korisnik/rezervacija/${r.apartman.apartmanID }">Promijeni</a></td>
+  					</tr>
+        	
+        		</c:forEach>
+  				
+        		
+        	</table>
+           
+       
+           
+        </form>
+        
+        
     </div>
      
    

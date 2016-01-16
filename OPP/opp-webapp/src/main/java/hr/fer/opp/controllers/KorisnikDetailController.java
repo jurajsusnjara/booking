@@ -1,12 +1,16 @@
 package hr.fer.opp.controllers;
 
+import hr.fer.opp.dao.DAO;
 import hr.fer.opp.dao.DAOProvider;
 import hr.fer.opp.model.Adresa;
 import hr.fer.opp.model.Korisnik;
+import hr.fer.opp.model.OpisApartmana;
 import hr.fer.opp.model.Rezervacija;
 import hr.fer.opp.viewModels.KorisnikDetailViewModel;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Properties;
 
@@ -29,16 +33,13 @@ public class KorisnikDetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
 		
-		//ovo je za testiranje
-		req.getSession().setAttribute("korisnik", korisnik);
-		
-		
-		if (korisnik == null) {
+		if (korisnikPom == null) {
 			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikPom.getKorisnikID());
 		String info = req.getPathInfo();
 		//List<Rezervacija> rezervacije = korisnik.getRezervacije();
 		if (info != null) {
@@ -47,14 +48,18 @@ public class KorisnikDetailController extends HttpServlet{
 				throw new RuntimeException("Invalid url!");
 			}
 			try {
-				int apartmanId = Integer.parseInt(elements[1]);
-				req.setAttribute("rezervacija", KorisnikDetailViewModel.getRezervacijaFor(
-						korisnik, apartmanId));
+				Integer.parseInt(elements[1]);
 			} catch (NumberFormatException e) {
 				throw new RuntimeException("Invalid url!");
 			}
+			int apartmanId = Integer.parseInt(elements[1]);
+			req.setAttribute("rezervacija", KorisnikDetailViewModel.getRezervacijaFor(
+					korisnik, apartmanId));
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnikRezervacija.jsp").forward(req, resp);
+			return;
 		}
 		
+		req.setAttribute("rezervacije", korisnik.getRezervacije());
 		req.setAttribute("korisnik", korisnik);
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
 	}
@@ -69,8 +74,12 @@ public class KorisnikDetailController extends HttpServlet{
 			promijeniPodatke(req, resp);
 		} else if (method.equals("promijeniSifru")) {
 			promijeniSifru(req, resp);
+			resp.sendRedirect("/opp-webapp/registracija");
+			return;
 		} else if (method.equals("posaljiMolbuZaPromijenu")) {
 			posaljiMolbuZaPromijenu(req, resp);
+			resp.sendRedirect("/opp-webapp/korisnik");
+			return;
 		}
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
 	}
@@ -141,10 +150,11 @@ public class KorisnikDetailController extends HttpServlet{
 	}
 	
 	private void promijeniSifru(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Korisnik korisnik = (Korisnik) req.getAttribute("korisnik");
-		String staraSifra = req.getParameter("staraSifra");
-		String novaSifra1 = req.getParameter("novaSifra1");
-		String novaSifra2 = req.getParameter("novaSifra2");
+		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikPom.getKorisnikID());
+		String staraSifra = req.getParameter("staraLozinka");
+		String novaSifra1 = req.getParameter("novaLozinka1");
+		String novaSifra2 = req.getParameter("novaLozinka2");
 		
 		if (!checkPassword(korisnik, staraSifra)) {
 			req.setAttribute("error", "Neispravna stara sifra!");
@@ -156,21 +166,96 @@ public class KorisnikDetailController extends HttpServlet{
 			return;
 		}
 		
+		String lozinka = hashLozinka(novaSifra1);
+	
+		korisnik.setLozinka(lozinka);
+		
+		req.getSession().removeAttribute("korisnik");
 		// TODO
 		//KorisnikDetailViewModel.changePassword(korisnik, novaSifra1);
 		
 	}
 	
-	private void posaljiMolbuZaPromijenu(HttpServletRequest req, HttpServletResponse resp) {
+	private String hashLozinka(String novaSifra1) {
+		MessageDigest messageDigest = null;
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		messageDigest.update(novaSifra1.getBytes());
+		return new String(messageDigest.digest());
+	}
+
+
+	private void posaljiMolbuZaPromijenu(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikPom.getKorisnikID());
+		String info = req.getPathInfo();
+		String elements[] = info.substring(1).split("/");
+		int apartmanID = Integer.parseInt(elements[1]);
+			
+		String rezerviranoOd = req.getParameter("rezerviranoOd"); //2016-01-06
+		String rezerviranoDo = req.getParameter("rezerviranoDo");
+		boolean parking = getBoolean(req.getParameter("parking"));
+		boolean internet = getBoolean(req.getParameter("internet"));
+		boolean satelitskaTV = getBoolean(req.getParameter("satelitskaTV"));
+		String odrasi = req.getParameter("odrasli");
+		String godina8_14 = req.getParameter("godina8_14");
+		String godina2_7 = req.getParameter("godina2_7");
+		String godina0_1= req.getParameter("godina0_1");
+		int broj;
+		Rezervacija rezervacija = KorisnikDetailViewModel.getRezervacijaFor(korisnik, apartmanID);
+		if (rezerviranoOd.equals("") || rezerviranoDo.equals("")) {
+			errorRezervacija(req, resp, rezervacija, "Niste unijeli sve parametre!");
+			return;
+		}
+		try {
+			broj = Integer.parseInt(odrasi) + Integer.parseInt(godina0_1) + 
+					Integer.parseInt(godina2_7) + Integer.parseInt(godina8_14);
+		} catch (Exception e) {
+			errorRezervacija(req, resp, rezervacija, "Krivi unos!");
+			return;
+		}
+		
+		OpisApartmana opis = DAOProvider.getDAO().getApartmanFor(apartmanID).getOpisApartmana();
+		if (broj > opis.getMaxBroj()) {
+			errorRezervacija(req, resp, rezervacija, "Previse osoba!");
+			return;
+		}
+		if (broj < opis.getMinBroj()) {
+			errorRezervacija(req, resp, rezervacija, "Premalo osoba!");
+			return;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("KorisnikID: " + korisnik.getKorisnikID() + " htio bi promijeniti"
+       		 + "rezervaciju za apartman: " + apartmanID + " , od datuma: "
+       		 + rezerviranoOd + ", do datuma: "  + rezerviranoDo);
+		if (parking) {
+			sb.append(", sa parkingom");
+		}
+		if (internet) {
+			sb.append(", sa internetom");
+		}
+		if (satelitskaTV) {
+			sb.append(", sa satelitskimTV-om");
+		}
+		
+		sb.append(", odrasli: " + odrasi + ", djeca(8-14): " + godina8_14 + 
+				", djeca(2-7): " + godina2_7 + ", djeca(0-1): " + godina0_1);
 		
 		for (Korisnik admin : KorisnikDetailViewModel.getAdministrators()) {
-			sendEmail(admin.getEmail(), req);
+			sendEmail(admin.getEmail(), req, korisnik, sb.toString());
 		}
 	}
 
-	private void sendEmail(String emailTo, HttpServletRequest req) {
+	
 
-	 /*     String from = rezervacija.getKorisnik().getEmail();
+
+	private void sendEmail(String emailTo, HttpServletRequest req, Korisnik korisnik, String poruka) {
+
+	      String from = korisnik.getEmail();
 
 	      // Assuming you are sending email from localhost
 	      String host = "localhost";
@@ -198,9 +283,7 @@ public class KorisnikDetailController extends HttpServlet{
 	         message.setSubject("Promijena rezervacije");
 
 	         // Now set the actual message
-	         message.setText("KorisnikID: " + rezervacija.getKorisnik().getKorisnikID() + " htio bi promijenit"
-	        		 + "rezervaciju za apartman: " + rezervacija.getApartman().getApartmanID() + " , od datuma: "
-	        		 + rezervacija.getRezerviranoOd() + ", do datuma: "  + rezervacija.getRezerviranoDo());
+	         message.setText(poruka);
 
 	         // Send message
 	         Transport.send(message);
@@ -208,13 +291,15 @@ public class KorisnikDetailController extends HttpServlet{
 	      }catch (MessagingException mex) {
 	         mex.printStackTrace();
 	      }
-		*/
+		
 	}
 
 	private boolean checkPassword(Korisnik korisnik, String sifra) {
+		sifra = hashLozinka(sifra);
+		
 		List<Korisnik> listaSvihKorisnika = DAOProvider.getDAO().getAllKorisnik();
 		for (Korisnik tmpKorisnik : listaSvihKorisnika) {
-			if (tmpKorisnik.getEmail().equals(korisnik.getIme())) {
+			if (tmpKorisnik.getEmail().equals(korisnik.getEmail())) {
 				if (tmpKorisnik.getLozinka().equals(sifra)) {
 					return true;
 				}
@@ -255,6 +340,31 @@ public class KorisnikDetailController extends HttpServlet{
 			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
 		} catch (ServletException e) {
 			e.printStackTrace();
+		}
+		
+	}
+	
+	private void errorRezervacija(HttpServletRequest req,
+			HttpServletResponse resp, Rezervacija rezervacija, String message) throws IOException {
+		req.setAttribute("error", message);
+		try {
+			req.setAttribute("rezervacija", rezervacija);
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnikRezervacija.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private boolean getBoolean(String parameter) {
+		if (parameter == null) return false;
+		int bool = Integer.parseInt(parameter);
+		if (bool == 0) {
+			return false;
+		} else if (bool == 1){
+			return true;
+		} else {
+			throw new IllegalArgumentException();
 		}
 		
 	}

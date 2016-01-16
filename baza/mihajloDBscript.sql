@@ -140,7 +140,10 @@ DROP TABLE IF EXISTS `mihajloDB`.`Gost` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Gost` (
   `gostID` INT NOT NULL AUTO_INCREMENT,
-  `brojGodina` TINYINT(10) NOT NULL,
+  `godina0_1` TINYINT(10) NOT NULL,
+  `godina2_7` TINYINT(10) NOT NULL,
+  `godina8_14` TINYINT(10) NOT NULL,
+  `odrasli` TINYINT(10) NOT NULL,
   PRIMARY KEY (`gostID`))
 ENGINE = InnoDB;
 
@@ -160,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `mihajloDB`.`Rezervacija` (
   `parking` TINYINT(1) NOT NULL,
   `internet` TINYINT(1) NOT NULL,
   `satelitskaTV` TINYINT(1) NOT NULL,
+  `potvrda` TINYINT(1) NOT NULL,
   PRIMARY KEY (`apartmanID`, `gostID`, `korisnikID`),
   INDEX `gostID_idx` (`gostID` ASC),
   INDEX `korisnikID_idx` (`korisnikID` ASC),
