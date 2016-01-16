@@ -85,7 +85,7 @@ table, th, td {
     <body>
    
 <div class="container" id="korisnikDetails">
- <h2>Podatci o korisniku</h2>
+ <h2>Podaci o korisniku</h2>
  <hr>
  <br>    
   <table class="table table-striped" id="t">
@@ -129,10 +129,10 @@ table, th, td {
   </table>
 </div>
  
-
+	
     <div class="container topmargin">
-        <button name="button" class="btn btn-default" id="otvoriFiltriranje">Promijenite korisnicke postavke</button>
-        <button name="button" class="btn btn-default" id="otvoriPassword">Promijeni lozinku</button>
+        <button name="button" class="btn btn-default" id="otvoriFiltriranje">Promjenite korisnicke postavke</button>
+        <button name="button" class="btn btn-default" id="otvoriPassword">Promjeni lozinku</button>
         <button name="button" class="btn btn-default" id="otvoriRezervacije">Pogledaj rezervacije</button>
         <button name="button" class="btn btn-default" id="zatvori">Zatvori</button>
         
@@ -296,19 +296,12 @@ table, th, td {
   					</tr>
         	
         		</c:forEach>
-  				
-        		
+  				 		
         	</table>
-           
-       
-           
+          
         </form>
         
-        
     </div>
-     
-   
-       
  
     </body>
    

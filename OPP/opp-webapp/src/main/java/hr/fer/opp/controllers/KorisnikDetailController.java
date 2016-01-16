@@ -229,69 +229,64 @@ public class KorisnikDetailController extends HttpServlet{
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("KorisnikID: " + korisnik.getKorisnikID() + " htio bi promijeniti"
-       		 + "rezervaciju za apartman: " + apartmanID + " , od datuma: "
+		sb.append("Korisnik: " + korisnik.getIme() + " " + korisnik.getPrezime() +
+				", id:" + korisnik.getKorisnikID() + " htio bi promijeniti "
+       		 + "rezervaciju za apartman id: " + apartmanID + " , od datuma: "
        		 + rezerviranoOd + ", do datuma: "  + rezerviranoDo);
 		if (parking) {
-			sb.append(", sa parkingom");
+			sb.append(", sa ukljucenim parkingom");
 		}
 		if (internet) {
-			sb.append(", sa internetom");
+			sb.append(", sa ukljucenim internetom");
 		}
 		if (satelitskaTV) {
-			sb.append(", sa satelitskimTV-om");
+			sb.append(", sa ukljucenim satelitskimTV-om");
 		}
 		
 		sb.append(", odrasli: " + odrasi + ", djeca(8-14): " + godina8_14 + 
 				", djeca(2-7): " + godina2_7 + ", djeca(0-1): " + godina0_1);
 		
 		for (Korisnik admin : KorisnikDetailViewModel.getAdministrators()) {
-			sendEmail(admin.getEmail(), req, korisnik, sb.toString());
+			sendEmail(admin.getEmail(), req, sb.toString());
 		}
 	}
 
 	
 
 
-	private void sendEmail(String emailTo, HttpServletRequest req, Korisnik korisnik, String poruka) {
+	private void sendEmail(String emailTo, HttpServletRequest req, String poruka) {
 
-	      String from = korisnik.getEmail();
+		final String username = "mihajlo.info@gmail.com";
+		final String password = "mihajlo7";
 
-	      // Assuming you are sending email from localhost
-	      String host = "localhost";
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-	      // Get system properties
-	      Properties properties = System.getProperties();
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
 
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("from-email@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(emailTo));
+			message.setSubject("Promijena rezervacije!");
+			message.setText(poruka);
 
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
+			Transport.send(message);
 
-	      try{
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
+			System.out.println("Email send!");
 
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
-
-	         // Set Subject: header field
-	         message.setSubject("Promijena rezervacije");
-
-	         // Now set the actual message
-	         message.setText(poruka);
-
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
-		
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private boolean checkPassword(Korisnik korisnik, String sifra) {
