@@ -323,4 +323,17 @@ public class JPADAOImpl implements DAO {
 		
 		return gosti;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Rezervacija> getAllRezervacija() {
+
+		EntityManager em = JPAEMProvider.getEntityManager();
+		
+		List<Rezervacija> gosti = null;
+		gosti = (List<Rezervacija>) em.createQuery(
+				"select r from Rezervacija r").getResultList();
+		
+		return gosti;
+	}
 }
