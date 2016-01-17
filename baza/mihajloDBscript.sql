@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `mihajloDB`.`Fotografija` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Fotografija` (
   `fotoID` INT NOT NULL AUTO_INCREMENT,
-  `fotoDatoteka` VARCHAR(50) NOT NULL,
+  `fotoDatoteka` VARCHAR(300) NOT NULL,
   `opisID` INT NULL,
   PRIMARY KEY (`fotoID`),
   INDEX `opisID_idx` (`opisID` ASC),
