@@ -33,7 +33,7 @@ public class VlasnikController extends HttpServlet{
 		obj.setNazivObjekt("objekt xxx");
 		VlasnikModelView.changeObjekt(obj, 3); */
 		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
-		if (korisnik.getUloga() != 3) {
+		if (korisnik == null || korisnik.getUloga() != 3) {
 			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
