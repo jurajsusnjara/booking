@@ -152,7 +152,7 @@ html, body{
 <div id="divPosition">
         <div id="inside" style="background-image: url('${objekt.getFotografija()}')">
             <div id="objectText">
-                <a id="urlColorWhite" href="/opp-webapp/objekt?ime=${objekt.getNazivObjekt()}">${objekt.getNazivObjekt()}</a>
+                <a id="urlColorWhite" href="/opp-webapp/objekt?id=${objekt.getObjektID()}">${objekt.getNazivObjekt()}</a>
             </div>
   </div>
 </div>

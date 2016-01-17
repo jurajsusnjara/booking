@@ -35,11 +35,11 @@ public class PretrazivanjeObjektaController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String imeObjekta = request.getParameter("ime");
+		Integer id = Integer.parseInt(request.getParameter("id"));
 
 		List<Objekt> listaObjekata = DAOProvider.getDAO().getAllObjekt();
 		for (Objekt tmpObjekt : listaObjekata) {
-			if (tmpObjekt.getNazivObjekt().equals(imeObjekta)) {
+			if (tmpObjekt.getObjektID().equals(id)) {
 				trazeniObjekt = tmpObjekt;
 				break;
 			}

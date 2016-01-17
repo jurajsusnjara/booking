@@ -60,6 +60,7 @@ public class RezervacijaController extends HttpServlet{
 		List<Date> slobodniDani = getList(rezervacije);
 		
 		req.setAttribute("slobodniDani", slobodniDani);
+		req.setAttribute("apartman", DAOProvider.getDAO().getApartmanFor(apartmanID));
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/rezervacija.jsp").forward(req, resp);
 	}
 	
@@ -73,7 +74,7 @@ public class RezervacijaController extends HttpServlet{
 	}
 
 	//dobije rezervacije koje vrijede
-	private List<Date> getList(List<Rezervacija> rezervacije) {
+	public static List<Date> getList(List<Rezervacija> rezervacije) {
 		Date trenutniDatum = new Date();
 		int godina = Calendar.getInstance().get(Calendar.YEAR);
 		

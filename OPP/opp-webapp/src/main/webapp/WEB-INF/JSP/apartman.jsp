@@ -32,12 +32,12 @@
 
 #positionCenter{
 	margin: 0 auto;
-	height: 500px;
+	height: 400px;
 	widht: 960px;
 }
 
 #apartman{
-	height: 400px;
+	height: 200px;
 	width: 500px;
 	margin: 0 auto;
 }
@@ -63,15 +63,36 @@
     text-decoration: none;
 }
 
-.topmargin{
-	margin-top: 100px;
-}
 
 #pojedinaSlika{
-	width: 420px;
-	height: 340x;
+	width: 160px;
+	height: 100x;
 	margin: 0 auto;
-	
+	float: left;
+}
+
+.thumbnails img {
+	height: 80px;
+	border: 4px solid #555;
+	padding: 1px;
+	margin: 0 10px 10px 0;
+}
+
+.thumbnails img:hover {
+	border: 4px solid #00ccff;
+	cursor:pointer;
+}
+
+.preview img {
+	border: 4px solid #444;
+	padding: 1px;
+	width: 800px;
+}
+
+#imgContainer{
+	height: 100px;
+	width: 800px;
+	margin: 0 auto;
 }
 
 </style>
@@ -101,8 +122,7 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 
 <title>${apartman.getNazivApartman()}</title>
@@ -111,41 +131,50 @@
 <body>
 
 <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      	<p class="navbar-brand" id="logoshaddow"><b><a id="logoUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
-      	 	
-    </div>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<p class="navbar-brand">
+      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
+				</p>
+			</div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
-      <ul class="nav navbar-nav navbar-left">
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
-        <c:choose>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+
+				<ul class="nav navbar-nav navbar-left">
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<c:choose>
 						<c:when test="${sessionScope.korisnik != null}">
-							<li><a href="/opp-webapp/odjava">Odjava:
-									${sessionScope.korisnik.getIme()}</a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
 						</c:when>
 						<c:otherwise>
-							<li><a href="/opp-webapp/registracija">Prijava/Registracija</a></li>
+							<li><a href="/opp-webapp/registracija">Prijava/registrcija</a></li>
 
 						</c:otherwise>
 					</c:choose>
-       </ul>
-    </div>
-  </div>
-</nav>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
 
 <div class="container" id="positionCenter">
 	<br>
 	<br>
- <h2 class="topmargin">${apartman.getNazivApartman()} </h2>
- <hr>
+	
+	<div id="headerSplit">
+		 <h2 class="topmargin" style="float: left;">${apartman.getNazivApartman()} </h2>
+		 <span id="btn-login" class="topmargin" style="float: right;"><a href="/opp-webapp/rezervacija?id=${apartman.getApartmanID()}" class="btn btn-primary" value="login">Rezerviraj</a></span>
+	 </div>
+
  <br>    
   <table class="table table-striped">
     <tbody>
+      
       <tr>
         <td>Pogled</td>
         <td>${apartman.getOpisApartmana().getPogled()}</td>
@@ -165,25 +194,30 @@
         <td>${apartman.getOpisApartmana().getMaxBroj()}</td>
         
       </tr>
-      
-      
-      
-      
     </tbody>
 
   </table>
+   <hr>
+   <hr>
   
 </div>
 
-
-<c:forEach items="${apartman.getOpisApartmana().getFotografije()}" var="fotografija">
-	<div id="pojedinaSlika">
-		<img src="${fotografija.getFotoDatoteka()}" alt="Mountain View" style="width: 400px; height: 250px;">
-	
+<div id="imgContainer">
+	<div class="thumbnails" align="center">
+		
+		<c:forEach items="${apartman.getOpisApartmana().getFotografije()}" var="fotografija">
+			<div id="pojedinaSlika">
+				<img onmouseover="preview.src=img${fotografija.getFotoID()}.src" name="img${fotografija.getFotoID()}" src="${fotografija.getFotoDatoteka()}" alt=""/>
+			</div>
+		</c:forEach>
 	</div>
-</c:forEach>
+</div>
 
+<div class="preview" align="center">
+		<img name="preview" src="${apartman.getOpisApartmana().getFotografije().get(0).getFotoDatoteka()}" alt=""/>
+	</div>
 
+	
 
 </body>
 </html>
