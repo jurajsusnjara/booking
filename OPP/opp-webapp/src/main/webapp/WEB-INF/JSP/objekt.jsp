@@ -80,6 +80,10 @@
 	color: grey;
     text-decoration: none;
 }
+
+#filtriranje{
+	display: none;
+}
 </style>
 
 <title>Objekt</title>
@@ -125,7 +129,7 @@
 </head>
 <body>
 
-	 <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
+<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
@@ -155,11 +159,9 @@
 			</div>
 		</div>
 	</nav>
-
 	<div class="container topmargin">
-		<button name="button" class="btn btn-default" id="otvoriFiltriranje">Otvori
-			filtriranje</button>
-		<button name="button" class="btn btn-default" id="zatvoriFiltriranje">Zatvori
+		<button name="button" class="btn btn-primary" id="otvoriFiltriranje">Filtriranje pretrage</button>
+		<button name="button" class="btn btn-danger" id="zatvoriFiltriranje">Zatvori
 			filtriranje</button>
 		<form class="form-horizontal" method="post" id="filtriranje">
 
@@ -192,7 +194,6 @@
 						<div class="input-group input-append date">
 							<b>Datum boravka</b>
 						</div>
-						<hr>
 					</div>
 				</div>
 
@@ -202,9 +203,8 @@
 					<div class="col-md-4">
 						<div class="input-group input-append date"
 							id="dateRangePickerFrom">
-							<input type="text" class="form-control" placeholder="mm/dd/gggg"
-								name="datumOd" /> <span class="input-group-addon add-on"><span
-								class="glyphicon glyphicon-calendar"></span></span>
+							<input type="date" class="form-control" placeholder="mm/dd/gggg"
+								name="datumOd" /> <span class="input-group-addon add-on"></span>
 						</div>
 					</div>
 				</div>
@@ -214,9 +214,8 @@
 					<label class="col-md-4 control-label">Do</label>
 					<div class="col-md-4">
 						<div class="input-group input-append date" id="dateRangePickerTo">
-							<input type="text" class="form-control" placeholder="mm/dd/gggg"
-								name="datumDo" /> <span class="input-group-addon add-on"><span
-								class="glyphicon glyphicon-calendar"></span></span>
+							<input type="date" class="form-control" placeholder="mm/dd/gggg"
+								name="datumDo" /> <span class="input-group-addon add-on"></span>
 						</div>
 					</div>
 				</div>
