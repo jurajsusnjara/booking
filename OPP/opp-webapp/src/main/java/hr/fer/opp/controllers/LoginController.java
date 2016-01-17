@@ -5,9 +5,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -78,10 +88,11 @@ public class LoginController extends HttpServlet {
 		String Drzava = request.getParameter("Drzava");
 		String PostanskiBr = request.getParameter("PostanskiBroj");
 
-//		if (checkNull(Ime, Prezime, Telefon, Email, Lozinka, LozinkaPotvrda, Adresa, Grad, Drzava, PostanskiBr)) {
-//			greska(request, response, "Molimo popunite sve podatke");
-//			return;
-//		}
+		// if (checkNull(Ime, Prezime, Telefon, Email, Lozinka, LozinkaPotvrda,
+		// Adresa, Grad, Drzava, PostanskiBr)) {
+		// greska(request, response, "Molimo popunite sve podatke");
+		// return;
+		// }
 
 		if (!isValidEmailAddress(Email)) {
 			greska(request, response, "Neispravan e-mail");
@@ -92,6 +103,10 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 
+		if (lozinkaManjaOdosam(Lozinka)) {
+			greska(request, response, "Lozinka je prekratka. Molimo upisite lozinku duzu od 8 znakova.");
+			return;
+		}
 		if (lozinkeNisuJednake(Lozinka, LozinkaPotvrda)) {
 			greska(request, response, "Lozinke se ne podudaraju, molimo pazljivo unesite lozinku");
 			return;
@@ -114,10 +129,9 @@ public class LoginController extends HttpServlet {
 
 		Korisnik novi = new Korisnik();
 		novi.setAdresa(adresaObj);
-		// datum pravi
-		Date sad = new Date();
-		sad.setTime(100000000);
-		novi.setDatumReg(sad);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		novi.setDatumReg(date);
 		novi.setIme(Ime);
 		novi.setPrezime(Prezime);
 		novi.setEmail(Email);
@@ -136,8 +150,18 @@ public class LoginController extends HttpServlet {
 
 		DAOProvider.getDAO().putKorisnik(novi);
 		request.getSession().setAttribute("korisnik", novi);
+		sendEmail(Email, request, "Uspjesno ste se registrirali na \" Kod nas je najljepse \" \n" + "Korisnicko ime: "
+				+ Email + "\n" + "Lozinka: " + Lozinka);
 		RequestDispatcher rd = request.getRequestDispatcher("/index");
 		rd.forward(request, response);
+	}
+
+	private boolean lozinkaManjaOdosam(String lozinka) {
+		if (lozinka.length() < 8) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean lozinkeNisuJednake(String lozinka, String lozinkaPotvrda) {
@@ -184,10 +208,10 @@ public class LoginController extends HttpServlet {
 		String sifra = request.getParameter("sifra");
 		request.setAttribute("error", null);
 
-//		if (checkNull(korisnickoIme, sifra)) {
-//			error(request, response, "Upisite lozinku i korisnicko ime");
-//			return;
-//		}
+		// if (checkNull(korisnickoIme, sifra)) {
+		// error(request, response, "Upisite lozinku i korisnicko ime");
+		// return;
+		// }
 
 		if (!isValidEmailAddress(korisnickoIme)) {
 			error(request, response, "Neispravan e-mail");
@@ -236,15 +260,48 @@ public class LoginController extends HttpServlet {
 		return false;
 	}
 
-	private boolean checkNull(String... podaci) {
-		for (String tmp : podaci) {
-			System.out.println(tmp);
-			if (tmp == null || tmp.equals("")) {
+	private void sendEmail(String emailTo, HttpServletRequest req, String poruka) {
 
-				return true;
+		final String username = "mihajlo.info@gmail.com";
+		final String password = "mihajlo7";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
 			}
+		});
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("from-email@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
+			message.setSubject("Registracija uspjesna");
+			message.setText(poruka);
+
+			Transport.send(message);
+
+			System.out.println("Email sent!");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
 		}
-		return false;
 	}
+
+	// private boolean checkNull(String... podaci) {
+	// for (String tmp : podaci) {
+	// System.out.println(tmp);
+	// if (tmp == null || tmp.equals("")) {
+	//
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
 
 }
