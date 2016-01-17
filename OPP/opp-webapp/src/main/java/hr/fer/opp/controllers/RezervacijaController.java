@@ -33,8 +33,8 @@ public class RezervacijaController extends HttpServlet{
 		}
 		
 		Integer apartmanID = null;
-		if (req.getParameter("apartmanID") != null) {
-			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
+		if (req.getParameter("id") != null) {
+			apartmanID = Integer.parseInt(req.getParameter("id"));
 		}
 		
 /*		int apartmanID = 1;
