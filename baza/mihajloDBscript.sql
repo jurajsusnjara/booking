@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `mihajloDB`.`Objekt` ;
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Objekt` (
   `objektID` INT NOT NULL AUTO_INCREMENT,
   `nazivObjekt` VARCHAR(20) NOT NULL,
-  `fotografija` VARCHAR(45),
+  `fotografija` VARCHAR(300),
   PRIMARY KEY (`objektID`))
 ENGINE = InnoDB
 COMMENT = 'Objekt u kojem se nalaze apartmani (smještajne jedinice)';
