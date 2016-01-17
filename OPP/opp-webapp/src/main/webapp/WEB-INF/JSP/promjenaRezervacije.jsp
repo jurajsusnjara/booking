@@ -56,13 +56,24 @@ table, th, td {
 	<% Date d = ((Rezervacija) request.getAttribute("rezervacija")).getRezerviranoDo();%>
    <body onload="setDate(${d})">
     <div class="container">
-    <h1>Rezervacija</h1>
+    <h1>Izmjena rezervacije</h1>
     <hr>
    
-        <form action="" class="form-horizontal" method="post" id="filtriranje">
+        <form action="" class="form-horizontal" method="post">
            
            <br>
            
+           <div class="form-group">
+				<label class="col-md-4 control-label">Odabir apartmana</label>
+				<div class="col-md-4">
+					<select name="apartmani" form="filtriranje" class="form-control">	
+						<c:forEach var="a" items="${apartmani}">
+        					<option value='<c:out value="${a.nazivApartman}"/>'>${a.nazivApartman}</option>
+        				</c:forEach>
+					</select>
+				</div>
+			</div>
+			
             <div class="form-group">
                 <label class="col-md-4 control-label">Rezervirano od</label>
                     <div class="col-md-4">
@@ -134,7 +145,7 @@ table, th, td {
                 <label class="col-md-4 control-label">Broj odraslih</label>
                     <div class="col-md-4">
                         <div class="input-group input-append date" id="dateRangePickerFrom">
-                            <input type="text" name="odrasli"class="form-control" required placeholder="Upisi broj" value='<c:out value="${rezervacija.gost.odrasli}"/>' size="50"><br>
+                            <input type="text" name="odrasli"class="form-control" placeholder="Upisi broj" required value='<c:out value="${rezervacija.gost.odrasli}"/>' size="50"><br>
                     </div>
                 </div>
             </div>
@@ -143,7 +154,7 @@ table, th, td {
                 <label class="col-md-4 control-label">Broj djeca(8-14 godina)</label>
                     <div class="col-md-4">
                         <div class="input-group input-append date" id="dateRangePickerFrom">
-                            <input type="text" name="godina8_14"class="form-control" required placeholder="Upisi broj" value='<c:out value="${rezervacija.gost.godina8_14}"/>' size="50"><br>
+                            <input type="text" name="godina8_14"class="form-control" placeholder="Upisi broj" required value='<c:out value="${rezervacija.gost.godina8_14}"/>' size="50"><br>
                     </div>
                 </div>
             </div>
@@ -152,7 +163,7 @@ table, th, td {
                 <label class="col-md-4 control-label">Broj djeca(2-7 godina)</label>
                     <div class="col-md-4">
                         <div class="input-group input-append date" id="dateRangePickerFrom">
-                            <input type="text" name="godina2_7"class="form-control" required placeholder="Upisi broj" value='<c:out value="${rezervacija.gost.godina2_7}"/>' size="50"><br>
+                            <input type="text" name="godina2_7"class="form-control" placeholder="Upisi broj" required value='<c:out value="${rezervacija.gost.godina2_7}"/>' size="50"><br>
                     </div>
                 </div>
             </div>
@@ -161,7 +172,7 @@ table, th, td {
                 <label class="col-md-4 control-label">Broj djeca(0-1 godina)</label>
                     <div class="col-md-4">
                         <div class="input-group input-append date" id="dateRangePickerFrom">
-                            <input type="text" name="godina0_1"class="form-control" required placeholder="Upisi broj" value='<c:out value="${rezervacija.gost.godina0_1}"/>' size="50"><br>
+                            <input type="text" name="godina0_1"class="form-control" placeholder="Upisi broj" required value='<c:out value="${rezervacija.gost.godina0_1}"/>' size="50"><br>
                     </div>
                 </div>
             </div>
@@ -173,7 +184,7 @@ table, th, td {
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="signup"></label>
                     <div class="col-md-4">
-                        <button  type="submit" name="method" value="posaljiMolbuZaPromijenu" class="btn btn-success" >Promijeni</button>
+                        <button  type="submit" name="method" value="promijeniRezervaciju" class="btn btn-success" >Promijeni</button>
                        
                         <button id="reset" type="reset" name="reset" class="btn btn-warning">Resetiraj unesene promjene</button>
  

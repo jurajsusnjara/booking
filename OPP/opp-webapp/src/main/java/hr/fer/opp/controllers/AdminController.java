@@ -9,6 +9,8 @@ import hr.fer.opp.viewModels.AdminViewModel;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -20,17 +22,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-//http://localhost:8080/opp-webapp/admin?apartmanID=12&gostID=5
+//http://localhost:8080/opp-webapp/admin?apartmanID=12&korisnikID=2
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
 		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
-		if (korisnik.getUloga() != 2) {
+		if (korisnik == null || korisnik.getUloga() != 2) {
 			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
@@ -38,7 +46,6 @@ public class AdminController extends HttpServlet{
 		
 		Integer apartmanID = null;
 		Integer korisnikID = null;
-		Integer gostID = null;
 		
 		if (req.getParameter("apartmanID") != null) {
 			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
@@ -46,27 +53,21 @@ public class AdminController extends HttpServlet{
 		if (req.getParameter("korisnikID") != null) {
 			 korisnikID = Integer.parseInt(req.getParameter("korisnikID"));
 		}
-		if (req.getParameter("gostID") != null) {
-			gostID = Integer.parseInt(req.getParameter("gostID"));
-		}
 		
 		
-		if (apartmanID == null && korisnikID == null && gostID == null) {
+		if (apartmanID == null && korisnikID == null) {
 			List<Rezervacija> rezervacije = AdminViewModel.getAllRezervacija();
 			req.setAttribute("rezervacije", rezervacije);
-			req.getRequestDispatcher("/WEB-INF/JSP/admin.jsp");
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin.jsp").forward(req, resp);
 			return;
 			
-		} else if (apartmanID != null){
-			if (korisnikID != null) {
-				Rezervacija rezervacija = AdminViewModel.getRezervacijaFor(korisnikID.toString(), apartmanID);
-				req.setAttribute("rezervacija", rezervacija);
-			} else if (gostID != null) {
-				Rezervacija rezervacija = AdminViewModel.getRezervacijaFor(gostID, apartmanID);
-				req.setAttribute("rezervacija", rezervacija);
-			} else {
-				throw new RuntimeException("Invalid url!");
+		} else if (apartmanID != null && korisnikID != null){
+			Rezervacija rezervacija = AdminViewModel.getRezervacijaFor(korisnikID.toString(), apartmanID);
+			if (rezervacija == null) {
+				resp.sendRedirect("/opp-webapp/admin");
+				return;
 			}
+			req.setAttribute("rezervacija", rezervacija);
 		} else {
 			throw new RuntimeException("Invalid url!");
 		}
@@ -74,7 +75,7 @@ public class AdminController extends HttpServlet{
 		
 		List<Apartman> apartmani = DAOProvider.getDAO().getAllApartman();
 		req.setAttribute("apartmani", apartmani);
-		req.getRequestDispatcher("/WEB-INF/JSP/promijenaRezervacije.jsp").forward(req, resp);
+		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/promjenaRezervacije.jsp").forward(req, resp);
 	}
 
 
@@ -90,12 +91,11 @@ public class AdminController extends HttpServlet{
 	}
 
 
+	@SuppressWarnings("deprecation")
 	private void promijeniRezervaciju(HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
+			HttpServletResponse resp) throws IOException, ServletException {
 		Integer apartmanID = null;
 		Integer korisnikID = null;
-		Integer gostID = null;
-		boolean korisnik = true;
 		
 		if (req.getParameter("apartmanID") != null) {
 			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
@@ -103,55 +103,68 @@ public class AdminController extends HttpServlet{
 		if (req.getParameter("korisnikID") != null) {
 			 korisnikID = Integer.parseInt(req.getParameter("korisnikID"));
 		}
-		if (req.getParameter("gostID") != null) {
-			gostID = Integer.parseInt(req.getParameter("gostID"));
-			korisnik = false;
-		}
 		//System.out.println(apartmanID + "  " + korisnikID + " " + gostID);
-		if ((gostID == null && korisnikID == null) || apartmanID == null) {
+		if (korisnikID == null || apartmanID == null) {
 			throw new RuntimeException("Invalid url!");
 		}
 		
-		Rezervacija rezervacija;
-		if (korisnik) {
-			rezervacija = AdminViewModel.getRezervacijaFor(korisnikID, apartmanID);
-		} else {
-			rezervacija = AdminViewModel.getRezervacijaFor(gostID, apartmanID);
-		}
+		Rezervacija rezervacija  = AdminViewModel.getRezervacijaFor(korisnikID.toString(), apartmanID);;
+		String rezerviranoOd = req.getParameter("rezerviranoOd");
+		String rezerviranoDo = req.getParameter("rezerviranoDo");
+		boolean parking = false;
+		boolean internet = false;
+		boolean satelitskaTV = false;
+		int id = 0;
 		
+	
+		if (rezerviranoOd.equals("") || rezerviranoDo.equals("")) {
+			req.setAttribute("error", "Nije izabran datum!");
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/promjenaRezervacije.jsp").forward(req, resp);
+			return;
+		}
 		try {
-			DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-			Date rezerviranoOd = format.parse(req.getParameter("rezerviranoOd"));
-			Date rezerviranoDo = format.parse(req.getParameter("rezerviranoDo"));
-			boolean parking = getBoolean(req.getParameter("parking"));
-			boolean internet = getBoolean(req.getParameter("internet"));
-			boolean satelitskaTV = getBoolean(req.getParameter("satelitskaTV"));
-			int id = Integer.parseInt(req.getParameter("izabranApartmanID"));
-			
-			provjeriDostupnost();
-			
-			rezervacija.setApartman(DAOProvider.getDAO().getApartmanFor(id));
-			rezervacija.setInternet(internet);
-			rezervacija.setParking(parking);
-			rezervacija.setRezerviranoDo(rezerviranoDo);
-			rezervacija.setRezerviranoOd(rezerviranoOd);
-			rezervacija.setSatelitskaTV(satelitskaTV);
-			
+			parking = getBoolean(req.getParameter("parking"));
+			internet = getBoolean(req.getParameter("internet"));
+			satelitskaTV = getBoolean(req.getParameter("satelitskaTV"));
+			id = Integer.parseInt(req.getParameter("izabranApartmanID"));
+		
 		} catch (Exception ex) {
 			req.setAttribute("error", "Neispravni parametri!");
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/promjenaRezervacije.jsp").forward(req, resp);
+			return;
+		}
+		Apartman apartman = DAOProvider.getDAO().getApartmanFor(id);
+		
+		if (!provjeriDostupnost(apartman, new Date(rezerviranoOd), new Date(rezerviranoDo))) {
+			req.setAttribute("error", "Neispravni parametri!");
 			try {
-				req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/vlasnik.jsp").forward(req, resp);
+				req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/promjenaRezervacije.jsp").forward(req, resp);
+				return;
 			} catch (ServletException e) {
 				e.printStackTrace();
 			}
 		}
 		
-	
+		rezervacija.setApartman(apartman);
+		rezervacija.setInternet(internet);
+		rezervacija.setParking(parking);
+		rezervacija.setRezerviranoDo(new Date(rezerviranoOd));
+		rezervacija.setRezerviranoOd(new Date(rezerviranoDo));
+		rezervacija.setSatelitskaTV(satelitskaTV);
 	}
 
 
-	private void provjeriDostupnost() {
-		// TODO Auto-generated method stub
+	private boolean provjeriDostupnost(Apartman apartman, Date rezerviranoDo, Date rezerviranoOd) {
+		List<Date> list = RezervacijaController.getList(apartman.getRezervacije());
+		
+		LocalDate start = rezerviranoOd.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate end = rezerviranoDo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(1);
+		for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
+			   if (!list.contains(date)) {
+				   return false;
+			   }
+		}
+		return true;
 		
 	}
 
