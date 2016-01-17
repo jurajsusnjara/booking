@@ -253,7 +253,7 @@
 <hr><hr>
 		
 		<div id="namebox">
-			<a id="apartmanLink"href="/opp-webapp/apartman?ime=${apartman.getNazivApartman()}"><h2><b>${apartman.getNazivApartman()}</b></h2></a>
+			<a id="apartmanLink"href="/opp-webapp/apartman?id=${apartman.getApartmanID()}"><h2><b>${apartman.getNazivApartman()}</b></h2></a>
 		</div>
 		<br>
 		<div id="imgbox">
