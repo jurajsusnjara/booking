@@ -41,6 +41,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("error", null);
 		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request, response);
 	}
 
@@ -63,7 +64,9 @@ public class LoginController extends HttpServlet {
 
 	}
 
-	private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void register(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("greska", null);
 		String Ime = request.getParameter("Ime");
 		String Prezime = request.getParameter("Prezime");
 		String Telefon = request.getParameter("Telefon");
@@ -73,9 +76,35 @@ public class LoginController extends HttpServlet {
 		String Adresa = request.getParameter("Adresa");
 		String Grad = request.getParameter("Grad");
 		String Drzava = request.getParameter("Drzava");
-		Integer PostanskiBroj = Integer.parseInt(request.getParameter("PostanskiBroj"));
-		 
-		 
+		String PostanskiBr = request.getParameter("PostanskiBroj");
+
+		if (checkNull(Ime, Prezime, Telefon, Email, Lozinka, LozinkaPotvrda, Adresa, Grad, Drzava, PostanskiBr)) {
+			greska(request, response, "Molimo popunite sve podatke");
+			return;
+		}
+
+		if (!isValidEmailAddress(Email)) {
+			greska(request, response, "Neispravan e-mail");
+			return;
+		}
+		if (vecPostojiEmail(Email)) {
+			greska(request, response, "Korisnik s tim e-mailom vec postoji, molimo odaberite drugi");
+			return;
+		}
+
+		if (lozinkeNisuJednake(Lozinka, LozinkaPotvrda)) {
+			greska(request, response, "Lozinke se ne podudaraju, molimo pazljivo unesite lozinku");
+			return;
+		}
+
+		Integer PostanskiBroj = null;
+		try {
+			PostanskiBroj = Integer.parseInt(PostanskiBr);
+		} catch (Exception e) {
+			greska(request, response, "Neispravan postanski broj");
+			return;
+		}
+
 		Adresa adresaObj = new Adresa();
 		adresaObj.setAdresa(Adresa);
 		adresaObj.setDrzava(Drzava);
@@ -85,7 +114,7 @@ public class LoginController extends HttpServlet {
 
 		Korisnik novi = new Korisnik();
 		novi.setAdresa(adresaObj);
-		//datum pravi
+		// datum pravi
 		Date sad = new Date();
 		sad.setTime(100000000);
 		novi.setDatumReg(sad);
@@ -99,21 +128,71 @@ public class LoginController extends HttpServlet {
 			e.printStackTrace();
 		}
 		messageDigest.update(Lozinka.getBytes());
-		String lozinka =  new String(messageDigest.digest());
+		String lozinka = new String(messageDigest.digest());
 		novi.setLozinka(lozinka);
 		novi.setTelefon(Telefon);
 		novi.setKorisnikID(Email);
 		novi.setUloga(1);
-		
+
 		DAOProvider.getDAO().putKorisnik(novi);
 		request.getSession().setAttribute("korisnik", novi);
 		RequestDispatcher rd = request.getRequestDispatcher("/index");
 		rd.forward(request, response);
 	}
 
+	private boolean lozinkeNisuJednake(String lozinka, String lozinkaPotvrda) {
+		if (lozinka.equals(lozinkaPotvrda)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private boolean vecPostojiEmail(String email) {
+		List<Korisnik> listaKorisnika = DAOProvider.getDAO().getAllKorisnik();
+		for (Korisnik tmpKorisnik : listaKorisnika) {
+			if (tmpKorisnik.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void greska(HttpServletRequest request, HttpServletResponse response, String string) throws IOException {
+		request.setAttribute("greska", string);
+		try {
+			request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request,
+					response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void error(HttpServletRequest req, HttpServletResponse resp, String message) throws IOException {
+		req.setAttribute("error", message);
+		try {
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String korisnickoIme = request.getParameter("korisnickoIme");
 		String sifra = request.getParameter("sifra");
+		request.setAttribute("error", null);
+
+		if (checkNull(korisnickoIme, sifra)) {
+			error(request, response, "Upisite lozinku i korisnicko ime");
+			return;
+		}
+
+		if (!isValidEmailAddress(korisnickoIme)) {
+			error(request, response, "Neispravan e-mail");
+			return;
+		}
 
 		MessageDigest messageDigest = null;
 		try {
@@ -123,12 +202,19 @@ public class LoginController extends HttpServlet {
 		}
 		messageDigest.update(sifra.getBytes());
 		sifra = new String(messageDigest.digest());
-		request.setAttribute("greska", false);
+		request.setAttribute("greska", null);
 		if (!provjeri(korisnickoIme, sifra, request, response)) {
-			request.setAttribute("greska", true);
+			error(request, response, "Pogresna lozinka/korisnicko ime");
 		} else {
-
+			return;
 		}
+	}
+
+	private boolean isValidEmailAddress(String korisnickoIme) {
+		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+		java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+		java.util.regex.Matcher m = p.matcher(korisnickoIme);
+		return m.matches();
 	}
 
 	private boolean provjeri(String korisnickoIme, String sifra, HttpServletRequest request,
@@ -142,12 +228,22 @@ public class LoginController extends HttpServlet {
 					rd.forward(request, response);
 					return true;
 				} else {
-					request.setAttribute("greska", true);
 					return false;
 				}
 			}
 		}
 		request.setAttribute("greska", true);
+		return false;
+	}
+
+	private boolean checkNull(String... podaci) {
+		for (String tmp : podaci) {
+			System.out.println(tmp);
+			if (tmp == null || tmp.equals("")) {
+
+				return true;
+			}
+		}
 		return false;
 	}
 

@@ -113,8 +113,7 @@
 			<hr>
 		</div>     
 		<div class="panel-body">
-		 <div id="error display" style="color:red"> ${error}
-		 </div>
+		 <div id="error display" style="color:red"> ${error}</div>
 			<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 				<form id="loginform" class="form-horizontal" role="form" method="post">
 					
@@ -161,7 +160,8 @@
 		<div class="panel-heading">
 			<div class="panel-title text-center"><h2>Registracija</h2></div>
 			<hr>
-		</div>     
+		</div>
+		 <div id="error display" style="color:red"> ${greska}</div>     
 		<div class="panel-body">
 			<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 				<form id="loginform" class="form-horizontal" role="form" method="post">
@@ -200,7 +200,7 @@
 				<label>Potvrda lozinke:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="password" class="form-control" name="LonzikaPotvrda" placeholder="Potvrdite lozinku">
+					<input id="login-password" type="password" class="form-control" name="LozinkaPotvrda" placeholder="Potvrdite lozinku">
 				</div>
 				<label></label>
 				<div class="input-group">
