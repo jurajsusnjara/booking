@@ -256,7 +256,7 @@ public class LoginController extends HttpServlet {
 				}
 			}
 		}
-		request.setAttribute("greska", true);
+		error(request,response,"Ne postoji korisnik s tim e-mailom");
 		return false;
 	}
 
