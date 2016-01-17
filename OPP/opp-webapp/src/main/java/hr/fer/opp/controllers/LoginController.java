@@ -103,6 +103,10 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 
+		if (lozinkaManjaOdosam(Lozinka)) {
+			greska(request, response, "Lozinka je prekratka. Molimo upisite lozinku duzu od 8 znakova.");
+			return;
+		}
 		if (lozinkeNisuJednake(Lozinka, LozinkaPotvrda)) {
 			greska(request, response, "Lozinke se ne podudaraju, molimo pazljivo unesite lozinku");
 			return;
@@ -146,10 +150,18 @@ public class LoginController extends HttpServlet {
 
 		DAOProvider.getDAO().putKorisnik(novi);
 		request.getSession().setAttribute("korisnik", novi);
-		sendEmail(Email, request, "Uspješno ste se registrirali na \" Kod nas je najljepse \" \n" + "Korisnicko ime: "
+		sendEmail(Email, request, "Uspjesno ste se registrirali na \" Kod nas je najljepse \" \n" + "Korisnicko ime: "
 				+ Email + "\n" + "Lozinka: " + Lozinka);
 		RequestDispatcher rd = request.getRequestDispatcher("/index");
 		rd.forward(request, response);
+	}
+
+	private boolean lozinkaManjaOdosam(String lozinka) {
+		if (lozinka.length() < 8) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean lozinkeNisuJednake(String lozinka, String lozinkaPotvrda) {
