@@ -35,11 +35,11 @@
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
-			String imeApartmana = request.getParameter("ime");
+			Integer IDApartmana = Integer.parseInt(request.getParameter("id"));
 	
 			List<Apartman> listaApartmana = DAOProvider.getDAO().getAllApartman();
 			for (Apartman tmpApartman : listaApartmana) {
-				if (tmpApartman.getNazivApartman().equals(imeApartmana)) {
+				if (tmpApartman.getApartmanID().equals(IDApartmana)) {
 					trazeniApartman = tmpApartman;
 					break;
 				}
