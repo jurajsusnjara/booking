@@ -78,10 +78,10 @@ public class LoginController extends HttpServlet {
 		String Drzava = request.getParameter("Drzava");
 		String PostanskiBr = request.getParameter("PostanskiBroj");
 
-		if (checkNull(Ime, Prezime, Telefon, Email, Lozinka, LozinkaPotvrda, Adresa, Grad, Drzava, PostanskiBr)) {
-			greska(request, response, "Molimo popunite sve podatke");
-			return;
-		}
+//		if (checkNull(Ime, Prezime, Telefon, Email, Lozinka, LozinkaPotvrda, Adresa, Grad, Drzava, PostanskiBr)) {
+//			greska(request, response, "Molimo popunite sve podatke");
+//			return;
+//		}
 
 		if (!isValidEmailAddress(Email)) {
 			greska(request, response, "Neispravan e-mail");
@@ -184,10 +184,10 @@ public class LoginController extends HttpServlet {
 		String sifra = request.getParameter("sifra");
 		request.setAttribute("error", null);
 
-		if (checkNull(korisnickoIme, sifra)) {
-			error(request, response, "Upisite lozinku i korisnicko ime");
-			return;
-		}
+//		if (checkNull(korisnickoIme, sifra)) {
+//			error(request, response, "Upisite lozinku i korisnicko ime");
+//			return;
+//		}
 
 		if (!isValidEmailAddress(korisnickoIme)) {
 			error(request, response, "Neispravan e-mail");

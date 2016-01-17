@@ -120,13 +120,13 @@
 				<label>Email:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="korisnickoIme" placeholder="Unesite svoj email">
+					<input id="login-password" type="text" class="form-control" name="korisnickoIme" placeholder="Unesite svoj email" required>
 				</div>
 				<br>
 				<label>Lozinka:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="password" class="form-control" name="sifra" placeholder="Unesite Lozinku">
+					<input id="login-password" type="password" class="form-control" name="sifra" placeholder="Unesite Lozinku" required>
 				</div>
 				<br>
 				<div class="input-group col-xs-12 text-center login-action">
@@ -168,7 +168,7 @@
 				<label>Ime:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span>
-					<input id="login-username" type="text" class="form-control" name="Ime" value="" placeholder="Unesite ime"> 
+					<input id="login-username" type="text" class="form-control" name="Ime" value="" placeholder="Unesite ime" required> 
 					<!-- <input id="usernameinput" name="korisnickoime" type="text" class="form-control input-md" value="${forma.korisnickoime}" placeholder="Unesite korisničko ime" aria-describedby="errorstatus"> -->
 					                                       
 				</div>
@@ -176,31 +176,31 @@
 				<label>Prezime:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="Prezime" placeholder="Unesite prezime">
+					<input id="login-password" type="text" class="form-control" name="Prezime" placeholder="Unesite prezime" required>
 				</div>
 				<br>
 				<label>Telefonski broj:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="Telefon" placeholder="Unesite broj telefona">
+					<input id="login-password" type="text" class="form-control" name="Telefon" placeholder="Unesite broj telefona" required>
 				</div>
 				<br>
 				<label>Email adresa:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="Email" placeholder="Unesite email">
+					<input id="login-password" type="text" class="form-control" name="Email" placeholder="Unesite email" required>
 				</div>
 				<br>
 				<label>Lozinka:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="password" class="form-control" name="Lozinka" placeholder="Unesite Lozinku">
+					<input id="login-password" type="password" class="form-control" name="Lozinka" placeholder="Unesite Lozinku" required>
 				</div>
 				<br>
 				<label>Potvrda lozinke:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="password" class="form-control" name="LozinkaPotvrda" placeholder="Potvrdite lozinku">
+					<input id="login-password" type="password" class="form-control" name="LozinkaPotvrda" placeholder="Potvrdite lozinku" required>
 				</div>
 				<label></label>
 				<div class="input-group">
@@ -212,22 +212,22 @@
 				<label>Adresa:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="Adresa" placeholder="Unesite adresu (ulica i postanski broj)">
+					<input id="login-password" type="text" class="form-control" name="Adresa" placeholder="Unesite adresu (ulica i postanski broj)" required>
 				</div>
 				<br><label>Grad:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="Grad" placeholder="Unesite ime grada">
+					<input id="login-password" type="text" class="form-control" name="Grad" placeholder="Unesite ime grada" required>
 				</div>
 				
 				<br><label>Postanski broj:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="PostanskiBroj" placeholder="Unesite postanski broj">
+					<input id="login-password" type="text" class="form-control" name="PostanskiBroj" placeholder="Unesite postanski broj" required>
 				</div>
 				<br>
 				<br><label>Drzava:</label>
-				<select name="Drzava">
+				<select name="Drzava" required>
 <option value="Afganistan">Afghanistan</option>
 <option value="Albania">Albania</option>
 <option value="Algeria">Algeria</option>
