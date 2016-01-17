@@ -140,17 +140,17 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<c:choose>
-						<c:when test="${sessionScope.korisnik != null}">
-							<li><a href="/opp-webapp/odjava">Odjava:
-									${sessionScope.korisnik.getIme()}</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="/opp-webapp/registracija">Prijava/Registracija</a></li>
+        <c:choose>
+				<c:when test="${sessionScope.korisnik != null}">
+				<li><a href="/opp-webapp/odjava">Odjava:
+						${sessionScope.korisnik.getIme()}</a></li>
+				</c:when>
+			<c:otherwise>
+					<li><a href="/opp-webapp/">Pocetna</a></li>
 
-						</c:otherwise>
-					</c:choose>
-				</ul>
+			</c:otherwise>
+		</c:choose>
+       </ul>
 			</div>
 		</div>
 	</nav>

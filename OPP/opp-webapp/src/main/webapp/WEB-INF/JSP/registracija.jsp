@@ -189,13 +189,13 @@
 				<label>Lozinka:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="Lozinka" placeholder="Unesite Lozinku">
+					<input id="login-password" type="password" class="form-control" name="Lozinka" placeholder="Unesite Lozinku">
 				</div>
 				<br>
 				<label>Potvrda lozinke:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="text" class="form-control" name="LonzikaPotvrda" placeholder="Potvrdite lozinku">
+					<input id="login-password" type="password" class="form-control" name="LonzikaPotvrda" placeholder="Potvrdite lozinku">
 				</div>
 				<label></label>
 				<div class="input-group">
@@ -214,13 +214,11 @@
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 					<input id="login-password" type="text" class="form-control" name="Grad" placeholder="Unesite ime grada">
 				</div>
-				<br>
 				<br><label>Drzava:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 					<input id="login-password" type="text" class="form-control" name="Drzava" placeholder="Unesite ime drzave">
 				</div>
-				<br>
 				<br><label>Postanski broj:</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
