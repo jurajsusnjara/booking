@@ -27,14 +27,14 @@ public class RezervacijaController extends HttpServlet{
 			throws ServletException, IOException {
 		
 		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
-		if (korisnik.getUloga() != 1) {
+		if (korisnik == null || korisnik.getUloga() != 1) {
 			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
 		
 		Integer apartmanID = null;
-		if (req.getParameter("apartmanID") != null) {
-			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
+		if (req.getParameter("id") != null) {
+			apartmanID = Integer.parseInt(req.getParameter("id"));
 		}
 		
 /*		int apartmanID = 1;
