@@ -81,11 +81,22 @@ html, body{
   text-shadow: 3px 3px 8px black;
   font-size: 60px;
 }
+
 #sth{
  width: 100%;
  height: 100%;
  margin-top:60px;
 }
+
+#headerUrl{
+	color: gray;
+}
+
+#headerUrl:hover{
+	text-decoration: none;
+	color: #7041f9;
+}
+
 
 </style>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -105,32 +116,37 @@ html, body{
 </head>
 <body>
 
-<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      	<p class="navbar-brand" id="logoshaddow"><b>Kod Nas Je Najljepse</b></p>
-      	 	
-    </div>
+ <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<p class="navbar-brand">
+      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
+				</p>
+			</div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
-      <ul class="nav navbar-nav navbar-left">
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
-        <c:choose>
-        <c:when test="${sessionScope.korisnik != null}">
-        <li>Prijavljen ${sessionScope.korisnik.ime}</li>
-        </c:when>
-        <c:otherwise>
-          <li><a href="/opp-webapp/registracija">Prijava/Registracija</a></li>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
 
-        </c:otherwise>
-        </c:choose>
-       </ul>
-    </div>
-  </div>
-</nav>
+				<ul class="nav navbar-nav navbar-left">
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<c:choose>
+						<c:when test="${sessionScope.korisnik != null}">
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:otherwise>
+							<li><a href="/opp-webapp/registracija">Prijava/registrcija</a></li>
+
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
 <div id="sth" >
 <c:forEach items="${Objekti}" var="objekt"> 
 <div id="divPosition">
