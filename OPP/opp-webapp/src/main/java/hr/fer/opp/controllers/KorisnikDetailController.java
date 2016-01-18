@@ -54,12 +54,12 @@ public class KorisnikDetailController extends HttpServlet{
 				throw new RuntimeException("Invalid url!");
 			}
 			int apartmanId = Integer.parseInt(elements[1]);
-			@SuppressWarnings("unchecked")
-			List<Rezervacija> rezervacije = (List<Rezervacija>) KorisnikDetailViewModel.getRezervacijaFor(korisnik, apartmanId);
-			if (rezervacije == null) {
-				rezervacije = new ArrayList<Rezervacija>();
+			Rezervacija rezervacija = KorisnikDetailViewModel.getRezervacijaFor(korisnik, apartmanId);
+			if (rezervacija == null) {
+				resp.sendRedirect("/opp-webapp/");
+				return;
 			}
-			req.setAttribute("rezervacija", rezervacije);
+			req.setAttribute("rezervacija", rezervacija);
 			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnikRezervacija.jsp").forward(req, resp);
 			return;
 		}
@@ -256,9 +256,6 @@ public class KorisnikDetailController extends HttpServlet{
 		}
 	}
 
-	
-
-
 	private void sendEmail(String emailTo, HttpServletRequest req, String poruka) {
 
 		final String username = "mihajlo.info@gmail.com";
@@ -282,7 +279,7 @@ public class KorisnikDetailController extends HttpServlet{
 			message.setFrom(new InternetAddress("from-email@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(emailTo));
-			message.setSubject("Promijena rezervacije!");
+			message.setSubject("Promjena rezervacije!");
 			message.setText(poruka);
 
 			Transport.send(message);

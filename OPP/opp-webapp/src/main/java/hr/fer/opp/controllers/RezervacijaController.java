@@ -2,9 +2,14 @@ package hr.fer.opp.controllers;
 
 import hr.fer.opp.dao.DAOProvider;
 import hr.fer.opp.model.Korisnik;
+import hr.fer.opp.model.OpisApartmana;
 import hr.fer.opp.model.Rezervacija;
+import hr.fer.opp.viewModels.KorisnikDetailViewModel;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -35,6 +40,9 @@ public class RezervacijaController extends HttpServlet{
 		Integer apartmanID = null;
 		if (req.getParameter("id") != null) {
 			apartmanID = Integer.parseInt(req.getParameter("id"));
+		} else {
+			resp.sendRedirect("/opp-webapp/");
+			return;
 		}
 		
 /*		int apartmanID = 1;
@@ -69,11 +77,15 @@ public class RezervacijaController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		rezerviraj(req, resp);
+		try {
+			rezerviraj(req, resp);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
-	//dobije rezervacije koje vrijede
+	//dobije listu dan koji se mogu rezervirat
 	public static List<Date> getList(List<Rezervacija> rezervacije) {
 		Date trenutniDatum = new Date();
 		int godina = Calendar.getInstance().get(Calendar.YEAR);
@@ -121,8 +133,81 @@ public class RezervacijaController extends HttpServlet{
 		return slobodni;
 	}
 	
-	private void rezerviraj(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+	private void rezerviraj(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
+		Integer apartmanID = null;
+		if (req.getParameter("id") != null) {
+			apartmanID = Integer.parseInt(req.getParameter("id"));
+		}
+		List<Date> slobodniDani = 
+				getList(DAOProvider.getDAO().getReservationsFor(DAOProvider.getDAO().getApartmanFor(apartmanID)));
+		
+		String rezerviranoOd = req.getParameter("rezerviranoOd"); //2016-01-06
+		String rezerviranoDo = req.getParameter("rezerviranoDo");
+		boolean parking = getBoolean(req.getParameter("parking"));
+		boolean internet = getBoolean(req.getParameter("internet"));
+		boolean satelitskaTV = getBoolean(req.getParameter("satelitskaTV"));
+		String odrasi = req.getParameter("odrasli");
+		String godina8_14 = req.getParameter("godina8_14");
+		String godina2_7 = req.getParameter("godina2_7");
+		String godina0_1= req.getParameter("godina0_1");
+		int broj;
+		if (rezerviranoOd.equals("") || rezerviranoDo.equals("")) {
+			errorRezervacija(req, resp, "Niste unijeli datum rezervacije!");
+			return;
+		}
+		try {
+			broj = Integer.parseInt(odrasi) + Integer.parseInt(godina0_1) + 
+					Integer.parseInt(godina2_7) + Integer.parseInt(godina8_14);
+		} catch (Exception e) {
+			errorRezervacija(req, resp, "Krivi unos!");
+			return;
+		}
+		OpisApartmana opis = DAOProvider.getDAO().getApartmanFor(apartmanID).getOpisApartmana();
+		
+		String greska = "Broj osoba treba biti između [" + opis.getMinBroj() + "]."; 
+		if (opis.getMaxBroj() < broj) {
+			errorRezervacija(req, resp, "Unijeli ste previše osoba! " + greska);
+			return;
+		} else if (opis.getMinBroj() > broj) {
+			errorRezervacija(req, resp, "Unijeli ste premalo osoba! " + greska);
+			return;
+		}
+		System.out.println(rezerviranoOd);
+		DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+	//	Date date = formatter.parse("01/29/02");
+		Date dateOd = formatter.parse(rezerviranoOd);
+		Date dateDo = formatter.parse(rezerviranoDo);
+		
+		LocalDate startRezervirano = dateOd.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate endRezervirano = dateDo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(1);
+		
+		for (LocalDate date = startRezervirano; date.isBefore(endRezervirano); date = date.plusDays(1)) {
+			   if (!slobodniDani.contains(date)) {
+				   errorRezervacija(req, resp, "Izabrani datumi su već rezervirani!");
+					return;
+			   }
+		}
+		
+		
+	}
+	
+	private boolean getBoolean(String parameter) {
+		if (parameter == null) return false;
+		int bool = Integer.parseInt(parameter);
+		if (bool == 0) {
+			return false;
+		} else if (bool == 1){
+			return true;
+		} else {
+			throw new IllegalArgumentException();
+		}
+		
+	}
+	
+	private void errorRezervacija(HttpServletRequest req,
+			HttpServletResponse resp, String message) throws IOException, ServletException {
+		req.setAttribute("error", message);
+		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/rezervacija.jsp").forward(req, resp);
 		
 	}
 	

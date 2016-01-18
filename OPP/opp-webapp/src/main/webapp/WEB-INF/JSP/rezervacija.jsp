@@ -13,7 +13,7 @@
 .greska {
 	font-family: fantasy;
 	font-weight: bold;
-	font-size: 0.9em;
+	font-size: 1.5em;
 	color: #FF0000;
 }
 
