@@ -92,7 +92,7 @@ table, th, td {
 				<label class="col-md-4 control-label">Parking</label>
 				<div class="col-md-4">
 					<div class="input-group input-append date" id="dateRangePickerFrom">
-						 <input type="checkbox" name="parking" value="0"> <br>
+						 <input type="checkbox" name="parking"> <br>
 					</div>
 				</div>
 			</div>
@@ -101,7 +101,7 @@ table, th, td {
 				<label class="col-md-4 control-label">Internet</label>
 				<div class="col-md-4">
 					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="checkbox" name="internet" value="0"> <br>
+						<input type="checkbox" name="internet"> <br>
 					</div>
 				</div>
 			</div>
@@ -110,7 +110,7 @@ table, th, td {
 				<label class="col-md-4 control-label">SatelitskaTV</label>
 				<div class="col-md-4">
 					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="checkbox" name="satelitskaTV" value="0"> <br>
+						<input type="checkbox" name="satelitskaTV"> <br>
 					</div>
 				</div>
 			</div>
@@ -166,7 +166,7 @@ table, th, td {
 				<label class="col-md-4 control-label" for="signup"></label>
 				<div class="col-md-4">
 					<button type="submit" name="method" value="rezervirajApartman"
-						class="btn btn-success">Rezerviraj</button>
+						class="btn btn-success" id="spremiPromijene">Rezerviraj</button>
 
 					<button id="reset" type="reset" name="reset"
 						class="btn btn-warning">Resetiraj unesene promjene</button>

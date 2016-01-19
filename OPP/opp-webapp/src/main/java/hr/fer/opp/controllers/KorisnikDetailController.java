@@ -6,6 +6,7 @@ import hr.fer.opp.model.Adresa;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.OpisApartmana;
 import hr.fer.opp.model.Rezervacija;
+import hr.fer.opp.util.Mail;
 import hr.fer.opp.viewModels.KorisnikDetailViewModel;
 
 import java.io.IOException;
@@ -252,42 +253,7 @@ public class KorisnikDetailController extends HttpServlet{
 				", djeca(2-7): " + godina2_7 + ", djeca(0-1): " + godina0_1);
 		
 		for (Korisnik admin : KorisnikDetailViewModel.getAdministrators()) {
-			sendEmail(admin.getEmail(), req, sb.toString());
-		}
-	}
-
-	private void sendEmail(String emailTo, HttpServletRequest req, String poruka) {
-
-		final String username = "mihajlo.info@gmail.com";
-		final String password = "mihajlo7";
-
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		  });
-
-		try {
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("from-email@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(emailTo));
-			message.setSubject("Promjena rezervacije!");
-			message.setText(poruka);
-
-			Transport.send(message);
-
-			System.out.println("Email send!");
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			Mail.sendEmail(admin.getEmail(), sb.toString(), "Promjena rezervacije!");
 		}
 	}
 
