@@ -49,6 +49,8 @@ public interface DAO {
 	
 	List<Gost> getAllGost();
 	
+	List<Rezervacija> getAllRezervacija();
+	
 //	writing in database ******************************************
 	
 	void putObjekt(Objekt objekt);

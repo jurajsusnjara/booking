@@ -11,6 +11,7 @@ import hr.fer.opp.viewModels.KorisnikDetailViewModel;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -53,8 +54,12 @@ public class KorisnikDetailController extends HttpServlet{
 				throw new RuntimeException("Invalid url!");
 			}
 			int apartmanId = Integer.parseInt(elements[1]);
-			req.setAttribute("rezervacija", KorisnikDetailViewModel.getRezervacijaFor(
-					korisnik, apartmanId));
+			@SuppressWarnings("unchecked")
+			List<Rezervacija> rezervacije = (List<Rezervacija>) KorisnikDetailViewModel.getRezervacijaFor(korisnik, apartmanId);
+			if (rezervacije == null) {
+				rezervacije = new ArrayList<Rezervacija>();
+			}
+			req.setAttribute("rezervacija", rezervacije);
 			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnikRezervacija.jsp").forward(req, resp);
 			return;
 		}

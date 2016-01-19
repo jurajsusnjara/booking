@@ -27,7 +27,7 @@ public class RezervacijaController extends HttpServlet{
 			throws ServletException, IOException {
 		
 		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
-		if (korisnik.getUloga() != 1) {
+		if (korisnik == null || korisnik.getUloga() != 1) {
 			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
