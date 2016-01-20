@@ -365,6 +365,11 @@ $(document).ready(function() {
 				</div>
 			</div>
 
+			<c:if test="${error != null}">
+				<div class="greska">
+					<c:out value="${error}" />
+				</div>
+			</c:if>
 
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="signup"></label>
@@ -377,12 +382,6 @@ $(document).ready(function() {
 
 				</div>
 			</div>
-			
-			<c:if test="${error != null}">
-				<div class="col-md-4 col-md-offset-2" id="greska" style="color: red">
-					<c:out value="${error}" />
-				</div>
-			</c:if>
 
 
 		</form>
