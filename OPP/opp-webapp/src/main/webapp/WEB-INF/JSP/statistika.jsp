@@ -174,6 +174,17 @@ table, th, td {
 		
 		<form action="" class="form-horizontal" method="post" id="jedinice">
 		<p>jedinice</p>
+			<c:forEach var="item" items="${jedinice}">
+				<li>
+					${item.naziv}<br>
+					<c:forEach var="date" items="${item.dates}">
+						<li>
+							${date}
+						</li>
+					</c:forEach>
+				</li>
+				<br>
+			</c:forEach>
 		</form>
 		
 		<form action="" class="form-horizontal" method="post" id="usluge">
