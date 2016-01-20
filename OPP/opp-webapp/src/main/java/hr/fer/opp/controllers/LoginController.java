@@ -148,10 +148,12 @@ public class LoginController extends HttpServlet {
 		novi.setKorisnikID(Email);
 		novi.setUloga(1);
 
-		DAOProvider.getDAO().putKorisnik(novi);
-		request.getSession().setAttribute("korisnik", novi);
-		sendEmail(Email, request, "Uspjesno ste se registrirali na \" Kod nas je najljepse \" \n" + "Korisnicko ime: "
-				+ Email + "\n" + "Lozinka: " + Lozinka);
+		// DAOProvider.getDAO().putKorisnik(novi); ipak cekat potvrdu
+		String link = "http://localhost:8080/opp-webapp/potvrda?email=" + Email + "&adrID=" + adresaObj.getAdresaID()
+				+ "&ime=" + Ime + "&prezime=" + Prezime+"&tel="+Telefon;
+		// request.getSession().setAttribute("korisnik", novi);
+		sendEmail(Email, request,
+				"Potvrdite registraciju na \" Kod nas je najljepse \" \n" + "klikom na link: " + link);
 		RequestDispatcher rd = request.getRequestDispatcher("/index");
 		rd.forward(request, response);
 	}
@@ -256,7 +258,7 @@ public class LoginController extends HttpServlet {
 				}
 			}
 		}
-		error(request,response,"Ne postoji korisnik s tim e-mailom");
+		error(request, response, "Ne postoji korisnik s tim e-mailom");
 		return false;
 	}
 
@@ -281,7 +283,7 @@ public class LoginController extends HttpServlet {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("from-email@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
-			message.setSubject("Registracija uspjesna");
+			message.setSubject("Potvrdite registraciju");
 			message.setText(poruka);
 
 			Transport.send(message);
