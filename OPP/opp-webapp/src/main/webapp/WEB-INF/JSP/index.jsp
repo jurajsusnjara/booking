@@ -11,10 +11,10 @@
 <head>
 <style>
 
-#left{
-	float: left;
-	width: 50%;
-	height: 1000px;
+html, body{
+	height: 100%; 
+	padding: 0; 
+	margin: 0; 
 }
 
 .topmargin{
@@ -46,18 +46,18 @@
 	color: #7041f9;
 }
 
+#left{
+	float: left;
+	width: 50%;
+	height: 1000px;
+}
+
 #right{
 	float: right;
 	width: 50%;
 	height: 1000px;
     border-left: 1px solid;	
     border-left-color: #a1b3ec;
-}
-    
-html, body{
-	height: 100%; 
-	padding: 0; 
-	margin: 0; 
 }
 
 #divPosition{
@@ -137,15 +137,14 @@ html, body{
 							
 						</c:when>
 						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/promjenaRezervacije">Promjena rezervacije</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
 						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
 							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							

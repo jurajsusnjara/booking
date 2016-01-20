@@ -89,7 +89,7 @@ table, th, td {
    
 
 
-<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
+ <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
@@ -111,15 +111,14 @@ table, th, td {
 							
 						</c:when>
 						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/promjenaRezervacije">Promjena rezervacije</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
 						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
 							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
@@ -132,12 +131,12 @@ table, th, td {
 					
 					
 					
-			</ul>
+				</ul>
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
    
-    <div class="container">
+    <div class="container topmargin">
     <h1>Izmjena rezervacije</h1>
     <hr>
    
