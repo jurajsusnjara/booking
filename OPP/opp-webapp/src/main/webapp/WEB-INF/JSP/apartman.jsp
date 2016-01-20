@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" session="true"%>
 <%@ page isELIgnored="false"%>
-<%@ page session="true" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -32,12 +32,12 @@
 
 #positionCenter{
 	margin: 0 auto;
-	height: 400px;
+	height: 500px;
 	widht: 960px;
 }
 
 #apartman{
-	height: 200px;
+	height: 400px;
 	width: 500px;
 	margin: 0 auto;
 }
@@ -63,38 +63,43 @@
     text-decoration: none;
 }
 
+.topmargin{
+	margin-top: 100px;
+}
+
+.topmarginBtn{
+	margin-top: 100px;
+}
 
 #pojedinaSlika{
-	width: 160px;
-	height: 100x;
+	width: 420px;
+	height: 340x;
 	margin: 0 auto;
-	float: left;
+	margin-left: 30%;
 }
 
-.thumbnails img {
-	height: 80px;
-	border: 4px solid #555;
-	padding: 1px;
-	margin: 0 10px 10px 0;
+#mj6{
 }
 
-.thumbnails img:hover {
-	border: 4px solid #00ccff;
-	cursor:pointer;
+#mj7{
+display: none;
 }
 
-.preview img {
-	border: 4px solid #444;
-	padding: 1px;
-	width: 800px;
+#mj8{
+display: none;
 }
 
-#imgContainer{
-	height: 100px;
-	width: 800px;
-	margin: 0 auto;
+.tableTd{
+text-align: center;
 }
 
+.slobodan{
+background-color: #ccffcc;
+}
+
+.zauzet{
+background-color: #ffcccc;
+}
 </style>
 
 
@@ -122,15 +127,40 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 
-<title>${apartman.getNazivApartman()}</title>
+<title>${Apartman.getNazivApartman()}</title>
+
+<script>
+	$(document).ready(function() {
+		$("#otvori6mj").click(function() {
+			$("#mj6").show();
+			$("#mj7").hide();
+			$("#mj8").hide();
+		});
+
+		$("#otvori7mj").click(function() {
+			$("#mj7").show();
+			$("#mj6").hide();
+			$("#mj8").hide();
+		});
+
+		$("#otvori8mj").click(function() {
+			$("#mj8").show();
+			$("#mj6").hide();
+			$("#mj7").hide();
+		});
+
+	});
+</script>
+
 </head>
 
 <body>
 
-<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
+ <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
@@ -151,16 +181,16 @@
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -180,61 +210,180 @@
 
 
 <div class="container topmargin" id="positionCenter">
-	<br>
-	<br>
-	
-	<div id="headerSplit">
-		 <h2 class="topmargin" style="float: left;">${apartman.getNazivApartman()} </h2>
-		 <span id="btn-login" class="topmargin" style="float: right;"><a href="/opp-webapp/rezervacija?id=${apartman.getApartmanID()}" class="btn btn-primary" value="login">Rezerviraj</a></span>
-	 </div>
 
+<button name="button" class="btn btn-primary topmarginBtn" id="otvori6mj">Lipanj</button>
+
+<button name="button" class="btn btn-primary topmarginBtn" id="otvori7mj">Srpanj</button>
+
+<button name="button" class="btn btn-primary topmarginBtn" id="otvori8mj">Kolovoz</button>
+	
+	
+<div id="mj6">	
+<br>
+<h1>Lipanj</h1>
+<hr>
+	<table class="table table-bordered">
+		<c:forEach var="i" begin="0" end="4">
+			<tr>
+				<c:forEach var="j" begin="1" end="7">
+			  		<c:choose>
+				        <c:when test="${i*7+j <= 30}">
+				        	<c:choose>
+					        	<c:when test="${i*7+j == 30 || i*7+j == 10 || i*7+j == 3 || i*7+j == 17 || i*7+j == 9}">
+					        		<td class="tableTd slobodan"><c:out value="${i*7+j}"/></td>
+					        	</c:when>
+					        	
+					        	<c:otherwise>
+					        		<td class="tableTd zauzet"><c:out value="${i*7+j}"/></td>
+					        	</c:otherwise>
+				        	</c:choose>
+				        </c:when>
+				        <c:otherwise>
+				        </c:otherwise>
+			        </c:choose>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
+
+<div id="mj7">
+<br>
+<h1>Srpanj</h1>
+<hr>
+	<table class="table table-bordered">
+		<c:forEach var="i" begin="0" end="4">
+			<tr>
+				<c:forEach var="j" begin="1" end="7">
+			  		<c:choose>
+				        <c:when test="${i*7+j <= 31}">
+				        	<c:choose>
+					        	<c:when test="${i*7+j == 26 || i*7+j == 2 || i*7+j == 3 || i*7+j == 12 || i*7+j == 22}">
+					        		<td class="tableTd slobodan"><c:out value="${i*7+j}"/></td>
+					        	</c:when>
+					        	
+					        	<c:otherwise>
+					        		<td class="tableTd zauzet"><c:out value="${i*7+j}"/></td>
+					        	</c:otherwise>
+				        	</c:choose>
+				        </c:when>
+				        <c:otherwise>
+				        </c:otherwise>
+			        </c:choose>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
+
+
+<div id="mj8">
+<br>
+<h1>Kolovoz</h1>
+<hr>
+	<table class="table table-bordered">
+		<c:forEach var="i" begin="0" end="4">
+			<tr>
+				<c:forEach var="j" begin="1" end="7">
+				  		<c:choose>
+					        <c:when test="${i*7+j <= 31}">
+					        	<c:choose>
+					        		<c:when test="${i*7+j == 27 || i*7+j == 15 || i*7+j == 1 || i*7+j == 7 || i*7+j == 25}">
+					        			<td class="tableTd slobodan"><c:out value="${i*7+j}"/></td>
+					        		</c:when>
+					        		
+					        		<c:otherwise>
+					        			<td class="tableTd zauzet"><c:out value="${i*7+j}"/></td>
+					        		</c:otherwise>
+					        	</c:choose>
+					        </c:when>
+					        <c:otherwise>
+					        </c:otherwise>
+				        </c:choose>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
+
+</div>
+
+<div class="container" id="positionCenter">
+	<br>
+	<br>
+ <h2>${Apartman.getNazivApartman()} Ime apartmana</h2>
+ <hr>
  <br>    
   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Naslov</th>
+        <th><b>${apartman.getOpisApartmana().getNaslov()} Naslov</b></th>
+      </tr>
+    </thead>
     <tbody>
-      
       <tr>
         <td>Pogled</td>
-        <td>${apartman.getOpisApartmana().getPogled()}</td>
+        <td>${apartman.getOpisApartmana().getPogled()} More</td>
       </tr>
       <tr>
         <td>Kat</td>
-        <td>${apartman.getOpisApartmana().getKat()}</td>
+        <td>${apartman.getOpisApartmana().getKat()} 5</td>
       </tr>
       <tr>
         <td>Minimalan broj osoba</td>
-        <td>${apartman.getOpisApartmana().getMinBroj()}</td>
+        <td>${apartman.getOpisApartmana().getMinBroj()} 1</td>
         
       </tr>
       
       <tr>
         <td>Maksimalan broj osoba</td>
-        <td>${apartman.getOpisApartmana().getMaxBroj()}</td>
+        <td>${apartman.getOpisApartmana().getMaxBroj()} 5</td>
         
       </tr>
+      
+      <tr>
+        <td>Opis</td>
+        <td>${apartman.getOpisApartmana().getOpis()} wdaawddwawdadwawddwadawdwawddkajhbvruwhakbauebfwhalbvc<br>
+										             usekhbfvkuhrzdjbvuhkrdzbguydhrkfbvuekhdfknvbuadkhfjbvu<br>
+										             wdaawddwawdadwawddwadawdwawddkajhbvruwhakbauebfwhalbvc<br>
+										             usekhbfvkuhrzdjbvuhkrdzbguydhrkfbvuekhdfknvbuadkhfjbvu<br></td>
+        
+      </tr>
+      
+      
     </tbody>
 
   </table>
-   <hr>
-   <hr>
   
 </div>
 
-<div id="imgContainer">
-	<div class="thumbnails" align="center">
-		
-		<c:forEach items="${apartman.getOpisApartmana().getFotografije()}" var="fotografija">
-			<div id="pojedinaSlika">
-				<img onmouseover="preview.src=img${fotografija.getFotoID()}.src" name="img${fotografija.getFotoID()}" src="${fotografija.getFotoDatoteka()}" alt=""/>
-			</div>
-		</c:forEach>
+<!-- 
+<c:forEach items="${apartman.getOpisApartmana().getFotografije()}" var="fotografija">
+	<div id="pojedinaSlika">
+		<img src="${fotografija.getFotoDatoteka()}" alt="Mountain View" style="width: 304px; height: 228px;">
 	</div>
+</c:forEach>
+-->
+
+<div id="pojedinaSlika">
+	<img src="http://www.wallpapereast.com/static/images/Free-Wallpaper-Nature-Scenes_Gg92QQ8.jpg" alt="Mountain View" style="width: 400px; height: 300px; box-shadow: 10px 10px 20px #a5b9ec;">	
 </div>
 
-<div class="preview" align="center">
-		<img name="preview" src="${apartman.getOpisApartmana().getFotografije().get(0).getFotoDatoteka()}" alt=""/>
-	</div>
+<div id="pojedinaSlika">
+<img src="http://www.wallpapereast.com/static/images/Free-Wallpaper-Nature-Scenes_Gg92QQ8.jpg" alt="Mountain View" style="width: 400px; height: 300px; box-shadow: 10px 10px 20px #a5b9ec;">	
+</div>
 
-	
+<div id="pojedinaSlika">
+<img src="http://www.wallpapereast.com/static/images/Free-Wallpaper-Nature-Scenes_Gg92QQ8.jpg" alt="Mountain View" style="width: 400px; height: 300px; box-shadow: 10px 10px 20px #a5b9ec;">	
+</div>
 
+<div id="pojedinaSlika">
+<img src="http://www.wallpapereast.com/static/images/Free-Wallpaper-Nature-Scenes_Gg92QQ8.jpg" alt="Mountain View" style="width: 400px; height: 300px; box-shadow: 10px 10px 20px #a5b9ec;">	
+</div>
+
+<div id="pojedinaSlika">
+<img src="http://www.wallpapereast.com/static/images/Free-Wallpaper-Nature-Scenes_Gg92QQ8.jpg" alt="Mountain View" style="width: 400px; height: 300px; box-shadow: 10px 10px 20px #a5b9ec;">	
+</div>
 </body>
 </html>
