@@ -114,10 +114,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mihajloDB`.`Korisnik` ;
 
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Korisnik` (
-  `korisnikID` VARCHAR(200) NOT NULL,
+  `korisnikID` VARCHAR(45) NOT NULL,
   `ime` VARCHAR(20) NOT NULL,
   `prezime` VARCHAR(20) NOT NULL,
-  `email` VARCHAR(30) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `telefon` VARCHAR(20) NULL,
   `datumReg` DATETIME NOT NULL,
   `lozinka` VARCHAR(45) NOT NULL,
@@ -156,7 +156,7 @@ DROP TABLE IF EXISTS `mihajloDB`.`Rezervacija` ;
 CREATE TABLE IF NOT EXISTS `mihajloDB`.`Rezervacija` (
   `apartmanID` INT NOT NULL,
   `gostID` INT NOT NULL,
-  `korisnikID` VARCHAR(200) NOT NULL,
+  `korisnikID` VARCHAR(45) NOT NULL,
   `datumRezervacije` DATETIME NOT NULL,
   `rezerviranoOd` DATETIME NOT NULL,
   `rezerviranoDo` DATETIME NOT NULL,
