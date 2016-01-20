@@ -204,7 +204,7 @@
 						<div class="input-group input-append date"
 							id="dateRangePickerFrom">
 							<input type="date" class="form-control" placeholder="mm/dd/gggg"
-								name="datumOd" /> <span class="input-group-addon add-on"></span>
+								name="datumOd" value=""/> <span class="input-group-addon add-on"></span>
 						</div>
 					</div>
 				</div>
@@ -215,7 +215,7 @@
 					<div class="col-md-4">
 						<div class="input-group input-append date" id="dateRangePickerTo">
 							<input type="date" class="form-control" placeholder="mm/dd/gggg"
-								name="datumDo" /> <span class="input-group-addon add-on"></span>
+								name="datumDo" value="" /> <span class="input-group-addon add-on"></span>
 						</div>
 					</div>
 				</div>
@@ -225,7 +225,7 @@
 					<label class="col-md-4 control-label" for="signup"></label>
 					<div class="col-md-4">
 						<button id="register" type="submit" name="register"
-							onclick="location.href='/opp-webapp/objekt/'"
+							onclick="location.href='/opp-webapp/objekt?id=${Objekt.getObjektID()}'"
 							class="btn btn-success">Filtriraj</button>
 						<button id="reset" type="reset" name="reset"
 							class="btn btn-warning">Resetiraj filtriranje</button>
