@@ -135,125 +135,70 @@ table, th, td {
 			</div>
 		</div>
 	</nav>
+	
+	
 	<div class="container topmargin">
-		<h1>Apartman "${apartman.nazivApartman }" - rezervacija</h1>
-		<hr>
-
-		<form action="" class="form-horizontal" method="post" id="filtriranje">
-
-			<br>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Datum prijave</label>
-				<div class="col-md-4">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="date" 
-							id="datePicker"
-							name="rezerviranoOd" class="form-control" size="50"><br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Datum odjave</label>
-				<div class="col-md-4">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="date" name="rezerviranoDo" class="form-control" 
-							size="50"><br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Parking</label>
-				<div class="col-md-4">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						 <input type="checkbox" name="parking"> <br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Internet</label>
-				<div class="col-md-4">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="checkbox" name="internet"> <br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">SatelitskaTV</label>
-				<div class="col-md-4">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="checkbox" name="satelitskaTV"> <br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Broj odraslih osoba</label>
-				<div class="col-md-5">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="number" name="odrasli" class="form-control"
-							placeholder="Broj odraslih osoba" size="50" required><br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Broj djece(8-14
-					godina)</label>
-				<div class="col-md-5">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="number" name="godina8_14" class="form-control"
-							placeholder="Broj djece(8-14 godina)" size="50" required><br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Broj djece(2-7 godina)</label>
-				<div class="col-md-5">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="number" name="godina2_7" class="form-control"
-							placeholder="Broj djece(2-7 godina)" size="50" required><br>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Broj djece(0-1 godina)</label>
-				<div class="col-md-5">
-					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="number" name="godina0_1" class="form-control"
-							placeholder="Broj djece(0-1 godina)" size="50" required><br>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="signup"></label>
-				<div class="col-md-4">
-					<button type="submit" name="method" value="rezervirajApartman"
-						class="btn btn-success" id="spremiPromijene">Rezerviraj</button>
-
-					<button id="reset" type="reset" name="reset"
-						class="btn btn-warning">Resetiraj unesene promjene</button>
-
-				</div>
-			</div>
-			
-			<c:if test="${error != null}">
-				<div class="col-md-4 col-md-offset-2" id="greska" style="color: red">
-					<c:out value="${error}" />
-				</div>
-			</c:if>
-
-
-		</form>
-	</div>
-</body>
-
+    <h2>Izmjeni informacije o opisu apartmana</h2>
+    <hr>
+    <form action="" class="form-horizontal" method="post" id="dodajOpisForma">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Objekt</label>
+                <select class="form-control" name="objekt">
+                    <c:forEach items="${objekti}" var="o">
+                        <option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Kat</label>
+                <input type="number" name="kat" class="form-control" value="${opis.kat}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Pogled</label>
+                <select class="form-control" name="pogled">
+                    <option name="pogled" value="suma">Šuma</option>
+                    <option name="pogled" value="more">More</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Minimalan broj ljudi</label>
+                <input type="number" name="minbroj" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Maksimalan broj ljudi</label>
+                <input type="number" name="maxbroj" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Opis apartmana</label>
+                <textarea rows="4" cols="5" name="opis" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Naslov opisa</label>
+                <input type="text" name="naslov" class="form-control" value="${o.naslov}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" id="submitOpis" name="submitOpis" class="btn btn-success">Dodaj opis</button>
+            </div>
+        </div>
+    </form>
+</div>
+	
+	
+ </body>
 </html>
+	

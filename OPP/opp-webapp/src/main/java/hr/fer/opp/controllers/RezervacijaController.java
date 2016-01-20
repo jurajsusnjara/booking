@@ -36,7 +36,7 @@ public class RezervacijaController extends HttpServlet{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static class Datum {
+	public static class Datum {
 		private int dan;
 		private boolean zauzet;
 		

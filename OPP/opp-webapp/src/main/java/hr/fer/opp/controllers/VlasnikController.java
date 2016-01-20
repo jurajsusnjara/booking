@@ -9,6 +9,7 @@ import hr.fer.opp.model.OpisApartmana;
 import hr.fer.opp.viewModels.VlasnikViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -43,39 +44,77 @@ public class VlasnikController extends HttpServlet{
 		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
 		req.setAttribute("objekti", objekti);
 		
-		List<Korisnik> administratori = VlasnikViewModel.getAdministrators();
-		req.setAttribute("administratori", administratori);
+		List<Apartman> apartmani = DAOProvider.getDAO().getAllApartman();
+		List<OpisApartmana> opisi = DAOProvider.getDAO().getAllOpisApartmana();
 		
+		req.setAttribute("apartmani", apartmani);
+		req.setAttribute("opisi", opisi);
+		
+		List<Korisnik> administratori = VlasnikViewModel.getAdministrators();
+		List<Korisnik> sviKorisnici = DAOProvider.getDAO().getAllKorisnik();
+		List<Korisnik> korisnici = new ArrayList<Korisnik>(sviKorisnici);
+		for (Korisnik k : sviKorisnici) {
+			if (k.getUloga() != 1) {
+				korisnici.remove(k);
+			}
+		}
+		req.setAttribute("administratori", administratori);
+		req.setAttribute("brojac", administratori.size());
+		req.setAttribute("korisnici", korisnici);
+		req.setAttribute("slike", DAOProvider.getDAO().getAllFotografija());
 		if (info != null) {
 			String elements[] = info.substring(1).split("/");
 			// ako je url /vlasnik/objekt/:id
-			if (elements[0].equals("objekt")) {
+			
+			if (elements.length == 2 && elements[1].equals("uredi")) {
+				if (req.getParameter("id") == null) {
+					throw new RuntimeException("Invalid url!");
+				}
+				int id;
 				try {
-					Objekt objekt = DAOProvider.getDAO().getObjektFor(Integer.parseInt(elements[1]));
-					req.setAttribute("objekt", objekt);
+					id = Integer.parseInt(req.getParameter("id"));
 				} catch (Exception e) {
 					throw new RuntimeException("Invalid url!");
 				}
 				
-			// ako je url /vlasnik/opis/:id
-			} else if (elements[0].equals("opis")) {
-				try {
-					OpisApartmana opis = DAOProvider.getDAO().getOpisApartmanaFor(Integer.parseInt(elements[1]));
-					req.setAttribute("opis", opis);
-				} catch (Exception e) {
-					throw new RuntimeException("Invalid url!");
-				}
-			} else if (elements[0].equals("apartman")) {
-				try {
-					Apartman apartman = DAOProvider.getDAO().getApartmanFor(Integer.parseInt(elements[1]));
-					req.setAttribute("apartman", apartman);
-				} catch (Exception e) {
-					throw new RuntimeException("Invalid url!");
+				
+				if (elements[0].equals("objekt")) {
+					try {
+						Objekt objekt = DAOProvider.getDAO().getObjektFor(id);
+						req.setAttribute("objekt", objekt);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/uredi/objekt.jsp").forward(req, resp);
+						return;
+					} catch (Exception e) {
+						throw new RuntimeException("Invalid url!");
+					}
+					
+				// ako je url /vlasnik/opis/:id
+				} else if (elements[0].equals("opis")) {
+					try {
+						OpisApartmana opis = DAOProvider.getDAO().getOpisApartmanaFor(id);
+						req.setAttribute("opis", opis);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/uredi/opis.jsp").forward(req, resp);
+						return;
+					} catch (Exception e) {
+						throw new RuntimeException("Invalid url!");
+					}
+				} else if (elements[0].equals("apartman")) {
+					try {
+						Apartman apartman = DAOProvider.getDAO().getApartmanFor(id);
+						req.setAttribute("apartman", apartman);
+						req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/uredi/apartman.jsp").forward(req, resp);
+						return;
+					} catch (Exception e) {
+						throw new RuntimeException("Invalid url!");
+					}
 				}
 			}
+			
 		}
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/vlasnik.jsp").forward(req, resp);
 	}
+	
+	
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -94,7 +133,7 @@ public class VlasnikController extends HttpServlet{
 			obrisiObjekt(req, resp);
 		} else if (method.equals("obrisiOpisApartmana")) {
 			obrisiOpisApartmana(req, resp);
-		} else if (method.equals("obrisiSmjestajnuJedinicu")) {
+		} else if (method.equals("obrisiApartman")) {
 			int apartmanId = Integer.parseInt("apartmanId");
 			obrisiSmjestajnuJedinicu(req, resp, apartmanId);
 		} else if (method.equals("obrisiAdministratora")) {
