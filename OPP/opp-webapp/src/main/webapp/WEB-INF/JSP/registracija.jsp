@@ -42,13 +42,25 @@
     text-shadow: 1px 1px 5px gray;
 }
 
-#logoUrl{
+#urlColorWhite{
+	color: white;
+}
+#urlColorWhite:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+#logoshaddow{
+    text-shadow: 1px 1px 5px gray;
+}
+
+#headerUrl{
 	color: gray;
 }
 
-#logoUrl:hover {
-    color: white;
-    text-decoration: none;
+#headerUrl:hover{
+	text-decoration: none;
+	color: #7041f9;
 }
     
 
@@ -72,38 +84,6 @@
 <title>Registracija</title>
 </head>
 <body>
-
- <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-brand">
-      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
-				</p>
-			</div>
-
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-
-				<ul class="nav navbar-nav navbar-left">
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					<c:choose>
-						<c:when test="${sessionScope.korisnik != null}">
-							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
-							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
-							
-						</c:when>
-						<c:otherwise>
-							<li><a href="/opp-webapp/registracija">Prijava/registrcija</a></li>
-
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
 <div id="left">
 
 <div id="loginbox" class="topmargin mainbox col-md-8  col-sm-8 col-sm-offset-2"> 

@@ -29,14 +29,6 @@
     text-decoration: none;
 }
 
-#right{
-	float: right;
-	width: 50%;
-	height: 1000px;
-    border-left: 1px solid;	
-    border-left-color: #a1b3ec;
-}
-    
 #headershadow{
     box-shadow: 0px 5px 20px gray;
 }
@@ -45,6 +37,23 @@
     text-shadow: 1px 1px 5px gray;
 }
 
+#headerUrl{
+	color: gray;
+}
+
+#headerUrl:hover{
+	text-decoration: none;
+	color: #7041f9;
+}
+
+#right{
+	float: right;
+	width: 50%;
+	height: 1000px;
+    border-left: 1px solid;	
+    border-left-color: #a1b3ec;
+}
+    
 html, body{
 	height: 100%; 
 	padding: 0; 
@@ -88,16 +97,6 @@ html, body{
  margin-top:60px;
 }
 
-#headerUrl{
-	color: gray;
-}
-
-#headerUrl:hover{
-	text-decoration: none;
-	color: #7041f9;
-}
-
-
 </style>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -132,8 +131,22 @@ html, body{
 
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
-						<c:when test="${sessionScope.korisnik != null}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 1}">
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/promjenaRezervacije">Promjena rezervacije</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
+							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -142,6 +155,9 @@ html, body{
 
 						</c:otherwise>
 					</c:choose>
+					
+					
+					
 				</ul>
 			</div>
 		</div>

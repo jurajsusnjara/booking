@@ -12,6 +12,35 @@
 <head>
 
 <style>
+.topmargin{
+	margin-top: 60px;
+}
+
+#urlColorWhite{
+	color: white;
+}
+#urlColorWhite:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+#headershadow{
+    box-shadow: 0px 5px 20px gray;
+}
+
+#logoshaddow{
+    text-shadow: 1px 1px 5px gray;
+}
+
+#headerUrl{
+	color: gray;
+}
+
+#headerUrl:hover{
+	text-decoration: none;
+	color: #7041f9;
+}
+
 #left {
 	float: left;
 	width: 50%;
@@ -29,10 +58,6 @@
 #logoUrl:hover {
     color: white;
     text-decoration: none;
-}
-
-.topmargin {
-	margin-top: 100px;
 }
 
 #leftTablica{
@@ -67,9 +92,6 @@
 	margin: 0 auto;
 }
 
-#headershadow{
-    box-shadow: 0px 5px 20px gray;
-}
 
 #apartmanLink{
 	color:black;
@@ -129,7 +151,7 @@
 </head>
 <body>
 
-<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
+ <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
@@ -145,8 +167,22 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
-						<c:when test="${sessionScope.korisnik != null}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 1}">
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/promjenaRezervacije">Promjena rezervacije</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Dodavanje objekata</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
+							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -155,6 +191,9 @@
 
 						</c:otherwise>
 					</c:choose>
+					
+					
+					
 				</ul>
 			</div>
 		</div>
@@ -204,7 +243,7 @@
 						<div class="input-group input-append date"
 							id="dateRangePickerFrom">
 							<input type="date" class="form-control" placeholder="mm/dd/gggg"
-								name="datumOd" /> <span class="input-group-addon add-on"></span>
+								name="datumOd" value=""/> <span class="input-group-addon add-on"></span>
 						</div>
 					</div>
 				</div>
@@ -215,7 +254,7 @@
 					<div class="col-md-4">
 						<div class="input-group input-append date" id="dateRangePickerTo">
 							<input type="date" class="form-control" placeholder="mm/dd/gggg"
-								name="datumDo" /> <span class="input-group-addon add-on"></span>
+								name="datumDo" value="" /> <span class="input-group-addon add-on"></span>
 						</div>
 					</div>
 				</div>
@@ -225,7 +264,7 @@
 					<label class="col-md-4 control-label" for="signup"></label>
 					<div class="col-md-4">
 						<button id="register" type="submit" name="register"
-							onclick="location.href='/opp-webapp/objekt/'"
+							onclick="location.href='/opp-webapp/objekt?id=${Objekt.getObjektID()}'"
 							class="btn btn-success">Filtriraj</button>
 						<button id="reset" type="reset" name="reset"
 							class="btn btn-warning">Resetiraj filtriranje</button>
