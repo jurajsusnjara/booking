@@ -32,11 +32,12 @@ public class VlasnikController extends HttpServlet{
 		Objekt obj = new Objekt();
 		obj.setNazivObjekt("objekt xxx");
 		VlasnikModelView.changeObjekt(obj, 3); */
-		Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
-		if (korisnik == null || korisnik.getUloga() != 3) {
+		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
+		if (korisnikPom == null || korisnikPom.getUloga() != 3) {
 			resp.sendRedirect("/opp-webapp/");
 			return;
 		}
+		
 		
 		String info = req.getPathInfo();
 		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
@@ -93,7 +94,7 @@ public class VlasnikController extends HttpServlet{
 			obrisiObjekt(req, resp);
 		} else if (method.equals("obrisiOpisApartmana")) {
 			obrisiOpisApartmana(req, resp);
-		} else if (method.equals("")) {
+		} else if (method.equals("obrisiSmjestajnuJedinicu")) {
 			int apartmanId = Integer.parseInt("apartmanId");
 			obrisiSmjestajnuJedinicu(req, resp, apartmanId);
 		} else if (method.equals("obrisiAdministratora")) {
@@ -144,10 +145,12 @@ public class VlasnikController extends HttpServlet{
 
 	private void obrisiObjekt(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		try {
-			int objektId = Integer.parseInt(req.getParameter("objektId"));
+			int objektId = Integer.parseInt(req.getParameter("objektID"));
+			System.out.println(objektId);
 			Objekt objekt = DAOProvider.getDAO().getObjektFor(objektId);
 			for (Apartman apartman : objekt.getApartmani()) {
-				obrisiSmjestajnuJedinicu(req, resp, apartman.getApartmanID());
+				VlasnikViewModel.deleteApartman(apartman.getApartmanID());
+			//	obrisiSmjestajnuJedinicu(req, resp, apartman.getApartmanID());
 			}
 			VlasnikViewModel.deleteObjekt(objektId);
 		} catch (NumberFormatException e) {
