@@ -84,7 +84,55 @@
 <title>Registracija</title>
 </head>
 <body>
-<div id="left">
+
+ <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<p class="navbar-brand">
+      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
+				</p>
+			</div>
+
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+
+				<ul class="nav navbar-nav navbar-left">
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<c:choose>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 1}">
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
+							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
+							
+						</c:when>
+						<c:otherwise>
+							<li><a href="/opp-webapp/registracija">Prijava/registrcija</a></li>
+
+						</c:otherwise>
+					</c:choose>
+					
+					
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+<div id="left" class="topmargin">
 
 <div id="loginbox" class="topmargin mainbox col-md-8  col-sm-8 col-sm-offset-2"> 
 	<div class="panel white-alpha-90">
@@ -130,11 +178,8 @@
 
 </div>
 
-<div id="right">
+<div id="right" class="topmargin">
 
-
-
- 
 <div id="loginbox" class="topmargin mainbox col-md-9 col-sm-8 col-sm-offset-2"> 
 	<div class="panel white-alpha-90">
 		<div class="panel-heading">

@@ -158,45 +158,76 @@ table, th, td {
 			</div>
 		</div>
 	</nav>
+	
+	
 	<div class="container topmargin">
 	
-		<button name="button" class="btn btn-default" id="otvoriMjesta">Otvori mjesta</button>
-        <button name="button" class="btn btn-default" id="otvoriUsluge">Otvori usluge</button>
-        <button name="button" class="btn btn-default" id="otvoriJedinice">Otvori jedinice</button>
-        <button name="button" class="btn btn-default" id="zatvori">Zatvori</button>
+		<button name="button" class="btn btn-primary" id="otvoriMjesta">Otvori mjesta</button>
+        <button name="button" class="btn btn-primary" id="otvoriUsluge">Otvori usluge</button>
+        <button name="button" class="btn btn-primary" id="otvoriJedinice">Otvori jedinice</button>
+        <button name="button" class="btn btn-danger" id="zatvori">Zatvori</button>
 		<p></p>
 		
+		
+		
 		<form action="" class="form-horizontal" method="post" id="mjesta">
-		<p>mjesta</p>
+		<h2>Mjesta</h2>
+		<br>
 		<img src="drzave">
 		<img src="gradovi">
 		</form>
 		
 		<form action="" class="form-horizontal" method="post" id="jedinice">
-		<p>jedinice</p>
-			<c:forEach var="item" items="${jedinice}">
-				<li>
-					${item.naziv}<br>
-					<c:forEach var="date" items="${item.dates}">
-						<li>
-							${date}
-						</li>
-					</c:forEach>
-				</li>
-				<br>
-			</c:forEach>
+		<h3>Jedinice</h3>
+		<hr>
+		<table class="table table-striped">
+    		<tbody>
+				<c:forEach var="item" items="${jedinice}">
+					<tr>
+				        <td>${item.naziv}</td>
+				        <td>
+					        <c:forEach var="date" items="${item.dates}">
+									<li>
+										${date}<br>
+									</li>
+							</c:forEach>
+				        </td>
+				    </tr>
+				</c:forEach>
+			</tbody>
+  		</table>
+  		
 		</form>
 		
 		<form action="" class="form-horizontal" method="post" id="usluge">
-		<p>usluge</p>
-		<c:forEach var="item" items="${usluge}">
-			<li>${item.zahtjev}<br>
-				${item.n}<br>
-				${item.topCountry}<br>
-			</li>
-			<br>
-		</c:forEach>
+		<h3>Usluge</h3>
+		<hr>
+		<table class="table table-striped">
+    		<tbody>
+	    		<thead>
+				    <tr>
+				      <th>Zahtjev</th>
+				      <th>Broj usluga</th>
+				      <th>Najbolja drzava</th>
+				    </tr>
+				</thead>
+				
+    			<c:forEach var="item" items="${usluge}">
+    				
+					<tr>
+						<td>${item.zahtjev}</td>
+						<td>${item.n}</td>
+						<td>${item.topCountry}</td>
+					</tr>
+					
+				</c:forEach>
+			</tbody>
+  		</table>
+  		
 		</form>
+		
+		<p></p>
+		
 		
 	</div>
 	
