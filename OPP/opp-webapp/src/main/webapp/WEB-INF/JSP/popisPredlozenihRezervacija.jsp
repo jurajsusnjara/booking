@@ -12,7 +12,7 @@
 
 <style>
 .topmargin{
-	margin-top: 60px;
+	margin-top: 100px;
 }
 
 #urlColorWhite{

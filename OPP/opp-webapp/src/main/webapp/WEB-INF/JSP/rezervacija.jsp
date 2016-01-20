@@ -32,7 +32,7 @@ table, th, td {
 }
 
 .topmargin{
-	margin-top: 60px;
+	margin-top: 90px;
 }
 
 #urlColorWhite{

@@ -13,7 +13,7 @@
 
 <style>
 .topmargin{
-	margin-top: 60px;
+	margin-top: 100px;
 }
 
 #urlColorWhite{
@@ -108,7 +108,7 @@
 }
 </style>
 
-<title>Objekt</title>
+<title>${Objekt.getNazivObjekt()}</title>
 
 
 <link rel="stylesheet"
@@ -281,7 +281,7 @@
 	
 	
 <div class="container">
- <h2>Apartmani</h2>
+ <h2>${Objekt.getNazivObjekt()}</h2>
  <hr>
  <br>    
 </div>
