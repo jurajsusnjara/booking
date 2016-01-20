@@ -103,14 +103,7 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 
-		if (lozinkaManjaOdosam(Lozinka)) {
-			greska(request, response, "Lozinka je prekratka. Molimo upisite lozinku duzu od 8 znakova.");
-			return;
-		}
-		if (lozinkeNisuJednake(Lozinka, LozinkaPotvrda)) {
-			greska(request, response, "Lozinke se ne podudaraju, molimo pazljivo unesite lozinku");
-			return;
-		}
+		
 
 		Integer PostanskiBroj = null;
 		try {
@@ -127,26 +120,26 @@ public class LoginController extends HttpServlet {
 		adresaObj.setPostanskiBroj(PostanskiBroj);
 		DAOProvider.getDAO().putAdresa(adresaObj);
 
-		Korisnik novi = new Korisnik();
-		novi.setAdresa(adresaObj);
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		novi.setDatumReg(date);
-		novi.setIme(Ime);
-		novi.setPrezime(Prezime);
-		novi.setEmail(Email);
-		MessageDigest messageDigest = null;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		messageDigest.update(Lozinka.getBytes());
-		String lozinka = new String(messageDigest.digest());
-		novi.setLozinka(lozinka);
-		novi.setTelefon(Telefon);
-		novi.setKorisnikID(Email);
-		novi.setUloga(1);
+//		Korisnik novi = new Korisnik();
+//		novi.setAdresa(adresaObj);
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Date date = new Date();
+//		novi.setDatumReg(date);
+//		novi.setIme(Ime);
+//		novi.setPrezime(Prezime);
+//		novi.setEmail(Email);
+//		MessageDigest messageDigest = null;
+//		try {
+//			messageDigest = MessageDigest.getInstance("SHA-1");
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
+//		messageDigest.update(Lozinka.getBytes());
+//		String lozinka = new String(messageDigest.digest());
+//		novi.setLozinka(lozinka);
+//		novi.setTelefon(Telefon);
+//		novi.setKorisnikID(Email);
+//		novi.setUloga(1);
 
 		// DAOProvider.getDAO().putKorisnik(novi); ipak cekat potvrdu
 		String link = "http://localhost:8080/opp-webapp/potvrda?email=" + Email + "&adrID=" + adresaObj.getAdresaID()
@@ -158,21 +151,7 @@ public class LoginController extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	private boolean lozinkaManjaOdosam(String lozinka) {
-		if (lozinka.length() < 8) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private boolean lozinkeNisuJednake(String lozinka, String lozinkaPotvrda) {
-		if (lozinka.equals(lozinkaPotvrda)) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+	
 
 	private boolean vecPostojiEmail(String email) {
 		List<Korisnik> listaKorisnika = DAOProvider.getDAO().getAllKorisnik();

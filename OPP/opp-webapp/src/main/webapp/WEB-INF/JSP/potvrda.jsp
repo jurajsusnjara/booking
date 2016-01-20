@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="true"%>
+<%@ page isELIgnored="false"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,9 +19,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 .greska {
-	font-family: fantasy;
-	font-weight: bold;
-	font-size: 0.9em;
+	font-family: sans;
+	font-size: 18px;
 	color: #FF0000;
 }
 
@@ -74,41 +78,31 @@ table, th, td {
 		<table class="table table-striped" id="t">
 			<thead>
 				<tr>
-					<th>Korisnicko ime</th>
-					<th><b>${sessionScope.korisnik.ime}</b></th>
+					<td>Email</td>
+					<td>${Email}</td>
+
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>Ime</td>
-					<td>${sessionScope.korisnik.ime}</td>
+					<td>${Ime}</td>
 				</tr>
 				<tr>
 					<td>Prezime</td>
-					<td>${sessionScope.korisnik.prezime}</td>
+					<td>${Prezime}</td>
 				</tr>
 				<tr>
-					<td>Email</td>
-					<td>${sessionScope.korisnik.email}</td>
-
-				</tr>
-				<tr>
-					<td>Uloga</td>
-					<td><c:choose>
-							<c:when test="${sessionScope.korisnik.uloga == 3}">
-                        Vlasnik sustava
-                </c:when>
-							<c:when test="${sessionScope.korisnik.uloga == 2}">
-                        Administrator sustava
-                </c:when>
-							<c:otherwise>
-                        Korisnik
-                </c:otherwise>
-						</c:choose></td>
+					<td>Telefonski Broj</td>
+					<td>${Telefon}</td>
 				</tr>
 			</tbody>
 		</table>
-		
+		<c:if test="${greska != null}">
+				<div class="greska">
+					<c:out value="${greska}" />
+				</div>
+			</c:if>
 		<form action="" class="form-horizontal" method="post" id="password">
 
 
@@ -116,8 +110,8 @@ table, th, td {
 				<label class="col-md-4 control-label">Lozinka</label>
 				<div class="col-md-4">
 					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="password" name="novaLozinka1" class="form-control"
-							placeholder="Nova lozinka" size="50"><br>
+						<input type="password" name="Lozinka" class="form-control"
+							placeholder="Nova lozinka" size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -126,8 +120,8 @@ table, th, td {
 				<label class="col-md-4 control-label">Ponovi lozinku</label>
 				<div class="col-md-4">
 					<div class="input-group input-append date" id="dateRangePickerFrom">
-						<input type="password" name="novaLozinka2" class="form-control"
-							placeholder="Nova lozinka" size="50"><br>
+						<input type="password" name="LozinkaPotvrda" class="form-control"
+							placeholder="Nova lozinka" size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -135,7 +129,7 @@ table, th, td {
 				<label class="col-md-4 control-label" for="signup"></label>
 				<div class="col-md-4">
 					<button type="submit" name="method" value="promijeniSifru"
-						class="btn btn-success" value="promijeniPodatke">Promijeni</button>
+						class="btn btn-success" value="promijeniPodatke">Postavi</button>
 
 					<button id="reset" type="reset" name="reset"
 						class="btn btn-warning">Resetiraj</button>

@@ -215,18 +215,6 @@
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 					<input id="login-password" type="text" class="form-control" name="Email" placeholder="Unesite email" required>
 				</div>
-				<br>
-				<label>Lozinka:</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="password" class="form-control" name="Lozinka" placeholder="Unesite Lozinku" required>
-				</div>
-				<br>
-				<label>Potvrda lozinke:</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-					<input id="login-password" type="password" class="form-control" name="LozinkaPotvrda" placeholder="Potvrdite lozinku" required>
-				</div>
 				<label></label>
 				<div class="input-group">
 					<span class="input-group"><i class="fa fa-lock"></i></span>
