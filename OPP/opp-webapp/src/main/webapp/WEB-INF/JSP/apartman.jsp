@@ -94,7 +94,28 @@
 	width: 800px;
 	margin: 0 auto;
 }
-
+#mj6{
+}
+ 
+#mj7{
+display: none;
+}
+ 
+#mj8{
+display: none;
+}
+ 
+.tableTd{
+text-align: center;
+}
+ 
+.slobodan{
+background-color: #ccffcc;
+}
+ 
+.zauzet{
+background-color: #ffcccc;
+}
 </style>
 
 
@@ -124,11 +145,35 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $("#otvori6mj").click(function() {
+            $("#mj6").show();
+            $("#mj7").hide();
+            $("#mj8").hide();
+        });
+ 
+        $("#otvori7mj").click(function() {
+            $("#mj7").show();
+            $("#mj6").hide();
+            $("#mj8").hide();
+        });
+ 
+        $("#otvori8mj").click(function() {
+            $("#mj8").show();
+            $("#mj6").hide();
+            $("#mj7").hide();
+        });
+ 
+    });
+</script>
 
 <title>${apartman.getNazivApartman()}</title>
 </head>
 
 <body>
+
+ 
 
 <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -176,8 +221,6 @@
 			</div>
 		</div>
 	</nav>
-
-
 
 <div class="container topmargin" id="positionCenter">
 	<br>
@@ -235,6 +278,106 @@
 	</div>
 
 	
-
+<br>
+<br>
+<br>
+<br>
+<div class="container topmargin" id="positionCenter">
+ 
+<button name="button" class="btn btn-primary topmarginBtn" id="otvori6mj">Lipanj</button>
+ 
+<button name="button" class="btn btn-primary topmarginBtn" id="otvori7mj">Srpanj</button>
+ 
+<button name="button" class="btn btn-primary topmarginBtn" id="otvori8mj">Kolovoz</button>
+   
+   
+<div id="mj6"> 
+<br>
+<h1>Lipanj</h1>
+<hr>
+    <table class="table table-bordered">
+        <c:forEach var="i" begin="0" end="4">
+            <tr>
+                <c:forEach var="j" begin="1" end="7">
+                    <c:choose>
+                        <c:when test="${i*7+j <= 30}">
+                            <c:choose>
+                                <c:when test="${i*7+j == 30 || i*7+j == 10 || i*7+j == 3 || i*7+j == 17 || i*7+j == 9}">
+                                    <td class="tableTd slobodan"><c:out value="${i*7+j}"/></td>
+                                </c:when>
+                               
+                                <c:otherwise>
+                                    <td class="tableTd zauzet"><c:out value="${i*7+j}"/></td>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+ 
+<div id="mj7">
+<br>
+<h1>Srpanj</h1>
+<hr>
+    <table class="table table-bordered">
+        <c:forEach var="i" begin="0" end="4">
+            <tr>
+                <c:forEach var="j" begin="1" end="7">
+                    <c:choose>
+                        <c:when test="${i*7+j <= 31}">
+                            <c:choose>
+                                <c:when test="${i*7+j == 26 || i*7+j == 2 || i*7+j == 3 || i*7+j == 12 || i*7+j == 22}">
+                                    <td class="tableTd slobodan"><c:out value="${i*7+j}"/></td>
+                                </c:when>
+                               
+                                <c:otherwise>
+                                    <td class="tableTd zauzet"><c:out value="${i*7+j}"/></td>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+ 
+ 
+<div id="mj8">
+<br>
+<h1>Kolovoz</h1>
+<hr>
+    <table class="table table-bordered">
+        <c:forEach var="i" begin="0" end="4">
+            <tr>
+                <c:forEach var="j" begin="1" end="7">
+                        <c:choose>
+                            <c:when test="${i*7+j <= 31}">
+                                <c:choose>
+                                    <c:when test="${i*7+j == 27 || i*7+j == 15 || i*7+j == 1 || i*7+j == 7 || i*7+j == 25}">
+                                        <td class="tableTd slobodan"><c:out value="${i*7+j}"/></td>
+                                    </c:when>
+                                   
+                                    <c:otherwise>
+                                        <td class="tableTd zauzet"><c:out value="${i*7+j}"/></td>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+</div>
 </body>
 </html>

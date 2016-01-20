@@ -13,7 +13,7 @@
 
 <style>
 .topmargin{
-	margin-top: 60px;
+	margin-top: 100px;
 }
 
 #urlColorWhite{
@@ -108,7 +108,7 @@
 }
 </style>
 
-<title>Objekt</title>
+<title>${Objekt.getNazivObjekt()}</title>
 
 
 <link rel="stylesheet"
@@ -172,16 +172,16 @@
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -197,6 +197,7 @@
 			</div>
 		</div>
 	</nav>
+
 	<div class="container topmargin">
 		<button name="button" class="btn btn-primary" id="otvoriFiltriranje">Filtriranje pretrage</button>
 		<button name="button" class="btn btn-danger" id="zatvoriFiltriranje">Zatvori
@@ -280,7 +281,7 @@
 	
 	
 <div class="container">
- <h2>Apartmani</h2>
+ <h2>${Objekt.getNazivObjekt()}</h2>
  <hr>
  <br>    
 </div>

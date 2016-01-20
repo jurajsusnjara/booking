@@ -51,6 +51,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("greska", "");
 		request.setAttribute("error", null);
 		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request, response);
 	}
@@ -61,7 +62,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setAttribute("greska", "");
 		String method = request.getParameter("method");
 		if (method.equals("login")) {
 			login(request, response);
@@ -103,14 +104,7 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 
-		if (lozinkaManjaOdosam(Lozinka)) {
-			greska(request, response, "Lozinka je prekratka. Molimo upisite lozinku duzu od 8 znakova.");
-			return;
-		}
-		if (lozinkeNisuJednake(Lozinka, LozinkaPotvrda)) {
-			greska(request, response, "Lozinke se ne podudaraju, molimo pazljivo unesite lozinku");
-			return;
-		}
+		
 
 		Integer PostanskiBroj = null;
 		try {
@@ -127,50 +121,38 @@ public class LoginController extends HttpServlet {
 		adresaObj.setPostanskiBroj(PostanskiBroj);
 		DAOProvider.getDAO().putAdresa(adresaObj);
 
-		Korisnik novi = new Korisnik();
-		novi.setAdresa(adresaObj);
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		novi.setDatumReg(date);
-		novi.setIme(Ime);
-		novi.setPrezime(Prezime);
-		novi.setEmail(Email);
-		MessageDigest messageDigest = null;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		messageDigest.update(Lozinka.getBytes());
-		String lozinka = new String(messageDigest.digest());
-		novi.setLozinka(lozinka);
-		novi.setTelefon(Telefon);
-		novi.setKorisnikID(Email);
-		novi.setUloga(1);
+//		Korisnik novi = new Korisnik();
+//		novi.setAdresa(adresaObj);
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Date date = new Date();
+//		novi.setDatumReg(date);
+//		novi.setIme(Ime);
+//		novi.setPrezime(Prezime);
+//		novi.setEmail(Email);
+//		MessageDigest messageDigest = null;
+//		try {
+//			messageDigest = MessageDigest.getInstance("SHA-1");
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
+//		messageDigest.update(Lozinka.getBytes());
+//		String lozinka = new String(messageDigest.digest());
+//		novi.setLozinka(lozinka);
+//		novi.setTelefon(Telefon);
+//		novi.setKorisnikID(Email);
+//		novi.setUloga(1);
 
-		DAOProvider.getDAO().putKorisnik(novi);
-		request.getSession().setAttribute("korisnik", novi);
-		sendEmail(Email, request, "Uspjesno ste se registrirali na \" Kod nas je najljepse \" \n" + "Korisnicko ime: "
-				+ Email + "\n" + "Lozinka: " + Lozinka);
-		RequestDispatcher rd = request.getRequestDispatcher("/index");
-		rd.forward(request, response);
+		// DAOProvider.getDAO().putKorisnik(novi); ipak cekat potvrdu
+		String link = "http://localhost:8080/opp-webapp/potvrda?email=" + Email + "&adrID=" + adresaObj.getAdresaID()
+				+ "&ime=" + Ime + "&prezime=" + Prezime+"&tel="+Telefon;
+		// request.getSession().setAttribute("korisnik", novi);
+		sendEmail(Email, request,
+				"Potvrdite registraciju na \" Kod nas je najljepse \" \n" + "klikom na link: " + link);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request,
+				response);
 	}
 
-	private boolean lozinkaManjaOdosam(String lozinka) {
-		if (lozinka.length() < 8) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private boolean lozinkeNisuJednake(String lozinka, String lozinkaPotvrda) {
-		if (lozinka.equals(lozinkaPotvrda)) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+	
 
 	private boolean vecPostojiEmail(String email) {
 		List<Korisnik> listaKorisnika = DAOProvider.getDAO().getAllKorisnik();
@@ -226,7 +208,6 @@ public class LoginController extends HttpServlet {
 		}
 		messageDigest.update(sifra.getBytes());
 		sifra = new String(messageDigest.digest());
-		request.setAttribute("greska", null);
 		if (!provjeri(korisnickoIme, sifra, request, response)) {
 			error(request, response, "Pogresna lozinka/korisnicko ime");
 		} else {
@@ -256,7 +237,7 @@ public class LoginController extends HttpServlet {
 				}
 			}
 		}
-		error(request,response,"Ne postoji korisnik s tim e-mailom");
+		error(request, response, "Ne postoji korisnik s tim e-mailom");
 		return false;
 	}
 
@@ -281,7 +262,7 @@ public class LoginController extends HttpServlet {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("from-email@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
-			message.setSubject("Registracija uspjesna");
+			message.setSubject("Potvrdite registraciju");
 			message.setText(poruka);
 
 			Transport.send(message);
