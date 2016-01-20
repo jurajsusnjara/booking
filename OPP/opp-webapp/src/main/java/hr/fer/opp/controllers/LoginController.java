@@ -51,6 +51,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("greska", "");
 		request.setAttribute("error", null);
 		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request, response);
 	}
@@ -61,7 +62,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setAttribute("greska", "");
 		String method = request.getParameter("method");
 		if (method.equals("login")) {
 			login(request, response);
@@ -147,8 +148,8 @@ public class LoginController extends HttpServlet {
 		// request.getSession().setAttribute("korisnik", novi);
 		sendEmail(Email, request,
 				"Potvrdite registraciju na \" Kod nas je najljepse \" \n" + "klikom na link: " + link);
-		RequestDispatcher rd = request.getRequestDispatcher("/index");
-		rd.forward(request, response);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request,
+				response);
 	}
 
 	
@@ -207,7 +208,6 @@ public class LoginController extends HttpServlet {
 		}
 		messageDigest.update(sifra.getBytes());
 		sifra = new String(messageDigest.digest());
-		request.setAttribute("greska", null);
 		if (!provjeri(korisnickoIme, sifra, request, response)) {
 			error(request, response, "Pogresna lozinka/korisnicko ime");
 		} else {

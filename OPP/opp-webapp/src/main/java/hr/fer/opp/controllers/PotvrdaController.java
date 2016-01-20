@@ -6,7 +6,15 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,6 +92,8 @@ public class PotvrdaController extends HttpServlet {
 		novi.setUloga(1);
 		DAOProvider.getDAO().putKorisnik(novi);
 		request.getSession().setAttribute("korisnik", novi);
+		sendEmail(Email, request, "Uspjesno ste registrirani na \"Kod nas je najljepse\"\n" + "Email: " + Email + "\n"
+				+ "Lozinka: " + Lozinka);
 		RequestDispatcher rd = request.getRequestDispatcher("/index");
 		rd.forward(request, response);
 	}
@@ -109,6 +119,39 @@ public class PotvrdaController extends HttpServlet {
 		request.setAttribute("greska", string);
 		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/potvrda.jsp").forward(request, response);
 
+	}
+
+	private void sendEmail(String emailTo, HttpServletRequest req, String poruka) {
+
+		final String username = "mihajlo.info@gmail.com";
+		final String password = "mihajlo7";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("from-email@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
+			message.setSubject("Potvrdite registraciju");
+			message.setText(poruka);
+
+			Transport.send(message);
+
+			System.out.println("Email sent!");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
