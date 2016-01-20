@@ -322,7 +322,7 @@ table, th, td {
 				<label class="col-md-4 control-label" for="signup"></label>
 				<div class="col-md-4">
 					<button type="submit" name="method" value="promijeniPodatke"
-						class="btn btn-success" value="promijeniPodatke">Promijeni</button>
+						class="btn btn-success">Promijeni</button>
 
 					<button id="reset" type="reset" name="reset"
 						class="btn btn-warning">Resetiraj unesene promjene</button>

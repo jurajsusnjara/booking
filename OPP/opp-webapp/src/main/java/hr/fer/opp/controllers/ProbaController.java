@@ -3,7 +3,9 @@ package hr.fer.opp.controllers;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -26,8 +28,10 @@ import hr.fer.opp.dao.jpa.JPAEMProvider;
 import hr.fer.opp.dao.queries.DeleteQuery;
 import hr.fer.opp.dao.queries.SelectQuery;
 import hr.fer.opp.dao.queries.UpdateQuery;
+import hr.fer.opp.model.Apartman;
 import hr.fer.opp.model.Korisnik;
 import hr.fer.opp.model.Objekt;
+import hr.fer.opp.model.OpisApartmana;
 import hr.fer.opp.model.Rezervacija;
 import hr.fer.opp.viewModels.AdminViewModel;
 
@@ -66,6 +70,29 @@ public class ProbaController extends HttpServlet {
 	//	Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor("3");
 	//	sendEmail("damjan7@miko.hotmail.com", req, k, "bok");
 		System.out.println("/Proba1");
+		
+/*		Rezervacija rezervacija = new Rezervacija();
+		rezervacija.setApartman(DAOProvider.getDAO().getApartmanFor(2));
+		rezervacija.setGost(DAOProvider.getDAO().getGostFor(1));
+		rezervacija.setKorisnik(DAOProvider.getDAO().getKorisnikFor("3"));
+		rezervacija.setDatumRezervacije(new GregorianCalendar(2016, Calendar.MAY, 1).getTime());
+		rezervacija.setRezerviranoOd(new GregorianCalendar(2016, Calendar.JUNE, 1).getTime());
+		rezervacija.setRezerviranoDo(new GregorianCalendar(2016, Calendar.JULY, 15).getTime());
+		rezervacija.setParking(true);
+		rezervacija.setInternet(true);
+		rezervacija.setSatelitskaTV(true);
+	//	Korisnik k = (Korisnik) req.getSession().getAttribute("korisnik");
+		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(k.getKorisnikID());
+		korisnik.getRezervacije().add(rezervacija);
+		
+		DAOProvider.getDAO().putRezervacija(rezervacija);
+		
+		*/
+		
+		OpisApartmana op = DAOProvider.getDAO().getOpisApartmanaFor(1);
+		for (Apartman a : op.getApartmani()) {
+			System.out.println(a.getNazivApartman());
+		}
 	}
 	
 	

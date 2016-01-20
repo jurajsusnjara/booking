@@ -36,6 +36,21 @@ public class RezervacijaController extends HttpServlet{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static class Datum {
+		private int dan;
+		private boolean zauzet;
+		
+		public Datum(int dan, boolean zauzet) {
+			this.dan = dan;
+			this.zauzet = zauzet;
+		}
+		
+		public void setZauzet(boolean zauzet) {
+			this.zauzet = zauzet;
+		}
+		
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -92,7 +107,46 @@ public class RezervacijaController extends HttpServlet{
 				DAOProvider.getDAO().getReservationsFor(DAOProvider.getDAO().getApartmanFor(apartmanID));
 		List<Date> slobodniDani = getList(rezervacije);
 		
-		req.setAttribute("slobodniDani", slobodniDani);
+		List<Datum> svibanj = new ArrayList<>();
+		List<Datum> lipanj = new ArrayList<>();
+		List<Datum> srpanj = new ArrayList<>();
+		List<Datum> kolovoz = new ArrayList<>();
+		List<Datum> rujan = new ArrayList<>();
+		
+		for (int i=1; i<=30; i++) {
+			lipanj.add(new Datum(i, true));
+			rujan.add(new Datum(i, true));
+		}
+		
+		for (int i=1; i<=31; i++) {
+			svibanj.add(new Datum(i, true));
+			srpanj.add(new Datum(i, true));
+			kolovoz.add(new Datum(i, true));
+		}
+		
+		for (Date dan : slobodniDani) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dan);
+			if (cal.get(Calendar.MONTH) == Calendar.MAY) {
+				svibanj.get(cal.get(Calendar.DAY_OF_MONTH) - 1).setZauzet(false);
+			} else if (cal.get(Calendar.MONTH) == Calendar.JUNE) {
+				lipanj.get(cal.get(Calendar.DAY_OF_MONTH) - 1).setZauzet(false);
+			} else if (cal.get(Calendar.MONTH) == Calendar.JULY) {
+				srpanj.get(cal.get(Calendar.DAY_OF_MONTH) - 1).setZauzet(false);
+			} else if (cal.get(Calendar.MONTH) == Calendar.AUGUST) {
+				kolovoz.get(cal.get(Calendar.DAY_OF_MONTH) - 1).setZauzet(false);
+			} else if (cal.get(Calendar.MONTH) == Calendar.SEPTEMBER) {
+				rujan.get(cal.get(Calendar.DAY_OF_MONTH) - 1).setZauzet(false);
+			}
+		}
+		
+		
+		req.setAttribute("svibanj", svibanj);
+		req.setAttribute("lipanj", lipanj);
+		req.setAttribute("srpanj", srpanj);
+		req.setAttribute("kolovoz", kolovoz);
+		req.setAttribute("rujan", rujan);
+		
 		req.setAttribute("apartman", DAOProvider.getDAO().getApartmanFor(apartmanID));
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/rezervacija.jsp").forward(req, resp);
 	}
