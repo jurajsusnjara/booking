@@ -110,16 +110,16 @@ table, th, td {
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -143,15 +143,15 @@ table, th, td {
         <div class="form-group">
             <div class="col-md-4">
                 <label>Naziv apartmana</label>
-                <input type="text" name="apartman" class="form-control" value="${a.nazivApartman}">
+                <input type="text" name="nazivApartman" class="form-control" value="${apartman.nazivApartman}">
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
                 <label>Naziv objekta</label>
-                <select class="form-control" name="objekt">
+                <select class="form-control" name="objektID">
                     <c:forEach items="${objekti}" var="o">
-                        <option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
+                        <option value="${o.objektID}">${o.nazivObjekt}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -159,16 +159,17 @@ table, th, td {
         <div class="form-group">
             <div class="col-md-4">
                 <label>Opis</label>
-                <select class="form-control" name="opis">
+                <select class="form-control" name="opisID">
                     <c:forEach items="${opisi}" var="o">
-                        <option name="opisID" value="${o.opisID}">${o.naslov}</option>
+                        <option value="${o.opisID}">${o.naslov}</option>
                     </c:forEach>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
-                <button type="submit" id="submitApartman" name="submitApartman" class="btn btn-success">Pohrani promjene</button>
+                <button type="submit" id="submitApartman" name="method" value="promjeniApartman" class="btn btn-success">Pohrani promjene</button>
+                <a href="/opp-webapp/vlasnik" class="btn btn-danger">Odustani</a>
             </div>
         </div>
     </form>

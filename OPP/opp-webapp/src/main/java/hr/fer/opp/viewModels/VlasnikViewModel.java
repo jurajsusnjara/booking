@@ -22,6 +22,18 @@ public class VlasnikViewModel {
 	public static void deleteOpisApartmana(int id) {
 		new DeleteQuery("OpisApartmana", "opisID", id).execute();
 	}
+	
+	public static void deleteRezervacije(Apartman a) {
+		new DeleteQuery("Rezervacija", "apartman", a).execute();
+	}
+
+	public static void deleteFotografije(OpisApartmana opis) {
+		new DeleteQuery("Fotografija", "opisApartmana", opis).execute();
+	}
+	
+	public static void deleteFotografija(int id) {
+		new DeleteQuery("Fotografija", "fotoID", id).execute();
+	}
 
 	public static List<Korisnik> getAdministrators() {
 		return CommonViewModel.getAdministrators();

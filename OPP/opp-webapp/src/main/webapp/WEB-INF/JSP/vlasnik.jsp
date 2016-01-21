@@ -58,6 +58,13 @@ table, th, td {
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+	function otvoriApartmane() {
+		$("#dodajApartman").show();
+		$("#dodajObjekt").hide();
+		$("#dodajOpis").hide();
+		$("#dodajAdmina").hide();
+		$("#dodajFotografiju").hide();
+	}
 	$(document).ready(function() {
 		$("#dodajObjekt").show();
 		$("#dodajApartman").hide();
@@ -139,6 +146,12 @@ table, th, td {
 </head>
 <body>
 
+	<% String pogled = (String) request.getAttribute("pogled");
+	if (pogled != null && pogled.equals("apartman")) {
+		out.print("otvoriApartmane();");
+	}
+		%>
+	
 	<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -160,16 +173,16 @@ table, th, td {
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -209,8 +222,8 @@ table, th, td {
 								<td><a href="vlasnik/objekt/${o.objektID}">${o.nazivObjekt}
 								</a></td>
 								<td><a class="btn btn-info"
-									href="vlasnik/objekt/uredi?id=${o.objektID }">Uredi</a> <input type="hidden" name="objektID"
-									value="${o.objektID}">
+									href="vlasnik/objekt/uredi?id=${o.objektID }">Uredi</a> 
+									<input type="hidden" name="objektID" value="${o.objektID}">
 									<button type="submit" name="method" value="obrisiObjekt"
 										class="btn btn-danger">Obriši</button></td>
 								
@@ -231,11 +244,11 @@ table, th, td {
 				id="dodajObjektForma">
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Naziv objekta</label> <input type="text" name="objekt"
-							class="form-control" placeholder="Upiši naziv objekta"> <br>
-						<label>URL slike</label> <input type="text" name="slika"
+						<label>Naziv objekta</label> <input type="text" name="nazivObjekt"
+							class="form-control" placeholder="Upiši naziv objekta" required> <br>
+						<label>URL slike</label> <input type="text" name="fotografija"
 							class="form-control" placeholder="Upiši URL slike"> <br>
-						<button type="submit" id="submit" name="submit"
+						<button type="submit" id="submit" name="method" value="dodajObjekt"
 							class="btn btn-success">Dodaj objekt</button>
 					</div>
 				</div>
@@ -252,8 +265,8 @@ table, th, td {
 								<td><a href="vlasnik/apartman/${a.apartmanID}">${a.nazivApartman}
 								</a></td>
 								<td><a class="btn btn-info"
-									href="vlasnik/apartman/uredi?id=${a.apartmanID }">Uredi</a> <input type="hidden" name="apartmanID"
-									value="${a.apartmanID}">
+									href="vlasnik/apartman/uredi?id=${a.apartmanID }">Uredi</a> 
+									<input type="hidden" name="apartmanID" value="${a.apartmanID}">
 									<button type="submit" name="method" value="obrisiApartman"
 										class="btn btn-danger">Obriši</button></td>
 							
@@ -269,35 +282,35 @@ table, th, td {
 					novi apartman</button>
 				<button id="zatvoriNoviApartman" class="btn btn-default">Zatvori</button>
 			</p>
-			<form action="" class="form-horizontal" method="post"
+			<form class="form-horizontal" method="post"
 				id="dodajApartmanForma">
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Naziv apartmana</label> <input type="text" name="apartman"
+						<label>Naziv apartmana</label> <input type="text" name="nazivApartman"
 							class="form-control" placeholder="Upiši naziv apartmana">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Objekt</label> <select class="form-control" name="objekt">
+						<label>Objekt</label> <select class="form-control" name="objektID">
 							<c:forEach items="${objekti}" var="o">
-								<option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
+								<option value="${o.objektID}">${o.nazivObjekt}</option>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Opis</label> <select class="form-control" name="opis">
+						<label>Opis</label> <select class="form-control" name="opisID">
 							<c:forEach items="${opisi}" var="o">
-								<option name="opisID" value="${o.opisID}">${o.naslov}</option>
+								<option value="${o.opisID}">${o.naslov}</option>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
-						<button type="submit" id="submitApartman" name="submitApartman"
+						<button type="submit" id="submitApartman" name="method" value="dodajApartman"
 							class="btn btn-success">Dodaj apartman</button>
 					</div>
 				</div>
@@ -317,12 +330,9 @@ table, th, td {
 									href="vlasnik/opis/uredi?id=${o.opisID }">Uredi</a> <input type="hidden" name="opisID" value="${o.opisID}">
 									<button type="submit" name="method" value="obrisiOpis"
 										class="btn btn-danger">Obriši</button></td>
-
-								
+			
 							</tr>
-
-
-
+							
 						</form>
 					</c:forEach>
 				</tbody>
@@ -336,15 +346,14 @@ table, th, td {
 			</p>
 			<form action="" class="form-horizontal" method="post"
 				id="dodajOpisForma">
+				
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Objekt</label> <select class="form-control" name="objekt">
-							<c:forEach items="${objekti}" var="o">
-								<option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
-							</c:forEach>
-						</select>
+						<label>Naslov opisa</label> <input type="text" name="naslov"
+							class="form-control" placeholder="Upiši naslov opisa">
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<div class="col-md-4">
 						<label>Kat</label> <input type="number" name="kat"
@@ -354,22 +363,22 @@ table, th, td {
 				<div class="form-group">
 					<div class="col-md-4">
 						<label>Pogled</label> <select class="form-control" name="pogled">
-							<option name="pogled" value="suma">Šuma</option>
-							<option name="pogled" value="more">More</option>
+							<option value="suma">Šuma</option>
+							<option value="more">More</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
 						<label>Minimalan broj osoba</label> <input type="number"
-							name="minbroj" class="form-control"
+							name="minBroj" class="form-control"
 							placeholder="Minimalan broj osoba">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
 						<label>Maksimalan broj osoba</label> <input type="number"
-							name="maxbroj" class="form-control"
+							name="maxBroj" class="form-control"
 							placeholder="Maksimalan broj osoba">
 					</div>
 				</div>
@@ -380,15 +389,10 @@ table, th, td {
 							placeholder="Upiši opis"></textarea>
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Naslov opisa</label> <input type="text" name="naslov"
-							class="form-control" placeholder="Upiši naslov opisa">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-4">
-						<button type="submit" id="submitOpis" name="submitOpis"
+						<button type="submit" id="submitOpis" name="method" value="dodajOpis"
 							class="btn btn-success">Dodaj opis</button>
 					</div>
 				</div>
@@ -401,7 +405,7 @@ table, th, td {
 				<form method="post">
 					<img src="${s.fotoDatoteka}" width="100" height="100"> <input
 						type="hidden" name="fotoID" value="${s.fotoID}">
-					<button type="submit" name="method" value="obrisiSliku"
+					<button type="submit" name="method" value="obrisiFotografiju"
 						class="btn btn-danger">Obriši</button>
 				</form>
 			</c:forEach>
@@ -416,22 +420,22 @@ table, th, td {
 				id="dodajSlikuForma">
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>URL slike</label> <input type="text" name="urlslike"
+						<label>URL slike</label> <input type="text" name="fotoDatoteka"
 							class="form-control" placeholder="Upiši URL slike">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Objekt</label> <select class="form-control" name="objekt">
+						<label>Opis apartmana</label> <select class="form-control" name="opisID">
 							<c:forEach items="${opisi}" var="o">
-								<option name="opisID" value="${o.opisID}">${o.naslov}</option>
+								<option value="${o.opisID}">${o.naslov}</option>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
-						<button type="submit" id="submitSlika" name="submitSlika"
+						<button type="submit" id="submitSlika" name="method" value="dodajFotografiju"
 							class="btn btn-success">Dodaj sliku</button>
 					</div>
 				</div>
@@ -470,10 +474,11 @@ table, th, td {
 				id="dodajAdminaForma">
 				<div class="form-group">
 					<div class="col-md-4">
-						<label>Korisnici</label> <select class="form-control"
-							name="objekt">
+						<label>Korisnici</label> 
+						<select class="form-control"
+							name="adminID">
 							<c:forEach items="${korisnici}" var="k">
-								<option name="adminID" value="${k.korisnikID}">${k.ime}
+								<option value="${k.korisnikID}">${k.ime}
 									${k.prezime}</option>
 							</c:forEach>
 						</select>
@@ -481,7 +486,7 @@ table, th, td {
 				</div>
 				<div class="form-group">
 					<div class="col-md-4">
-						<button type="submit" id="submitAdmin" name="submitAdmin"
+						<button type="submit" id="submitAdmin" name="method" value="dodajAdmina"
 							class="btn btn-success">Dodaj administratora</button>
 					</div>
 				</div>

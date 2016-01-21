@@ -110,16 +110,16 @@ table, th, td {
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -143,12 +143,13 @@ table, th, td {
         <div class="form-group">
             <div class="col-md-4">
                 <label>Naziv objekta</label>
-                <input type="text" name="objekt" class="form-control" value="${o.nazivObjekt}">
+                <input type="text" name="nazivObjekt" class="form-control" value="${o.nazivObjekt}">
                 <br>
                 <label>Fotografija</label>
-                <input type="text" name="slika" class="form-control" value="${o.fotografija}">
+                <input type="text" name="fotografija" class="form-control" value="${o.fotografija}">
                 <br>
-                <button type="submit" id="submit" name="submit" class="btn btn-success">Pohrani promjene</button>
+                <button type="submit" id="submit" name="method" value="promjeniObjekt" class="btn btn-success">Pohrani promjene</button>
+                <a href="/opp-webapp/vlasnik" class="btn btn-danger">Odustani</a>
             </div>
         </div>
     </form>

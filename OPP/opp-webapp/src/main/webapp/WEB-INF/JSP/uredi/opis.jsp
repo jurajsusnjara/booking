@@ -110,16 +110,16 @@ table, th, td {
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -143,14 +143,11 @@ table, th, td {
     <form action="" class="form-horizontal" method="post" id="dodajOpisForma">
         <div class="form-group">
             <div class="col-md-4">
-                <label>Objekt</label>
-                <select class="form-control" name="objekt">
-                    <c:forEach items="${objekti}" var="o">
-                        <option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
-                    </c:forEach>
-                </select>
+                <label>Naslov opisa</label>
+                <input type="text" name="naslov" class="form-control" value="${opis.naslov}">
             </div>
         </div>
+        
         <div class="form-group">
             <div class="col-md-4">
                 <label>Kat</label>
@@ -161,38 +158,34 @@ table, th, td {
             <div class="col-md-4">
                 <label>Pogled</label>
                 <select class="form-control" name="pogled">
-                    <option name="pogled" value="suma">Šuma</option>
-                    <option name="pogled" value="more">More</option>
+                    <option value="suma">Šuma</option>
+                    <option value="more">More</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
                 <label>Minimalan broj ljudi</label>
-                <input type="number" name="minbroj" class="form-control">
+                <input type="number" name="minBroj" class="form-control" value="${opis.minBroj }">
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
                 <label>Maksimalan broj ljudi</label>
-                <input type="number" name="maxbroj" class="form-control">
+                <input type="number" name="maxBroj" class="form-control" value="${opis.maxBroj }">
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
                 <label>Opis apartmana</label>
-                <textarea rows="4" cols="5" name="opis" class="form-control"></textarea>
+                <textarea rows="4" cols="5" name="opis" class="form-control" >${opis.opis}</textarea>
             </div>
         </div>
+        
         <div class="form-group">
             <div class="col-md-4">
-                <label>Naslov opisa</label>
-                <input type="text" name="naslov" class="form-control" value="${o.naslov}">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-4">
-                <button type="submit" id="submitOpis" name="submitOpis" class="btn btn-success">Dodaj opis</button>
+                <button type="submit" id="submitOpis" name="method" value="promjeniOpis" class="btn btn-success">Pohrani opis</button>
+                <a href="/opp-webapp/vlasnik" class="btn btn-danger">Odustani</a>
             </div>
         </div>
     </form>
