@@ -1,0 +1,7 @@
+6.4 ostali dijagrami
+	dijagram stanja
+	dijagram komponenti
+7.4 slike za ispitne primjere
+7.5 upute za instalaciju
+7.6 slike za upute za korištenje
+dodatci - dopuniti
