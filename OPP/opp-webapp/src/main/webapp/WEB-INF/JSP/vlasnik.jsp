@@ -15,85 +15,131 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
 
 <style type="text/css">
-		.greska {
-		   font-family: fantasy;
-		   font-weight: bold;
-		   font-size: 0.9em;
-		   color: #FF0000;
-		}
-		
-		.topmargin{
-			margin-top: 90px;
-		}
-		
-		#urlColorWhite{
-			color: white;
-		}
-		#urlColorWhite:hover {
-		    color: gray;
-		    text-decoration: none;
-		}
-		
-		#headershadow{
-		    box-shadow: 0px 5px 20px gray;
-		}
-		
-		#logoshaddow{
-		    text-shadow: 1px 1px 5px gray;
-		}
-		
-		#headerUrl{
-			color: gray;
-		}
-		
-		#headerUrl:hover{
-			text-decoration: none;
-			color: #7041f9;
-		}
-		</style>
-<<<<<<< HEAD
-		
-	</head>
-	<body>
-	
- <nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
-=======
+.greska {
+	font-family: fantasy;
+	font-weight: bold;
+	font-size: 0.9em;
+	color: #FF0000;
+}
+
+.topmargin {
+	margin-top: 60px;
+}
+
+#urlColorWhite {
+	color: white;
+}
+
+#urlColorWhite:hover {
+	color: gray;
+	text-decoration: none;
+}
+
+#headershadow {
+	box-shadow: 0px 5px 20px gray;
+}
+
+#logoshaddow {
+	text-shadow: 1px 1px 5px gray;
+}
+
+#headerUrl {
+	color: gray;
+}
+
+#headerUrl:hover {
+	text-decoration: none;
+	color: #7041f9;
+}
+table, th, td {
+    border: 1px solid white;
+}
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-		$("#dodajObjekt").hide();
+		$("#dodajObjekt").show();
 		$("#dodajApartman").hide();
+		$("#dodajOpis").hide();
 		$("#dodajAdmina").hide();
-
+		$("#dodajFotografiju").hide();
+		$("#dodajObjektForma").hide();
+		$("#dodajApartmanForma").hide();
+		$("#dodajOpisForma").hide();
+		$("#dodajAdminaForma").hide();
+		$("#dodajSlikuForma").hide();
 		$("#otvoriObjekte").click(function() {
 			$("#dodajObjekt").show();
 			$("#dodajApartman").hide();
+			$("#dodajOpis").hide();
 			$("#dodajAdmina").hide();
-		});
-		$("#zatvori").click(function() {
-			$("#dodajObjekt").hide();
-			$("#dodajApartman").hide();
-			$("#dodajAdmina").hide();
+			$("#dodajFotografiju").hide();
 		});
 		$("#otvoriApartmane").click(function() {
 			$("#dodajApartman").show();
 			$("#dodajObjekt").hide();
+			$("#dodajOpis").hide();
 			$("#dodajAdmina").hide();
+			$("#dodajFotografiju").hide();
+		});
+		$("#otvoriOpis").click(function() {
+			$("#dodajAdmina").hide();
+			$("#dodajApartman").hide();
+			$("#dodajOpis").show();
+			$("#dodajObjekt").hide();
+			$("#dodajFotografiju").hide();
 		});
 		$("#otvoriAdministratore").click(function() {
 			$("#dodajAdmina").show();
 			$("#dodajApartman").hide();
+			$("#dodajOpis").hide();
 			$("#dodajObjekt").hide();
+			$("#dodajFotografiju").hide();
 		});
-
+		$("#otvoriSlike").click(function() {
+			$("#dodajAdmina").hide();
+			$("#dodajApartman").hide();
+			$("#dodajOpis").hide();
+			$("#dodajObjekt").hide();
+			$("#dodajFotografiju").show();
+		});
+		$("#dodajNoviObjekt").click(function() {
+			$("#dodajObjektForma").show();
+		});
+		$("#zatvoriNoviObjekt").click(function() {
+			$("#dodajObjektForma").hide();
+		});
+		$("#dodajNoviApartman").click(function() {
+			$("#dodajApartmanForma").show();
+		});
+		$("#zatvoriNoviApartman").click(function() {
+			$("#dodajApartmanForma").hide();
+		});
+		$("#dodajNoviOpis").click(function() {
+			$("#dodajOpisForma").show();
+		});
+		$("#zatvoriNoviOpis").click(function() {
+			$("#dodajOpisForma").hide();
+		});
+		$("#dodajNovogAdmina").click(function() {
+			$("#dodajAdminaForma").show();
+		});
+		$("#zatvoriNoviAdmin").click(function() {
+			$("#dodajAdminaForma").hide();
+		});
+		$("#dodajNovuSliku").click(function() {
+			$("#dodajSlikuForma").show();
+		});
+		$("#zatvoriNovuSliku").click(function() {
+			$("#dodajSlikuForma").hide();
+		});
 	});
 </script>
 </head>
 <body>
 
 	<nav id="headershadow" class="navbar navbar-default navbar-fixed-top">
->>>>>>> 506f2ef87189447d363cec9a715cb2651f97c513
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
@@ -114,16 +160,16 @@
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
-						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
+						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 3}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
-							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text">Moj profil (administrator): <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -139,98 +185,308 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
-
+	
+	<div class="container topmargin">
 		<h2>Konfiguracija sustava</h2>
-
 		<hr>
-
-
-
 		<button name="button" class="btn btn-default" id="otvoriObjekte">Objekti</button>
 		<button name="button" class="btn btn-default" id="otvoriApartmane">Apartmani</button>
+		<button name="button" class="btn btn-default" id="otvoriOpis">Opis
+			apartmana</button>
+		<button name="button" class="btn btn-default" id="otvoriSlike">Slike
+			apartmana</button>
 		<button name="button" class="btn btn-default"
 			id="otvoriAdministratore">Administratori</button>
-		<button name="button" class="btn btn-default" id="zatvori">Zatvori</button>
-
 		<p></p>
-
-		<div class="form-horizontal" id="dodajObjekt">
-
+		<div id="dodajObjekt">
 			<h2>Objekti</h2>
-
+			<div style="width:30%">
+				<table class="table">
+				<tbody>
+					<c:forEach var="o" items="${objekti}">
+						<form method="post">
+							<tr>
+								<td><a href="vlasnik/objekt/${o.objektID}">${o.nazivObjekt}
+								</a></td>
+								<td><a class="btn btn-info"
+									href="vlasnik/objekt/uredi?id=${o.objektID }">Uredi</a> <input type="hidden" name="objektID"
+									value="${o.objektID}">
+									<button type="submit" name="method" value="obrisiObjekt"
+										class="btn btn-danger">Obriši</button></td>
+								
+							</tr>
+						</form>
+					</c:forEach>
+				</tbody>
+			</table>
+			</div>
 			<hr>
-
-
-			<c:forEach var="o" items="${objekti}">
-
-				
-				<form method="post">
-					<a href="vlasnik/objekt/${o.objektID}">${o.nazivObjekt} </a> 
-					<a class="btn btn-info" href="vlasnik/objekt/uredi/${o.objektID }">Uredi</a>
-					<input type="hidden" name="objektID" value="${o.objektID}" >
-					<button type="submit" name="method" value="obrisiObjekt"
-						class="btn btn-danger">Obriši</button>
-				</form>
-				
-
-			</c:forEach>
-
+			<br>
 			<p>
-				<a href="vlasnik/objekt/dodaj" class="btn btn-success">Dodaj
-					novi objekt</a>
+				<button id="dodajNoviObjekt" class="btn btn-default">Dodaj
+					novi objekt</button>
+				<button id="zatvoriNoviObjekt" class="btn btn-default">Zatvori</button>
 			</p>
-
-
+			<form action="" class="form-horizontal" method="post"
+				id="dodajObjektForma">
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Naziv objekta</label> <input type="text" name="objekt"
+							class="form-control" placeholder="Upiši naziv objekta"> <br>
+						<label>URL slike</label> <input type="text" name="slika"
+							class="form-control" placeholder="Upiši URL slike"> <br>
+						<button type="submit" id="submit" name="submit"
+							class="btn btn-success">Dodaj objekt</button>
+					</div>
+				</div>
+			</form>
 		</div>
-
 		<div class="form-horizontal" id="dodajApartman">
-
 			<h2>Apartmani</h2>
 
+			<table class="table" style="width:30%">
+				<tbody>
+					<c:forEach var="a" items="${apartmani}">
+						<form method="post">
+							<tr>
+								<td><a href="vlasnik/apartman/${a.apartmanID}">${a.nazivApartman}
+								</a></td>
+								<td><a class="btn btn-info"
+									href="vlasnik/apartman/uredi?id=${a.apartmanID }">Uredi</a> <input type="hidden" name="apartmanID"
+									value="${a.apartmanID}">
+									<button type="submit" name="method" value="obrisiApartman"
+										class="btn btn-danger">Obriši</button></td>
+							
+							</tr>
+						</form>
+					</c:forEach>
+				</tbody>
+			</table>
 			<hr>
-
-			<c:forEach var="a" items="${apartmani}">
-
-				<p>
-					<a href="vlasnik/apartman/${a.apartmanID}">${a.nazivApartman} </a>
-					<a class="btn btn-info"
-						href="vlasnik/apartman/uredi/${a.apartmanID }">Uredi</a> <a
-						class="btn btn-danger" href="#">Obriši</a>
-				</p>
-
-			</c:forEach>
-
+			<br>
 			<p>
-				<a href="vlasnik/apartman/dodaj" class="btn btn-success">Dodaj
-					novi apartman</a>
+				<button id="dodajNoviApartman" class="btn btn-default">Dodaj
+					novi apartman</button>
+				<button id="zatvoriNoviApartman" class="btn btn-default">Zatvori</button>
 			</p>
-
+			<form action="" class="form-horizontal" method="post"
+				id="dodajApartmanForma">
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Naziv apartmana</label> <input type="text" name="apartman"
+							class="form-control" placeholder="Upiši naziv apartmana">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Objekt</label> <select class="form-control" name="objekt">
+							<c:forEach items="${objekti}" var="o">
+								<option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Opis</label> <select class="form-control" name="opis">
+							<c:forEach items="${opisi}" var="o">
+								<option name="opisID" value="${o.opisID}">${o.naslov}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<button type="submit" id="submitApartman" name="submitApartman"
+							class="btn btn-success">Dodaj apartman</button>
+					</div>
+				</div>
+			</form>
 		</div>
+		<div id="dodajOpis">
+			<h2>Opis apartmana</h2>
 
-		<div class="form-horizontal" id="dodajAdmina">
+			<table class="table" style="width:30%">
+				<tbody>
+					<c:forEach var="o" items="${opisi}">
+						<form method="post">
 
+							<tr>
+								<td>${o.naslov}</td>
+								<td><a class="btn btn-info"
+									href="vlasnik/opis/uredi?id=${o.opisID }">Uredi</a> <input type="hidden" name="opisID" value="${o.opisID}">
+									<button type="submit" name="method" value="obrisiOpis"
+										class="btn btn-danger">Obriši</button></td>
+
+								
+							</tr>
+
+
+
+						</form>
+					</c:forEach>
+				</tbody>
+			</table>
+			<hr>
+			<br>
+			<p>
+				<button id="dodajNoviOpis" class="btn btn-default">Dodaj
+					novi opis</button>
+				<button id="zatvoriNoviOpis" class="btn btn-default">Zatvori</button>
+			</p>
+			<form action="" class="form-horizontal" method="post"
+				id="dodajOpisForma">
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Objekt</label> <select class="form-control" name="objekt">
+							<c:forEach items="${objekti}" var="o">
+								<option name="objektID" value="${o.objektID}">${o.nazivObjekt}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Kat</label> <input type="number" name="kat"
+							class="form-control" placeholder="Upiši kat">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Pogled</label> <select class="form-control" name="pogled">
+							<option name="pogled" value="suma">Šuma</option>
+							<option name="pogled" value="more">More</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Minimalan broj osoba</label> <input type="number"
+							name="minbroj" class="form-control"
+							placeholder="Minimalan broj osoba">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Maksimalan broj osoba</label> <input type="number"
+							name="maxbroj" class="form-control"
+							placeholder="Maksimalan broj osoba">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Opis</label>
+						<textarea rows="4" cols="5" name="opis" class="form-control"
+							placeholder="Upiši opis"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Naslov opisa</label> <input type="text" name="naslov"
+							class="form-control" placeholder="Upiši naslov opisa">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<button type="submit" id="submitOpis" name="submitOpis"
+							class="btn btn-success">Dodaj opis</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="dodajFotografiju">
+			<h2>Slike</h2>
+			<hr>
+			<c:forEach var="s" items="${slike}">
+				<form method="post">
+					<img src="${s.fotoDatoteka}" width="100" height="100"> <input
+						type="hidden" name="fotoID" value="${s.fotoID}">
+					<button type="submit" name="method" value="obrisiSliku"
+						class="btn btn-danger">Obriši</button>
+				</form>
+			</c:forEach>
+			<hr>
+			<br>
+			<p>
+				<button id="dodajNovuSliku" class="btn btn-default">Dodaj
+					sliku</button>
+				<button id="zatvoriNovuSliku" class="btn btn-default">Zatvori</button>
+			</p>
+			<form action="" class="form-horizontal" method="post"
+				id="dodajSlikuForma">
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>URL slike</label> <input type="text" name="urlslike"
+							class="form-control" placeholder="Upiši URL slike">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Objekt</label> <select class="form-control" name="objekt">
+							<c:forEach items="${opisi}" var="o">
+								<option name="opisID" value="${o.opisID}">${o.naslov}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<button type="submit" id="submitSlika" name="submitSlika"
+							class="btn btn-success">Dodaj sliku</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="dodajAdmina">
 			<h2>Administratori</h2>
-
+			<table class="table" style="width:30%">
+				<tbody>
+					<c:forEach var="a" items="${administratori}">
+						<form method="post">
+							<tr>
+								<td><a href="vlasnik/administrator/${a.korisnikID}">${a.ime}
+										${a.prezime}</a></td>
+								<td><input type="hidden" name="adminID"
+									value="${a.korisnikID}"></td>
+								<td>
+									<button type="submit" name="method" value="obrisiAdmina"
+										class="btn btn-danger">Obriši</button>
+								</td>
+							</tr>
+						</form>
+					</c:forEach>
+				</tbody>
+			</table>
 			<hr>
-
-			<c:forEach var="a" items="${administratori}">
-
+			<br>
+			<c:if test="${brojac <= 3}">
 				<p>
-					<a href="vlasnik/administrator/${a.korisnikID}">${a.ime}
-						${a.prezime}</a>  <a class="btn btn-danger" href="#">Obriši</a>
+					<button id="dodajNovogAdmina" class="btn btn-default">Dodaj
+						administratora</button>
+					<button id="zatvoriNoviAdmin" class="btn btn-default">Zatvori</button>
 				</p>
-
-			</c:forEach>
-
-			<p>
-				<a href="vlasnik/administrator/dodaj" class="btn btn-success">Dodaj
-					novog administratora</a>
-			</p>
-
+			</c:if>
+			<form action="" class="form-horizontal" method="post"
+				id="dodajAdminaForma">
+				<div class="form-group">
+					<div class="col-md-4">
+						<label>Korisnici</label> <select class="form-control"
+							name="objekt">
+							<c:forEach items="${korisnici}" var="k">
+								<option name="adminID" value="${k.korisnikID}">${k.ime}
+									${k.prezime}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<button type="submit" id="submitAdmin" name="submitAdmin"
+							class="btn btn-success">Dodaj administratora</button>
+					</div>
+				</div>
+			</form>
 		</div>
-
 	</div>
-
 </body>
 </html>
