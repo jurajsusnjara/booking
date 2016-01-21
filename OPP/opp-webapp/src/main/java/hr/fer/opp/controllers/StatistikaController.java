@@ -61,6 +61,26 @@ public class StatistikaController extends HttpServlet {
 
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/statistika.jsp").forward(req, resp);
 	}
+	
+	public class Datumi {
+		
+		private int dan;
+		private boolean zauzet;
+		
+		public Datumi(int dan, boolean zauzet) {
+			
+			this.dan = dan;
+			this.zauzet = zauzet;
+		}
+		
+		public int getDan() {
+			return dan;
+		}
+		
+		public boolean isZauzet() {
+			return zauzet;
+		}
+	}
 
 	public class ZauzetiDatumi {
 
