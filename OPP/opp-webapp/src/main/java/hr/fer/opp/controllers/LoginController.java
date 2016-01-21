@@ -82,8 +82,6 @@ public class LoginController extends HttpServlet {
 		String Prezime = request.getParameter("Prezime");
 		String Telefon = request.getParameter("Telefon");
 		String Email = request.getParameter("Email");
-		String Lozinka = request.getParameter("Lozinka");
-		String LozinkaPotvrda = request.getParameter("LozinkaPotvrda");
 		String Adresa = request.getParameter("Adresa");
 		String Grad = request.getParameter("Grad");
 		String Drzava = request.getParameter("Drzava");
@@ -95,6 +93,11 @@ public class LoginController extends HttpServlet {
 		// return;
 		// }
 
+		if (integrityFailed(Ime, Prezime, Telefon, Email, Adresa, Grad, Drzava, PostanskiBr)) {
+			greska(request, response, "Smanjite duzinu podataka");
+			return;
+		}
+
 		if (!isValidEmailAddress(Email)) {
 			greska(request, response, "Neispravan e-mail");
 			return;
@@ -103,8 +106,6 @@ public class LoginController extends HttpServlet {
 			greska(request, response, "Korisnik s tim e-mailom vec postoji, molimo odaberite drugi");
 			return;
 		}
-
-		
 
 		Integer PostanskiBroj = null;
 		try {
@@ -121,38 +122,44 @@ public class LoginController extends HttpServlet {
 		adresaObj.setPostanskiBroj(PostanskiBroj);
 		DAOProvider.getDAO().putAdresa(adresaObj);
 
-//		Korisnik novi = new Korisnik();
-//		novi.setAdresa(adresaObj);
-//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		Date date = new Date();
-//		novi.setDatumReg(date);
-//		novi.setIme(Ime);
-//		novi.setPrezime(Prezime);
-//		novi.setEmail(Email);
-//		MessageDigest messageDigest = null;
-//		try {
-//			messageDigest = MessageDigest.getInstance("SHA-1");
-//		} catch (NoSuchAlgorithmException e) {
-//			e.printStackTrace();
-//		}
-//		messageDigest.update(Lozinka.getBytes());
-//		String lozinka = new String(messageDigest.digest());
-//		novi.setLozinka(lozinka);
-//		novi.setTelefon(Telefon);
-//		novi.setKorisnikID(Email);
-//		novi.setUloga(1);
+		// Korisnik novi = new Korisnik();
+		// novi.setAdresa(adresaObj);
+		// DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Date date = new Date();
+		// novi.setDatumReg(date);
+		// novi.setIme(Ime);
+		// novi.setPrezime(Prezime);
+		// novi.setEmail(Email);
+		// MessageDigest messageDigest = null;
+		// try {
+		// messageDigest = MessageDigest.getInstance("SHA-1");
+		// } catch (NoSuchAlgorithmException e) {
+		// e.printStackTrace();
+		// }
+		// messageDigest.update(Lozinka.getBytes());
+		// String lozinka = new String(messageDigest.digest());
+		// novi.setLozinka(lozinka);
+		// novi.setTelefon(Telefon);
+		// novi.setKorisnikID(Email);
+		// novi.setUloga(1);
 
 		// DAOProvider.getDAO().putKorisnik(novi); ipak cekat potvrdu
 		String link = "http://localhost:8080/opp-webapp/potvrda?email=" + Email + "&adrID=" + adresaObj.getAdresaID()
-				+ "&ime=" + Ime + "&prezime=" + Prezime+"&tel="+Telefon;
+				+ "&ime=" + Ime + "&prezime=" + Prezime + "&tel=" + Telefon;
 		// request.getSession().setAttribute("korisnik", novi);
 		sendEmail(Email, request,
 				"Potvrdite registraciju na \" Kod nas je najljepse \" \n" + "klikom na link: " + link);
-		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request,
-				response);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/JSP/registracija.jsp").forward(request, response);
 	}
 
-	
+	private boolean integrityFailed(String ime, String prezime, String telefon, String email,
+			String adresa, String grad, String drzava, String postanskiBr) {
+		if (ime.length() > 20 || telefon.length() > 20 || prezime.length() > 20 || prezime.length() > 45
+				 || adresa.length()>100 || grad.length()>45 || drzava.length() >45 || postanskiBr.length() >11) {
+			return true;
+		} else
+			return false;
+	}
 
 	private boolean vecPostojiEmail(String email) {
 		List<Korisnik> listaKorisnika = DAOProvider.getDAO().getAllKorisnik();

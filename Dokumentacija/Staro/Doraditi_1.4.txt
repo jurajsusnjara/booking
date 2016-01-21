@@ -1,0 +1,10 @@
+6.4 ostali dijagrami
+	dijagram stanja
+	dijagram komponenti
+7.4 slike za ispitne primjere
+dodatci - dopuniti
+	A
+	B
+	C
+
+str 33 - 08-12 promjeniti korisnik u vlasnik u dijagramu
