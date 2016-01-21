@@ -94,6 +94,7 @@ public class AdminController extends HttpServlet{
 	@SuppressWarnings("deprecation")
 	private void promijeniRezervaciju(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException, ServletException {
+		
 		Integer apartmanID = null;
 		Integer korisnikID = null;
 		
