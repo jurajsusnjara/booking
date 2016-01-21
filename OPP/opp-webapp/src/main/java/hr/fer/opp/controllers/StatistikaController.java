@@ -40,6 +40,8 @@ public class StatistikaController extends HttpServlet {
 		// resp.sendRedirect("/opp-webapp/");
 		// return;
 		// }
+		
+//		TODO ispisat broj korisnika za svaku državu i grad, eventualno napravit piechart za usluge
 
 		List<ZahtjevStat> usluge = uslugePoTrazenju();
 		req.setAttribute("usluge", usluge);
