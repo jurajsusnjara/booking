@@ -24,9 +24,7 @@ import hr.fer.opp.model.Rezervacija;
 public class PretrazivanjeObjektaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	Objekt trazeniObjekt;
 
 	public PretrazivanjeObjektaController() {
@@ -60,8 +58,7 @@ public class PretrazivanjeObjektaController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String method = request.getParameter("method");
-		System.out.println("TU SAM");
+		//String method = request.getParameter("method");
 		// if (method.equals("filtriraj")) {
 		filtriraj(request, response);
 		// }

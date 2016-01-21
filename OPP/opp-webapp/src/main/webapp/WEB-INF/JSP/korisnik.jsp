@@ -168,6 +168,7 @@ table, th, td {
 	</nav>
  
 	<div class="container topmargin" id="korisnikDetails">
+	<br>
 		<h2>Podaci o korisniku</h2>
 		<hr>
 		<br>
