@@ -52,7 +52,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
-      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
+      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepše</a></b></p> 	
 				</p>
 			</div>
 
@@ -83,7 +83,7 @@
 							
 						</c:when>
 						<c:otherwise>
-							<li><a href="/opp-webapp/registracija">Prijava/registrcija</a></li>
+							<li><a href="/opp-webapp/registracija">Prijava/registracija</a></li>
 
 						</c:otherwise>
 					</c:choose>

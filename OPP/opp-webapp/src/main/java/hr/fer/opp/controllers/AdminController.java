@@ -45,14 +45,13 @@ public class AdminController extends HttpServlet{
 		
 		
 		Integer apartmanID = null;
-		Integer korisnikID = null;
+		String korisnikID = null;
 		
 		if (req.getParameter("apartmanID") != null) {
 			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
 		}
-		if (req.getParameter("korisnikID") != null) {
-			 korisnikID = Integer.parseInt(req.getParameter("korisnikID"));
-		}
+		
+		korisnikID = req.getParameter("korisnikID");
 		
 		
 		if (apartmanID == null && korisnikID == null) {

@@ -156,7 +156,7 @@ table, th, td {
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-brand">
-      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepse</a></b></p> 	
+      				<p class="navbar-brand" id="logoshaddow"><b><a id="headerUrl" href="/opp-webapp/">Kod Nas Je Najljepše</a></b></p> 	
 				</p>
 			</div>
 
@@ -187,7 +187,7 @@ table, th, td {
 							
 						</c:when>
 						<c:otherwise>
-							<li><a href="/opp-webapp/registracija">Prijava/registrcija</a></li>
+							<li><a href="/opp-webapp/registracija">Prijava/registracija</a></li>
 
 						</c:otherwise>
 					</c:choose>
@@ -219,7 +219,7 @@ table, th, td {
 					<c:forEach var="o" items="${objekti}">
 						<form method="post">
 							<tr>
-								<td><a href="vlasnik/objekt/${o.objektID}">${o.nazivObjekt}
+								<td><a href="objekt?id=${o.objektID}">${o.nazivObjekt}
 								</a></td>
 								<td><a class="btn btn-info"
 									href="vlasnik/objekt/uredi?id=${o.objektID }">Uredi</a> 
@@ -262,7 +262,7 @@ table, th, td {
 					<c:forEach var="a" items="${apartmani}">
 						<form method="post">
 							<tr>
-								<td><a href="vlasnik/apartman/${a.apartmanID}">${a.nazivApartman}
+								<td><a href="apartman?id=${a.apartmanID}">${a.nazivApartman}
 								</a></td>
 								<td><a class="btn btn-info"
 									href="vlasnik/apartman/uredi?id=${a.apartmanID }">Uredi</a> 
