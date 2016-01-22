@@ -135,7 +135,7 @@ table, th, td {
 
    
     <div class="container topmargin">
-    <h1>Rezervacija</h1>
+    <h1>Izmjena Rezervacije</h1>
     <hr>
    
         <form action="" class="form-horizontal" method="post" id="filtriranje">
@@ -245,21 +245,22 @@ table, th, td {
                 </div>
             </div>
            
-            <c:if test="${error != null}">
-                <div class="greska"><c:out value="${error}"/></div>
-            </c:if>
             <!-- Buttons -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="signup"></label>
                     <div class="col-md-4">
-                        <button  type="submit" name="method" value="posaljiMolbuZaPromijenu" class="btn btn-success" >Promijeni</button>
+                        <button  type="submit" name="method" value="posaljiMolbuZaPromijenu" class="btn btn-success" >Pošalji molbu</button>
                        
                         <button id="reset" type="reset" name="reset" class="btn btn-warning">Resetiraj unesene promjene</button>
  
                     </div>
                 </div>
        
-           
+           <c:if test="${error != null}">
+				<div class="col-md-4 col-md-offset-2" id="greska" style="color: red">
+					<c:out value="${error}" />
+				</div>
+			</c:if>
         </form>
         </div>
     </body>

@@ -98,7 +98,7 @@
 <div class="container topmargin">
 
     <h2>Popis ponuđenih rezervacija</h2>
-	<p>Radi optimalnosti ne možete rezervirati apartman. Predložili smo Vam popis rezervacija sa istim uslugama!</p>
+	<p>Apartman se nažalost ne može reyervirat u ovome terminu. Predložili smo Vam popis rezervacija sa istim uslugama!</p>
     <form  action="" class="form-horizontal" method="post" id="rezervacija">
 
         <table class="table table-bordered">

@@ -209,13 +209,22 @@ table, th, td {
 				</tr>
 			</tbody>
 		</table>
+		
+		<c:if test="${error != null}">
+				<div class="col-md-4 col-md-offset-2" id="greska" style="color: red">
+					<c:out value="${error}" />
+				</div>
+			</c:if>
+			
 		<div class="container topmargin">
 			<button name="button" class="btn btn-default" id="otvoriFiltriranje">Promjenite
 				korisnicke postavke</button>
 			<button name="button" class="btn btn-default" id="otvoriPassword">Promjeni
 				lozinku</button>
-			<button name="button" class="btn btn-default" id="otvoriRezervacije">Pogledaj
+			<c:if test="${korisnik.uloga !=3 }">
+				<button name="button" class="btn btn-default" id="otvoriRezervacije">Pogledaj
 				rezervacije</button>
+			</c:if>
 			<button name="button" class="btn btn-default" id="zatvori">Zatvori</button>
 		</div>
 
@@ -230,7 +239,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="ime" class="form-control"
 							placeholder="Ime" value='<c:out value="${korisnik.ime}"/>'
-							size="50"><br>
+							size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -241,7 +250,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="prezime" class="form-control"
 							placeholder="Prezime"
-							value='<c:out value="${korisnik.prezime}"/>' size="50"><br>
+							value='<c:out value="${korisnik.prezime}"/>' size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -252,7 +261,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="email" class="form-control"
 							placeholder="Email" value='<c:out value="${korisnik.email}"/>'
-							size="50"><br>
+							size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -263,7 +272,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="telefon" class="form-control"
 							placeholder="Telefon"
-							value='<c:out value="${korisnik.telefon}"/>' size="50"><br>
+							value='<c:out value="${korisnik.telefon}"/>' size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -274,7 +283,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="adresa" class="form-control"
 							placeholder="Adresa"
-							value='<c:out value="${korisnik.adresa.adresa}"/>' size="50"><br>
+							value='<c:out value="${korisnik.adresa.adresa}"/>' size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -285,7 +294,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="grad" class="form-control"
 							placeholder="Grad"
-							value='<c:out value="${korisnik.adresa.grad}"/>' size="50"><br>
+							value='<c:out value="${korisnik.adresa.grad}"/>' size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -296,7 +305,7 @@ table, th, td {
 					<div class="input-group input-append date" id="dateRangePickerFrom">
 						<input type="text" name="drzava" class="form-control"
 							placeholder="Drzava"
-							value='<c:out value="${korisnik.adresa.drzava}"/>' size="50"><br>
+							value='<c:out value="${korisnik.adresa.drzava}"/>' size="50" required><br>
 					</div>
 				</div>
 			</div>
@@ -308,16 +317,12 @@ table, th, td {
 						<input type="text" name="postanskiBroj" class="form-control"
 							placeholder="Postanski broj"
 							value='<c:out value="${korisnik.adresa.postanskiBroj}"/>'
-							size="50"><br>
+							size="50" required><br>
 					</div>
 				</div>
 			</div>
 
-			<c:if test="${error != null}">
-				<div class="greska">
-					<c:out value="${error}" />
-				</div>
-			</c:if>
+			
 			<!-- Buttons -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="signup"></label>
@@ -367,11 +372,7 @@ table, th, td {
 				</div>
 			</div>
 
-			<c:if test="${error != null}">
-				<div class="greska">
-					<c:out value="${error}" />
-				</div>
-			</c:if>
+			
 			<!-- Buttons -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="signup"></label>
@@ -385,7 +386,7 @@ table, th, td {
 				</div>
 			</div>
 
-
+			
 		</form>
 
 		<form action="" class="form-horizontal" method="post" id="rezervacija">

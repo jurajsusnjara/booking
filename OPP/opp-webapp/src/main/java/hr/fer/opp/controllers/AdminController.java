@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +57,17 @@ public class AdminController extends HttpServlet{
 		
 		if (apartmanID == null && korisnikID == null) {
 			List<Rezervacija> rezervacije = AdminViewModel.getAllRezervacija();
+			List<Rezervacija> kopija = new ArrayList<Rezervacija>(rezervacije);
+			for (Rezervacija r : kopija) {
+				if (!r.isPotvrda()) {
+					Date dateOd = r.getDatumRezervacije();
+					Date dateDo = new Date();
+					long razlika = Math.abs(dateOd.getTime() - dateDo.getTime()) / (24 * 60 * 60 * 1000);
+					if (razlika > 2) {
+						rezervacije.remove(r);
+					}
+				}
+			}
 			req.setAttribute("rezervacije", rezervacije);
 			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin.jsp").forward(req, resp);
 			return;
@@ -85,8 +97,28 @@ public class AdminController extends HttpServlet{
 		
 		if (method.equals("promijeniRezervaciju")) {
 			promijeniRezervaciju(req, resp);
+		} else if (method.equals("potvrdi")) {
+			potvrdi(req, resp);
 		}
 		resp.sendRedirect("admin");
+	}
+
+
+	private void potvrdi(HttpServletRequest req, HttpServletResponse resp) {
+		Integer apartmanID = null;
+		String korisnikID = req.getParameter("korisnikID");
+		
+		if (req.getParameter("apartmanID") != null) {
+			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
+		}
+		
+		if (korisnikID == null || apartmanID == null) {
+			throw new RuntimeException("Invalid url!");
+		}
+		Rezervacija rezervacija  = AdminViewModel.getRezervacijaFor(korisnikID, apartmanID);
+		rezervacija.setPotvrda(true);
+		
+		
 	}
 
 
@@ -95,20 +127,18 @@ public class AdminController extends HttpServlet{
 			HttpServletResponse resp) throws IOException, ServletException {
 		
 		Integer apartmanID = null;
-		Integer korisnikID = null;
+		String korisnikID = req.getParameter("korisnikID");
 		
 		if (req.getParameter("apartmanID") != null) {
 			apartmanID = Integer.parseInt(req.getParameter("apartmanID"));
 		}
-		if (req.getParameter("korisnikID") != null) {
-			 korisnikID = Integer.parseInt(req.getParameter("korisnikID"));
-		}
+		
 		//System.out.println(apartmanID + "  " + korisnikID + " " + gostID);
 		if (korisnikID == null || apartmanID == null) {
 			throw new RuntimeException("Invalid url!");
 		}
 		
-		Rezervacija rezervacija  = AdminViewModel.getRezervacijaFor(korisnikID.toString(), apartmanID);;
+		Rezervacija rezervacija  = AdminViewModel.getRezervacijaFor(korisnikID, apartmanID);
 		String rezerviranoOd = req.getParameter("rezerviranoOd");
 		String rezerviranoDo = req.getParameter("rezerviranoDo");
 		boolean parking = false;

@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -247,6 +248,19 @@ public class RezervacijaController extends HttpServlet {
 		LocalDate startRezervirano = dateOd.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate endRezervirano = dateDo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(1);
 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dateOd);
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(dateDo);
+		
+		Integer[] months = {Calendar.MAY, Calendar.JUNE, Calendar.JULY, Calendar.AUGUST, Calendar.SEPTEMBER};
+		List<Integer> list = Arrays.asList(months);
+		
+		if (!list.contains(cal.get(Calendar.MONTH)) || !list.contains(cal2.get(Calendar.MONTH))) {
+			errorRezervacija(req, resp, "Izabrali ste datum u kojem turističko mjesto ne radi!");
+			return;
+		}
+		
 		for (LocalDate date = startRezervirano; date.isBefore(endRezervirano); date = date.plusDays(1)) {
 			if (!slobodniDani.contains(DateUtils.asDate(date))) {
 				errorRezervacija(req, resp, "Izabrani datumi su već rezervirani!");

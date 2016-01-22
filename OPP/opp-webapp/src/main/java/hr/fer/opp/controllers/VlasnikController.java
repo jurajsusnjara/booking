@@ -112,6 +112,7 @@ public class VlasnikController extends HttpServlet{
 		out.println("<script type=\"text/javascript\">");  
 		out.println("\"$(\"#dodajObjekt\").show(); $(\"#dodajApartman\").hide();\""); 
 		out.println("</script>"); */
+		error = false;
 		
 		if (method.equals("dodajObjekt")) {
 			dodajObjekt(req, resp);

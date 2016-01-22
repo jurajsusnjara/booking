@@ -31,6 +31,7 @@ public class KorisnikDetailController extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private boolean error = false;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -75,22 +76,30 @@ public class KorisnikDetailController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String method = req.getParameter("method");
+		error = false;
 		
 		if (method.equals("promijeniPodatke")) {
 			promijeniPodatke(req, resp);
 		} else if (method.equals("promijeniSifru")) {
 			promijeniSifru(req, resp);
-			resp.sendRedirect("/opp-webapp/registracija");
-			return;
+			if (!error) {
+				resp.sendRedirect("/opp-webapp/korisnik");
+				return;
+			}
 		} else if (method.equals("posaljiMolbuZaPromijenu")) {
 			posaljiMolbuZaPromijenu(req, resp);
-			resp.sendRedirect("/opp-webapp/korisnik");
-			return;
+			if (!error) {
+				resp.sendRedirect("/opp-webapp/korisnik");
+				return;
+			}
 		}
-		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
+		if (!error) {
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
+		}
+		
 	}
 	
-	private void promijeniPodatke(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void promijeniPodatke(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		System.out.println("mijenja podatke");
 		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
 		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikPom.getKorisnikID());
@@ -107,11 +116,11 @@ public class KorisnikDetailController extends HttpServlet{
 		
 		
 		if (checkNull(ime, prezime, email, telefon, adresa, grad, drzava, postanskiBroj) ) {
-			error(req, resp);
+			error(req, resp, "Niste unijeli sve podatke");
 			return;
 		}
 		if (!isValidEmailAddress(email)) {
-			error(req, resp, "Invalid email");
+			error(req, resp, "Neispravni email");
 			return;
 		}
 		boolean novo = false;
@@ -120,7 +129,7 @@ public class KorisnikDetailController extends HttpServlet{
 			Integer.parseInt(postanskiBroj);
 			Integer.parseInt(telefon);
 		} catch (NumberFormatException e) {
-			error(req, resp);
+			error(req, resp, "Neispravni telefon ili postanski broj!");
 			return;
 		}
 
@@ -163,12 +172,16 @@ public class KorisnikDetailController extends HttpServlet{
 		String novaSifra2 = req.getParameter("novaLozinka2");
 		
 		if (!checkPassword(korisnik, staraSifra)) {
-			req.setAttribute("error", "Neispravna stara sifra!");
-			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
+			error(req, resp, "Neispravna stara sifra!");
 			return;
 		}
-		if (!novaSifra1.equals(novaSifra2) && novaSifra1.length() < 30 && novaSifra1.length() > 5) {
-			error(req, resp);
+		if (!novaSifra1.equals(novaSifra2)) {
+			error(req, resp, "Niste isprano unijeli novu sifru!");
+			return;
+		}
+		
+		if (novaSifra1.length() > 30 || novaSifra1.length() < 5) {
+			error(req, resp, "Nova sifra mora biti u rasponu od [5,30]!");
 			return;
 		}
 		
@@ -194,7 +207,7 @@ public class KorisnikDetailController extends HttpServlet{
 	}
 
 
-	private void posaljiMolbuZaPromijenu(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void posaljiMolbuZaPromijenu(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		Korisnik korisnikPom = (Korisnik) req.getSession().getAttribute("korisnik");
 		Korisnik korisnik = DAOProvider.getDAO().getKorisnikFor(korisnikPom.getKorisnikID());
 		String info = req.getPathInfo();
@@ -287,35 +300,27 @@ public class KorisnikDetailController extends HttpServlet{
 		return false;
 	}
 	
-	private void error(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void error(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		req.setAttribute("error", "Neispravni parametri!");
-		try {
-			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		}
+		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
+		error = true;
+		
 		
 	}
 	
-	private void error(HttpServletRequest req, HttpServletResponse resp, String message) throws IOException {
+	private void error(HttpServletRequest req, HttpServletResponse resp, String message) throws IOException, ServletException {
 		req.setAttribute("error", message);
-		try {
-			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		}
+		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnik.jsp").forward(req, resp);
+		error = true;
 		
 	}
 	
 	private void errorRezervacija(HttpServletRequest req,
-			HttpServletResponse resp, Rezervacija rezervacija, String message) throws IOException {
+			HttpServletResponse resp, Rezervacija rezervacija, String message) throws IOException, ServletException {
 		req.setAttribute("error", message);
-		try {
-			req.setAttribute("rezervacija", rezervacija);
-			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnikRezervacija.jsp").forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		}
+		req.setAttribute("rezervacija", rezervacija);
+		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/korisnikRezervacija.jsp").forward(req, resp);
+		error = true;
 		
 	}
 	

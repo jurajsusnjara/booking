@@ -104,7 +104,7 @@ html, body{
 
     <h2>Popis rezervacija</h2>
 
-    <form  action="" class="form-horizontal" method="post" id="rezervacija">
+    <div class="form-horizontal" id="rezervacija">
 
         <table class="table table-bordered">
             <tr>
@@ -119,7 +119,9 @@ html, body{
 
             <c:forEach var="r" items="${rezervacije}">
 
-                <tr>
+			<form method="post"> 
+			
+				<tr>
                     <td> ${r.apartman.nazivApartman }</td>
                     <td> ${r.korisnik.ime} ${r.korisnik.prezime}</td>
                     <td> ${r.rezerviranoOd }</td>
@@ -148,14 +150,21 @@ html, body{
                             <td>NE</td>
                         </c:otherwise>
                     </c:choose>
-                    <td style="border: 0; border-right: hidden; border-bottom: hidden"><a class="btn btn-danger" href="admin?apartmanID=${r.apartman.apartmanID}&korisnikID=${r.korisnik.korisnikID}">Promijeni</a></td>
+                    <td style="border: 0; border-right: hidden; border-bottom: hidden">
+                    	<a class="btn btn-warning" href="admin?apartmanID=${r.apartman.apartmanID}&korisnikID=${r.korisnik.korisnikID}">Promijeni</a></td>
+                    <c:if test="${!r.potvrda}">
+                    	<td style="border: 0; border-right: hidden; border-bottom: hidden">
+                    	<input type="hidden" name="apartmanID" value="${r.apartman.apartmanID}">
+                    	<input type="hidden" name="korisnikID" value="${r.korisnik.korisnikID}">
+                    	<button class="btn btn-success" type="submit" name="method" value="potvrdi">Potvrdi</button></td>	
+                    </c:if>
                 </tr>
-
+			</form>
             </c:forEach>
 
         </table>
 
-    </form>
+    </div>
 </div>
 
 </body>

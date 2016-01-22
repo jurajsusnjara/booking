@@ -408,6 +408,7 @@ table, th, td {
 					<button type="submit" name="method" value="obrisiFotografiju"
 						class="btn btn-danger">Obriši</button>
 				</form>
+				<br>
 			</c:forEach>
 			<hr>
 			<br>
@@ -448,8 +449,7 @@ table, th, td {
 					<c:forEach var="a" items="${administratori}">
 						<form method="post">
 							<tr>
-								<td><a href="vlasnik/administrator/${a.korisnikID}">${a.ime}
-										${a.prezime}</a></td>
+								<td>${a.ime} ${a.prezime}</a></td>
 								<td><input type="hidden" name="adminID"
 									value="${a.korisnikID}"></td>
 								<td>
