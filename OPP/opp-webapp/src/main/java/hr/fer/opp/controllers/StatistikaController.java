@@ -2,11 +2,8 @@ package hr.fer.opp.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hr.fer.opp.controllers.pics.Zauzetost;
 import hr.fer.opp.dao.DAOProvider;
 import hr.fer.opp.model.Adresa;
-import hr.fer.opp.model.Apartman;
 import hr.fer.opp.model.Korisnik;
-import hr.fer.opp.model.Objekt;
 import hr.fer.opp.model.Rezervacija;
 
 @WebServlet("/statistika/*")
@@ -52,8 +48,8 @@ public class StatistikaController extends HttpServlet {
 		Map<String, Integer> gradovi = gradoviPoDolaskuGostiju();
 		req.getSession().setAttribute("gradovi", gradovi);
 
-		List<ZauzetiDatumi> jedinice = zauzetost();
-		req.getSession().setAttribute("jedinice", jedinice);
+		Zauzetost zauzetost = new Zauzetost();
+		req.getSession().setAttribute("zauzetost", zauzetost);
 
 		req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/statistika.jsp").forward(req, resp);
 	}
@@ -81,56 +77,6 @@ public class StatistikaController extends HttpServlet {
 		
 		public boolean isZauzet() {
 			return zauzet;
-		}
-	}
-
-	public class ZauzetiDatumi {
-
-		private Apartman apartman;
-		private String naziv;
-		private List<Date> dates;
-
-		public ZauzetiDatumi(Apartman apartman) {
-			this.apartman = apartman;
-			this.naziv = apartman.getNazivApartman();
-			this.dates = new ArrayList<>();
-			findDates();
-		}
-
-		private void findDates() {
-
-			List<Rezervacija> reservations = DAOProvider.getDAO().getReservationsFor(apartman);
-			for (Rezervacija r : reservations) {
-				
-				if (r.isPotvrda() == false) {
-					continue;
-				}
-
-				Date start = r.getRezerviranoOd();
-				Date end = r.getRezerviranoDo();
-
-				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(start);
-
-				while (calendar.getTime().before(end)) {
-
-					Date result = calendar.getTime();
-					dates.add(result);
-					calendar.add(Calendar.DATE, 1);
-				}
-			}
-		}
-		
-		public String getNaziv() {
-			return naziv;
-		}
-
-		public Apartman getApartman() {
-			return apartman;
-		}
-
-		public List<Date> getDates() {
-			return dates;
 		}
 	}
 
@@ -179,23 +125,6 @@ public class StatistikaController extends HttpServlet {
 			} else {
 				int n = result.get(city);
 				result.put(city, n + 1);
-			}
-		}
-
-		return result;
-	}
-
-	private List<ZauzetiDatumi> zauzetost() {
-
-		List<Objekt> objekti = DAOProvider.getDAO().getAllObjekt();
-		List<ZauzetiDatumi> result = new ArrayList<>();
-
-		for (Objekt o : objekti) {
-
-			List<Apartman> apartmani = o.getApartmani();
-			for (Apartman a : apartmani) {
-
-				result.add(new ZauzetiDatumi(a));
 			}
 		}
 
