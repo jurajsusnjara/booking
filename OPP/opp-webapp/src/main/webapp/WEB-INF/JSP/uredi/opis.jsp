@@ -158,8 +158,8 @@ table, th, td {
             <div class="col-md-4">
                 <label>Pogled</label>
                 <select class="form-control" name="pogled">
-                    <option value="suma">Šuma</option>
-                    <option value="more">More</option>
+                    <option value="Suma">Šuma</option>
+                    <option value="More">More</option>
                 </select>
             </div>
         </div>
