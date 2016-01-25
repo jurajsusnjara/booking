@@ -24,10 +24,12 @@ public class Initialization implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		//TODO IME BAZE
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mihajlodb");
 		sce.getServletContext().setAttribute("my.application.emf", emf);
 		JPAEMFProvider.setEmf(emf);
+		
+		
 	}
 
 }

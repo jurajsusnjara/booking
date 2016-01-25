@@ -30,12 +30,11 @@ public class StatistikaController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// Korisnik korisnik = (Korisnik)
-		// req.getSession().getAttribute("korisnik");
-		// if (korisnik == null || korisnik.getUloga() != 3) {
-		// resp.sendRedirect("/opp-webapp/");
-		// return;
-		// }
+		 Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		 if (korisnik == null || korisnik.getUloga() != 3) {
+			 resp.sendRedirect("/opp-webapp/");
+			 return;
+		 }
 		
 //		TODO ispisat broj korisnika za svaku državu i grad, eventualno napravit piechart za usluge
 

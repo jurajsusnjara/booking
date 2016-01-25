@@ -21,6 +21,8 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
+import hr.fer.opp.model.Korisnik;
+
 @WebServlet("/drzave")
 public class PieChartDrzave extends HttpServlet {
 
@@ -28,9 +30,12 @@ public class PieChartDrzave extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-////		TODO pazit na vlasnika i ostale sitnice
-//		
+		
+		 Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		 if (korisnik == null || korisnik.getUloga() != 3) {
+			 resp.sendRedirect("/opp-webapp/");
+			 return;
+		 }
 		
 		@SuppressWarnings("unchecked")
 		Map<String, Integer> drzave = (Map<String, Integer>) req.getSession().getAttribute("drzave");

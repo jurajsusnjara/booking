@@ -21,6 +21,8 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
+import hr.fer.opp.model.Korisnik;
+
 //import org.jfree.chart.ChartFactory;
 //import org.jfree.chart.JFreeChart;
 //import org.jfree.chart.plot.PiePlot3D;
@@ -36,8 +38,11 @@ public class PieChartGradovi extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-////		TODO pazit na vlasnika i ostale sitnice
-//		
+		 Korisnik korisnik = (Korisnik) req.getSession().getAttribute("korisnik");
+		 if (korisnik == null || korisnik.getUloga() != 3) {
+			 resp.sendRedirect("/opp-webapp/");
+			 return;
+		 }
 		
 		@SuppressWarnings("unchecked")
 		Map<String, Integer> gradovi = (Map<String, Integer>) req.getSession().getAttribute("gradovi");
