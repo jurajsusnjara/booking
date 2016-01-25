@@ -198,7 +198,7 @@ table, th, td {
 			</div>
 		</div>
 	</nav>
-	
+		
 	<div class="container topmargin">
 		<h2>Konfiguracija sustava</h2>
 		<hr>
@@ -210,7 +210,15 @@ table, th, td {
 			apartmana</button>
 		<button name="button" class="btn btn-default"
 			id="otvoriAdministratore">Administratori</button>
-		<p></p>
+		
+		<br>
+		<c:if test="${error != null}">
+				<div class="col-md-4 col-md-offset-2" id="greska" style="color: red">
+					<c:out value="${error}" />
+				</div>
+		</c:if>
+		<p></p>	
+		
 		<div id="dodajObjekt">
 			<h2>Objekti</h2>
 			<div style="width:30%">
