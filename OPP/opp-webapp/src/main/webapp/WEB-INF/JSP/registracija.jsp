@@ -115,12 +115,14 @@
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/ulogirani">Ulogirani korisnici</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
 						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/ulogirani">Ulogirani korisnici</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -261,7 +263,9 @@
 								required>
 						</div>
 						<br> <br>
-						<label>Drzava:</label> <select name="Drzava" required>
+						<div class="input-group">
+						
+						<label>Drzava:</label> <select class="form-control" name="Drzava" required>
 							<option value="Afganistan">Afghanistan</option>
 							<option value="Albania">Albania</option>
 							<option value="Algeria">Algeria</option>
@@ -525,7 +529,7 @@
 							<option value="Zaire">Zaire</option>
 							<option value="Zambia">Zambia</option>
 							<option value="Zimbabwe">Zimbabwe</option>
-						</select> <br> <br>
+						</select> </div><br> <br>
 						<div class="input-group col-xs-12 text-center login-action">
 							<label> <!-- <span id="btn-login"><a href="#" class="btn btn-primary">Registriraj se</a></span> -->
 								<button id="register" type="submit" name="method"

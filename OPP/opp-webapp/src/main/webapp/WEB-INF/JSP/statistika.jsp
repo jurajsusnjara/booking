@@ -188,6 +188,7 @@ table, th, td {
 									Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}
 								</p> </a>
 							</li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/ulogirani">Ulogirani korisnici</p></a></li>
 							<li>
 								<p class="navbar-text">
 									<a id="headerUrl" href="/opp-webapp/odjava">Odjava 
@@ -208,6 +209,7 @@ table, th, td {
 									Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}
 								</p> </a>
 							</li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/ulogirani">Ulogirani korisnici</p></a></li>
 							<li>
 								<p class="navbar-text">
 									<a id="headerUrl" href="/opp-webapp/odjava">Odjava 
