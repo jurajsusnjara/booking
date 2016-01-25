@@ -44,6 +44,10 @@ public class OdjavaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		Korisnik odlogirani1 = (Korisnik) request.getSession().getAttribute("korisnik");
+		Korisnik odlogirani2 = DAOProvider.getDAO().getKorisnikFor(odlogirani1.getKorisnikID());
+		odlogirani2.setLogiran(false);
+
 		request.getSession().setAttribute("korisnik", null);
 		RequestDispatcher rd = request.getRequestDispatcher("/index");
 		rd.forward(request, response);

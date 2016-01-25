@@ -29,6 +29,7 @@ public class Korisnik {
 	private Adresa adresa;
 	private boolean logiran;
 	private List<Rezervacija> rezervacije;
+	private boolean logiran;
 	
 	@Column
 	public boolean isLogiran() {
@@ -130,7 +131,16 @@ public class Korisnik {
 	public void setRezervacije(List<Rezervacija> rezervacije) {
 		this.rezervacije = rezervacije;
 	}
+	
+	@Column
+	public boolean isLogiran() {
+		return logiran;
+	}
 
+	public void setLogiran(boolean logiran) {
+		this.logiran = logiran;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

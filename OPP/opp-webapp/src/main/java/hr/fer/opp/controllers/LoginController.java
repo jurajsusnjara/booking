@@ -197,10 +197,6 @@ public class LoginController extends HttpServlet {
 		String sifra = request.getParameter("sifra");
 		request.setAttribute("error", null);
 
-		// if (checkNull(korisnickoIme, sifra)) {
-		// error(request, response, "Upisite lozinku i korisnicko ime");
-		// return;
-		// }
 
 		if (!isValidEmailAddress(korisnickoIme)) {
 			error(request, response, "Neispravan e-mail");
@@ -236,6 +232,9 @@ public class LoginController extends HttpServlet {
 			if (tmpKorisnik.getEmail().equals(korisnickoIme)) {
 				if (tmpKorisnik.getLozinka().equals(sifra)) {
 					request.getSession().setAttribute("korisnik", tmpKorisnik);
+					Korisnik ulogirani1 = (Korisnik) request.getSession().getAttribute("korisnik");
+					Korisnik ulogirani2 = DAOProvider.getDAO().getKorisnikFor(ulogirani1.getKorisnikID());
+					ulogirani2.setLogiran(true);
 					RequestDispatcher rd = request.getRequestDispatcher("/index");
 					rd.forward(request, response);
 					return true;

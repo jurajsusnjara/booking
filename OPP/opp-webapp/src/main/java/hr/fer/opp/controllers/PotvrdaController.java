@@ -90,6 +90,7 @@ public class PotvrdaController extends HttpServlet {
 		novi.setTelefon(Telefon);
 		novi.setKorisnikID(Email);
 		novi.setUloga(1);
+		novi.setLogiran(true);
 		DAOProvider.getDAO().putKorisnik(novi);
 		request.getSession().setAttribute("korisnik", novi);
 		sendEmail(Email, request, "Uspjesno ste registrirani na \"Kod nas je najljepse\"\n" + "Email: " + Email + "\n"
