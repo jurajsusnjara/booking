@@ -148,7 +148,7 @@ public class VlasnikController extends HttpServlet{
 		
 		if (!error) {
 			setAttributes(req);
-			
+		
 			resp.sendRedirect("/opp-webapp/vlasnik");
 			
 		}
@@ -202,12 +202,16 @@ public class VlasnikController extends HttpServlet{
 		if (!setObjekt(req, resp, objekt)) {
 			return;
 		}
-		DAOProvider.getDAO().putObjekt(objekt);	
+		if (!error) {
+			DAOProvider.getDAO().putObjekt(objekt);	
+		}
+		
 	}
 
 	private void dodajSmjestajnuJedinicu(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		Apartman apartman = new Apartman();
 		if (!setApartman(req, resp, apartman)) return;
+		if (!error)
 		DAOProvider.getDAO().putApartman(apartman);	
 			
 		
@@ -217,6 +221,7 @@ public class VlasnikController extends HttpServlet{
 		
 		OpisApartmana opisApartmana = new OpisApartmana();
 		if (!setOpisApartmana(req, resp, opisApartmana)) return;
+		if (!error)
 		DAOProvider.getDAO().putOpisApartmana(opisApartmana);	
 	}
 
@@ -227,6 +232,7 @@ public class VlasnikController extends HttpServlet{
 		
 		f.setFotoDatoteka(fotoDatoteka);
 		f.setOpisApartmana(DAOProvider.getDAO().getOpisApartmanaFor(id));
+		if (!error)
 		DAOProvider.getDAO().putFotografija(f);
 		
 	}
@@ -335,6 +341,11 @@ public class VlasnikController extends HttpServlet{
 				return false;
 			}
 			
+			if (naslov.length() > 20 || pogled.length() > 45) {
+				error(req, resp, "Samanjite dužinu podataka!");
+				return false;
+			}
+			
 			opisApartmana.setKat(kat);
 			opisApartmana.setMaxBroj(maxBroj);
 			opisApartmana.setMinBroj(minBroj);
@@ -360,6 +371,11 @@ public class VlasnikController extends HttpServlet{
 			return false;
 		}
 		
+		if (nazivObjekta.length() > 20 || fotografija.length() > 300) {
+			error(req, resp, "Samanjite dužinu podataka!");
+			return false;
+		}
+		
 		objekt.setNazivObjekt(nazivObjekta);
 		if (fotografija != null && !fotografija.equals("")) {
 			objekt.setFotografija(fotografija);
@@ -375,6 +391,10 @@ public class VlasnikController extends HttpServlet{
 			
 			if (checkNull(nazivApartmana) || objektId == null || opisId == null) {
 				error(req, resp);
+				return false;
+			}
+			if (nazivApartmana.length() > 45) {
+				error(req, resp, "Samanjite dužinu podataka!");
 				return false;
 			}
 			
@@ -429,6 +449,19 @@ public class VlasnikController extends HttpServlet{
 		error = true;
 		req.setAttribute("error", "Neispravni parametri!");
 		try {
+			setAttributes(req);
+			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/vlasnik.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void error(HttpServletRequest req, HttpServletResponse resp, String message) throws IOException {
+		error = true;
+		req.setAttribute("error", message);
+		try {
+			setAttributes(req);
 			req.getServletContext().getRequestDispatcher("/WEB-INF/JSP/vlasnik.jsp").forward(req, resp);
 		} catch (ServletException e) {
 			e.printStackTrace();
