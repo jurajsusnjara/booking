@@ -188,6 +188,7 @@ table, th, td {
 	</nav>
 	<h3>Trenutno aktivni korisnici:</h3>
 	<hr>
+	<div class="container">
 	<table class="table table-striped">
 		<tbody>
 		<thead>
@@ -209,7 +210,7 @@ table, th, td {
 		</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 </body>
 
 </html>
