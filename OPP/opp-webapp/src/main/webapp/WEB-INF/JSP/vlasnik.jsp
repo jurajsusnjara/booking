@@ -177,12 +177,14 @@ table, th, td {
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/vlasnik">Konfiguracija sustava</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/statistika">Statistika</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/ulogirani">Ulogirani korisnici</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
 						<c:when test="${sessionScope.korisnik != null && sessionScope.korisnik.getUloga() == 2}">
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/admin">Promjena rezervacija</p></a></li>
 							<li> <p class="navbar-text">Moj profil: <a id="headerUrl" href="/opp-webapp/korisnik">${sessionScope.korisnik.getIme()}</p></a></li>
+							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/ulogirani">Ulogirani korisnici</p></a></li>
 							<li> <p class="navbar-text"><a id="headerUrl" href="/opp-webapp/odjava">Odjava</p></a></li>
 							
 						</c:when>
@@ -411,7 +413,7 @@ table, th, td {
 			<hr>
 			<c:forEach var="s" items="${slike}">
 				<form method="post">
-					<img src="${s.fotoDatoteka}" width="100" height="100"> <input
+					<img src="${s.fotoDatoteka}"  width="100" height="100"> <input
 						type="hidden" name="fotoID" value="${s.fotoID}">
 					<button type="submit" name="method" value="obrisiFotografiju"
 						class="btn btn-danger">Obriši</button>
