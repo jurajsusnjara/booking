@@ -27,7 +27,17 @@ public class Korisnik {
 	private String lozinka;
 	private int uloga;
 	private Adresa adresa;
+	private boolean logiran;
 	private List<Rezervacija> rezervacije;
+	
+	@Column
+	public boolean isLogiran() {
+		return logiran;
+	}
+	
+	public void setLogiran(boolean logiran) {
+		this.logiran = logiran;
+	}
 	
 	@Id
 	public String getKorisnikID() {
