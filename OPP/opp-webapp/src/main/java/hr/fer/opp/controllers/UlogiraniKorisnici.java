@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/ulogirani")
 public class UlogiraniKorisnici extends HttpServlet{
 
 	/**
@@ -30,9 +32,9 @@ public class UlogiraniKorisnici extends HttpServlet{
 		}
 		
 		List<Korisnik> logirani = new ArrayList<Korisnik>();
-		
-		for (Korisnik k : DAOProvider.getDAO().getAllKorisnik()) {
-			if (k.isLogiran()) {
+		List<Korisnik> svi = DAOProvider.getDAO().getAllKorisnik();
+		for (Korisnik k : svi) {
+			if (k.isLogiran() && k.getUloga() != 3) {
 				logirani.add(k);
 			}
 		};
