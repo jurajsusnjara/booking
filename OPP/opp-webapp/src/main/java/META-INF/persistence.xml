@@ -12,11 +12,6 @@
 	
 		<!--  Koja se implementacija providera koristi? (tj. tko nudi uslugu) -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
-		<!-- Koji razredi čine entitete modela?  -->
-  <!--  <class>hr.fer.zemris.java.model.BlogEntry</class>
-		<class>hr.fer.zemris.java.model.BlogComment</class>
-		<class>hr.fer.zemris.java.model.BlogUser</class>-->
 		<class>hr.fer.opp.model.Adresa</class>
 		<class>hr.fer.opp.model.Apartman</class>
 		<class>hr.fer.opp.model.Fotografija</class>
@@ -25,6 +20,12 @@
 		<class>hr.fer.opp.model.Objekt</class>
 		<class>hr.fer.opp.model.OpisApartmana</class>
 		<class>hr.fer.opp.model.Rezervacija</class>
+		<class>hr.fer.opp.model.TestTable</class>
+
+		<!-- Koji razredi čine entitete modela?  -->
+  <!--  <class>hr.fer.zemris.java.model.BlogEntry</class>
+		<class>hr.fer.zemris.java.model.BlogComment</class>
+		<class>hr.fer.zemris.java.model.BlogUser</class>-->
 
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> <!-- NONE, ALL, ENABLE_SELECTIVE, DISABLE_SELECTIVE -->
 
